@@ -10,9 +10,6 @@
     --spacing: 0.25rem;
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
-    --text-3xl: 1.875rem;
-    --text-3xl--line-height: calc(2.25 / 1.875);
-    --font-weight-bold: 700;
     --default-font-family: var(--font-sans);
     --default-font-feature-settings: var(--font-sans--font-feature-settings);
     --default-font-variation-settings: var(
@@ -172,32 +169,14 @@
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
-  .bg-center {
-    background-position: center;
-  }
   .text-center {
     text-align: center;
-  }
-  .text-3xl {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
   }
-  .font-bold {
-    --tw-font-weight: var(--font-weight-bold);
-    font-weight: var(--font-weight-bold);
-  }
   .text-cyan-400 {
     color: var(--color-cyan-400);
   }
-  .underline {
-    text-decoration-line: underline;
-  }
-}
-@property --tw-font-weight {
-  syntax: "*";
-  inherits: false;
 }
