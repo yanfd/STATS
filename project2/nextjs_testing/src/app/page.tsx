@@ -97,6 +97,12 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="https://yanfd.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >jump to blog</a>
       </footer>
     </div>
   );
