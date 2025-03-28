@@ -33,7 +33,7 @@ const TiltCard: React.FC = () => {
             const depth = 10; // 控制浮动的强度
             const translateX = (x - centerX) * 0.02; // 微调 X 轴位移
             const translateY = (y - centerY) * 0.02; // 微调 Y 轴位移
-            child.style.transform = `translateZ(${depth}px) translateX(${translateX}px) translateY(${translateY}px)`;
+            (child as HTMLElement).style.transform = `translateZ(${depth}px) translateX(${translateX}px) translateY(${translateY}px)`;
           });
         }
         glow.style.opacity = '1';
@@ -52,7 +52,7 @@ const TiltCard: React.FC = () => {
         if (content) {
           content.style.transform = 'translateZ(0px)';
           Array.from(content.children).forEach((child: Element) => {
-            child.style.transform = `translateZ(0px) translateX(0px) translateY(0px)`;
+            (child as HTMLElement).style.transform = `translateZ(0px) translateX(0px) translateY(0px)`;
           });
         }
         glow.style.opacity = '0';
