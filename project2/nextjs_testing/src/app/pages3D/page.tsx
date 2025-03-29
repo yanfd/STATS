@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import Navbar from '../(components)/nav';
 
 const TiltCard: React.FC = () => {
+
   const cardRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -69,7 +71,10 @@ const TiltCard: React.FC = () => {
   }, []);
 
   return (
+    <div>
+        <Navbar />
     <div className="bg-gray-900 h-screen flex items-center justify-center overflow-hidden">
+        
       <div
         ref={cardRef}
         className="tilt-card w-80 h-96 bg-gradient-to-br from-blue-900 to-gray-600 rounded-2xl shadow-2xl relative cursor-pointer transition-all duration-300 ease-out hover:scale-105"
@@ -95,6 +100,7 @@ const TiltCard: React.FC = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
