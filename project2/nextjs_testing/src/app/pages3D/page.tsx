@@ -86,8 +86,11 @@ const TiltCard: React.FC = () => {
               <div className="text-xs text-gray-300 uppercase">Processing Power</div>
               <div className="text-2xl font-bold text-white">100 Qubits</div>
             </div>
-            <button className="w-full py-2 bg-white text-purple-700 rounded-lg font-semibold transform transition hover:scale-105 active:scale-95">
-              Explore Now
+            <button className="w-full py-2 bg-white text-blue-700 rounded-lg font-semibold transform transition hover:scale-105 active:scale-95">
+            <a href="https://www.yanfd.tech" target="_blank" rel="noopener noreferrer">
+  前往 YANFD
+</a>
+                
             </button>
           </div>
         </div>
