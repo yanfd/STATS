@@ -1,45 +1,48 @@
-"use client"; // 明确标记这是一个 Client Component
-import { useState } from "react";
-import { twMerge as tw } from "tailwind-merge";
-import { Button } from "@/components/ui/button";
 
-export default function tw_testing() {
-
+const AnotherPage = () => {
   return (
-    <div>
-        <div className="lg:block hidden">
-            <h1 className="text-blue text-5xl">response when lg</h1>
-
-        </div>
-        <Button>Click me</Button>
-    
-    {/* <div className="flex flex-col items-center justify-center space-x-1">
-      <div className="w-14 h-14 bg-red-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-yellow-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-blue-500 rounded-full"></div>
-    </div> */}
-    {/* <div className="flex justify-start space-x-1">
-      <div className="w-14 h-14 bg-red-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-yellow-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-blue-500 rounded-full"></div>
+    <div
+      className="
+        flex 
+        min-h-screen 
+        items-center 
+        justify-center 
+        // --- 使用更明确的直接 CSS 渐变语法 ---
+        bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(51,65,85,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]
+        // 解释:
+        // ellipse_farthest-corner: 椭圆形状，延伸到最远角
+        // at_50%_40%: 中心点在水平中点，垂直方向距离顶部 40%
+        // rgba(51,65,85,0.5): 起始颜色 (Slate-800 带 50% 透明) 在 0% 位置
+        // rgba(17,24,39,0.9): 中间过渡色 (Gray-900 带 90% 透明) 在 60% 位置
+        // rgba(0,0,0,1): 结束颜色 (纯黑) 在 100% 位置
+        // -----------------------------------
+      "
+    >
+      {/* 卡片内容 */}
+      <div className="text-white p-8 bg-gray-900/50 rounded-lg shadow-xl">
+        <h1 className="text-2xl font-bold mb-4">Learn Next.js</h1>
+        <p>16 chapters that take you from React to Next.js.</p>
+        <button className="mt-6 px-4 py-2 bg-white text-black rounded">Start Learning →</button>
+      </div>
     </div>
-    <div className="flex justify-end space-x-1">
-      <div className="w-14 h-14 bg-red-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-yellow-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-blue-500 rounded-full"></div>
-    </div>
-    <div className="flex justify-around space-x-1">
-      <div className="w-14 h-14 bg-red-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-yellow-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-blue-500 rounded-full"></div>
-    </div>
-    <div className="flex justify-baseline space-x-1">
-      <div className="w-14 h-14 bg-red-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-yellow-500 rounded-full"></div>
-      <div className="w-14 h-14 bg-blue-500 rounded-full"></div>
-    </div> */}
-    </div>
-    
-
   );
-}
+};
+
+export default AnotherPage;
+
+
+// const AnotherPage = () => {
+//   return (
+//     // <div className="bg-zinc-950 min-h-screen">
+//     //   <div className="flex">
+//     //     <div className="bg-red-500 h-50 w-50"></div>
+//     //   </div>
+//     // </div>
+//     <div className="bg-zinc-950 min-h-screen flex flex-col items-center justify-end">
+//       <div className="bg-red-500 h-50 w-50"></div>
+//     </div>
+//   );
+// };
+
+// export default AnotherPage;
+
