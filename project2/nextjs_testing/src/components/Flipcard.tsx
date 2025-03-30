@@ -6,7 +6,7 @@ const FlipCard = () =>  {
   const [hasFlipped, setHasFilpped] = useState(false);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-900">
+    <div className="flex items-center justify-center">
       <div
         className={tw(
           "relative w-[240px] h-[360px] cursor-pointer",
@@ -25,7 +25,7 @@ const FlipCard = () =>  {
             "backdrop-blur-lg backface-hidden"
           )}
         >
-          <div className="font-mono text-lg">Front Face</div>
+          <div className="font-mono text-lg">QUESTION</div>
         </div>
         <div
           className={tw(
@@ -36,7 +36,7 @@ const FlipCard = () =>  {
             "backdrop-blur-lg backface-hidden rotate-y-180"
           )}
         >
-          <div className="font-mono text-lg">Back Face</div>
+          <div className="font-mono text-lg">ANWSER</div>
         </div>
       </div>
     </div>
