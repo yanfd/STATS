@@ -8,7 +8,7 @@ export default function tw_testing() {
   const flipCardContainerRef = useRef<HTMLDivElement>(null);
   const [isSpreadOut, setIsSpreadOut] = useState(false);
   const numberOfCards = 5;
-  const spreadDistance = 150; // 控制卡片分散的距离
+  const spreadDistance = 300; // 控制卡片分散的距离
 
   const cardPositions = useRef<HTMLElement[]>([]);
 
@@ -32,12 +32,12 @@ export default function tw_testing() {
           translateY = -spreadDistance / 2;
         } else if (index === 1) { // 稍微靠左上
           translateX = -spreadDistance / 2;
-          translateY = -spreadDistance / 4;
+          translateY = -spreadDistance / 3;
         } else if (index === 2) { // 中间（稍微向上）
           translateY = -spreadDistance / 4;
         } else if (index === 3) { // 稍微靠右上
           translateX = spreadDistance / 2;
-          translateY = -spreadDistance / 4;
+          translateY = -spreadDistance / 3;
         } else if (index === 4) { // 右上
           translateX = spreadDistance;
           translateY = -spreadDistance / 2;
