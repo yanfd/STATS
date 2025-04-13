@@ -2,6 +2,7 @@
 import Navbar from '@/components/Navbar';
 import MainCard from '@/components/MainCard';
 import FlipCard from '@/components/Flipcard';
+import InputForm from '@/components/InputForm';
 
 
 export default function tw_testing() {
@@ -71,10 +72,22 @@ export default function tw_testing() {
         </div>
         
       </div>
+
+      {/* 这里是第三个背景 */}
+      <div className="flex 
+        min-h-screen 
+        //items-center 
+        justify-center 
+        border-b-chart-1
+      ">
+        
+        <InputForm />
+      </div>
       
       
 
       </div>
+      
 
     
 
