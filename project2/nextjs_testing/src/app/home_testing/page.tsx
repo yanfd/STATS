@@ -45,17 +45,16 @@ export default function TwTestingPageStrict() {
           <div className="flex flex-col gap-6">
             {/* Image Card - Uses bg-card */}
             <Card>
-              <CardContent className="p-4">
-                <AspectRatio ratio={1 / 0.5} className="bg-muted rounded-md">
+              <CardContent className="p-4 bg-gradient-to-b from-white to-gray-800">
+                <AspectRatio ratio={1 / 0.5} className="bg-muted rounded-md bg-[url('/almosthuman.PNG')] bg-cover bg-center">
                   <div className="flex h-full w-full items-center justify-center">
-                    <ImageIcon className="h-16 w-16 text-muted-foreground" />
+                    {/* <ImageIcon className="h-16 w-16 text-muted-foreground" /> */}
                   </div>
                 </AspectRatio>
               </CardContent>
               <CardFooter className="flex flex-col items-start p-4 pt-0">
-                <p className="text-sm font-semibold">Text</p>
-                <p className="text-lg font-bold">BLABLA</p>
-                <p className="text-xs text-muted-foreground">putting stuff here.</p>
+                <p className="text-lg font-bold">ALMOSTHUMAN GALLERY</p>
+                <p className="text-xs text-muted-foreground">my deep dark twisted fantasy.</p>
               </CardFooter>
             </Card>
 
@@ -63,10 +62,14 @@ export default function TwTestingPageStrict() {
             <Accordion type="single" collapsible className="w-full">
               {/* Accordion items implicitly use Card styling via shadcn setup */}
               <AccordionItem value="item-1">
-                <AccordionTrigger>Title</AccordionTrigger>
+                <AccordionTrigger>NOW WORKING ON</AccordionTrigger>
                 <AccordionContent>
-                  Answer the frequently asked question in a simple sentence, a
-                  longish paragraph, or even in a list.
+                <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1"> {/* Smaller list text */}
+                  <li>react+next.js</li>
+                  <li>decipher(my new game)</li>
+                  <li>pentesting</li>
+                  <li>cyber security</li>
+                </ul>
                 </AccordionContent>
               </AccordionItem>
               {/* Add other AccordionItems similarly */}
@@ -133,21 +136,19 @@ export default function TwTestingPageStrict() {
           {/* --- Right Column --- */}
           <div className="flex flex-col gap-6">
             {/* Pricing/List Card - Uses bg-card */}
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">Workin on</CardTitle> {/* Adjusted size */}
-                <span className="text-lg font-bold">BEHIND U<span className="text-sm font-normal text-muted-foreground">where</span></span> {/* Adjusted size */}
+                <CardTitle className="text-base font-medium">blog title</CardTitle> {/* Adjusted size */}
+                <span className="text-lg font-bold">datetime<span className="text-sm font-normal text-muted-foreground">datetime</span></span> {/* Adjusted size */}
               </CardHeader>
               <CardContent className="pt-2"> {/* Adjusted padding */}
-                <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1"> {/* Smaller list text */}
-                  <li>react+next.js</li>
-                  <li>decipher(my new game)</li>
-                  <li>pentesting</li>
-                  <li>cyber security</li>
-                </ul>
+              <CardDescription className="text-sm"> {/* Standard description size */}
+                  blog text.
+                </CardDescription>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" size="sm">CHECK THIS OUT</Button> {/* Smaller button */}
+                <Button className="w-full" size="sm">CHECK THIS OUT!</Button> {/* Smaller button */}
               </CardFooter>
             </Card>
                 
