@@ -78,14 +78,7 @@ export default function TwTestingPageStrict() {
                 <AccordionTrigger>Title</AccordionTrigger>
                 <AccordionContent>Content for the third item.</AccordionContent>
               </AccordionItem>
-               <AccordionItem value="item-4">
-                <AccordionTrigger>Title</AccordionTrigger>
-                <AccordionContent>Content for the fourth item.</AccordionContent>
-              </AccordionItem>
-               <AccordionItem value="item-5">
-                <AccordionTrigger>Title</AccordionTrigger>
-                <AccordionContent>Content for the fifth item.</AccordionContent>
-              </AccordionItem>
+               
             </Accordion>
           </div>
 
@@ -107,7 +100,7 @@ export default function TwTestingPageStrict() {
             {/* Blabla Card - Uses bg-card */}
             <Card>
               <CardHeader className="pb-2"> {/* Reduced padding */}
-                <CardTitle className="text-base">BLABLA</CardTitle> {/* Slightly smaller title */}
+                <CardTitle className="text-base">Quote</CardTitle> {/* Slightly smaller title */}
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-sm"> {/* Standard description size */}
@@ -142,19 +135,19 @@ export default function TwTestingPageStrict() {
             {/* Pricing/List Card - Uses bg-card */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">Title</CardTitle> {/* Adjusted size */}
+                <CardTitle className="text-base font-medium">Workin on</CardTitle> {/* Adjusted size */}
                 <span className="text-lg font-bold">BEHIND U<span className="text-sm font-normal text-muted-foreground">where</span></span> {/* Adjusted size */}
               </CardHeader>
               <CardContent className="pt-2"> {/* Adjusted padding */}
                 <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1"> {/* Smaller list text */}
-                  <li>List Item</li>
-                  <li>List Item</li>
-                  <li>List Item</li>
-                  <li>List Item</li>
+                  <li>react+next.js</li>
+                  <li>decipher(my new game)</li>
+                  <li>pentesting</li>
+                  <li>cyber security</li>
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" size="sm">Button</Button> {/* Smaller button */}
+                <Button className="w-full" size="sm">have a chat?</Button> {/* Smaller button */}
               </CardFooter>
             </Card>
                 
@@ -181,7 +174,7 @@ export default function TwTestingPageStrict() {
             </Card>
             </div>
 
-             <Card>
+             <Card >
                  <CardContent className="p-2 flex items-center gap-2"> {/* Reduced padding */}
                     <Check className="h-4 w-4 text-primary" />
                     <span className="text-xs font-medium">Label</span> {/* Smaller text */}
