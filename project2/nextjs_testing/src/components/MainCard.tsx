@@ -83,7 +83,7 @@ const MainCard: React.FC = () => {
   return (
     <div
       ref={cardRef}
-      className="tilt-card w-80 h-110 bg-gradient-to-t from-blue-900 to-black-800 rounded-2xl shadow-2xl relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105" // Use transition-transform
+      className="tilt-card w-80 h-110 bg-gradient-to-t from-blue-900/[40%] to-black-800/[50%] rounded-2xl shadow-2xl relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105" // Use transition-transform
       // Add transform-style preserve-3d for correct 3D nesting
       style={{ transformStyle: "preserve-3d" }} 
     >

@@ -154,9 +154,9 @@ export default function TwTestingPageStrict() {
             <BlogCard />
                 
             {/* Stat Card - Uses bg-card */}
-            <div className="flex flex-row justify-around">
+            <div className="flex flex-row justify-around items-center"> {/* Flex row for horizontal alignment */}
             <Card className="w-32">
-              <CardContent className="p-3 flex items-center justify-start gap-3"> {/* Reduced padding, align left */}
+              <CardContent className="p-3 flex items-center justify-center gap-3"> {/* Reduced padding, align left */}
                  <div className="p-2 bg-muted rounded-md">
                       <Clock className="h-5 w-5 text-muted-foreground" /> {/* Slightly smaller icon */}
                  </div>
@@ -169,8 +169,7 @@ export default function TwTestingPageStrict() {
 
          {/* Label Cards/Sections - Make them more compact */}
             <Card className="w-48">
-                <CardContent className="p-3 flex pt-6 items-center justify-start gap-3"> {/* 添加 justify-center */}
-                    <Check className="h-4 w-4 text-primary" />
+                <CardContent className="p-3 flex items-center justify-start gap-3"> {/* 添加 justify-center */}
                     <ReligiousCrossIcon />
                     <span className="text-xs font-mono">SOMEBODY THAT I USED TO KNOW</span> {/* Smaller text */}
                 </CardContent>
