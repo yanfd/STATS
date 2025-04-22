@@ -20,6 +20,13 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Search, Clock, Check, Image as ImageIcon } from "lucide-react";
 import MainCard from "@/components/MainCard";
 import Navbar from "@/components/Navbar";
+import Parser from 'rss-parser';
+import BlogCard from "@/components/BlogCard";
+import Link from 'next/link'; 
+import ReligiousCrossIcon from "@/components/ReligionCross";
+
+
+
 
 // Using a slightly darker shade for the absolute page background
 // if needed, otherwise bg-background might be sufficient.
@@ -45,16 +52,21 @@ export default function TwTestingPageStrict() {
           <div className="flex flex-col gap-6">
             {/* Image Card - Uses bg-card */}
             <Card>
-              <CardContent className="p-4 bg-gradient-to-b from-white to-gray-800">
+              <CardContent className="p-4 bg-gradient-to-b from-black-800 via-white/[50%] to-black-800/[30%]">
                 <AspectRatio ratio={1 / 0.5} className="bg-muted rounded-md bg-[url('/almosthuman.PNG')] bg-cover bg-center">
                   <div className="flex h-full w-full items-center justify-center">
                     {/* <ImageIcon className="h-16 w-16 text-muted-foreground" /> */}
                   </div>
                 </AspectRatio>
               </CardContent>
-              <CardFooter className="flex flex-col items-start p-4 pt-0">
+              <CardFooter className="flex flex-col items-start  pt-0">
                 <p className="text-lg font-bold">ALMOSTHUMAN GALLERY</p>
-                <p className="text-xs text-muted-foreground">my deep dark twisted fantasy.</p>
+                <p className="text-xs text-muted-foreground pb-4">my deep dark twisted fantasy.</p>
+                <Link href={'https://gallery.yanfd.tech/'} target="_blank" rel="noopener noreferrer" className="w-full"> {/* 让 Link 占据 CardFooter 的宽度 */}
+                  <Button className="w-full" size="sm">
+                    HAVE A LOOK.
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
 
@@ -62,7 +74,7 @@ export default function TwTestingPageStrict() {
             <Accordion type="single" collapsible className="w-full">
               {/* Accordion items implicitly use Card styling via shadcn setup */}
               <AccordionItem value="item-1">
-                <AccordionTrigger>NOW WORKING ON</AccordionTrigger>
+                <AccordionTrigger>WORKING ON</AccordionTrigger>
                 <AccordionContent>
                 <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1"> {/* Smaller list text */}
                   <li>react+next.js</li>
@@ -74,12 +86,12 @@ export default function TwTestingPageStrict() {
               </AccordionItem>
               {/* Add other AccordionItems similarly */}
                <AccordionItem value="item-2">
-                <AccordionTrigger>Title</AccordionTrigger>
-                <AccordionContent>Content for the second item.</AccordionContent>
+                <AccordionTrigger>WHAT U ARE?</AccordionTrigger>
+                <AccordionContent>IDK :)</AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>Title</AccordionTrigger>
-                <AccordionContent>Content for the third item.</AccordionContent>
+                <AccordionTrigger>WHAT U WANT?</AccordionTrigger>
+                <AccordionContent>escape.</AccordionContent>
               </AccordionItem>
                
             </Accordion>
@@ -91,7 +103,7 @@ export default function TwTestingPageStrict() {
             <div className="flex w-full items-center space-x-2 bg-card p-2 rounded-lg border"> {/* Use Card BG, add border */}
               <Input
                 type="search"
-                placeholder="STUFF"
+                placeholder="YOU WONT GET WHAT YOU WANT"
                 // Remove default input border/ring when inside the styled div
                 className="flex-grow bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder-muted-foreground"
               />
@@ -101,29 +113,17 @@ export default function TwTestingPageStrict() {
             </div>
 
             {/* Blabla Card - Uses bg-card */}
-            <Card>
-              <CardHeader className="pb-2"> {/* Reduced padding */}
-                <CardTitle className="text-base">Quote</CardTitle> {/* Slightly smaller title */}
+            <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
+              <CardHeader> {/* Reduced padding */}
+                <CardTitle className="font-mono text-4xl text-center">STATS</CardTitle> {/* Slightly smaller title */}
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-sm"> {/* Standard description size */}
-                  BLABLABLAsomeone do not readBLABLABLAsomeone do not read
+                <CardDescription className="text-sm text-center"> {/* Standard description size */}
+                If my world were tearing apart <br /> at least I'm the one in charge.
                 </CardDescription>
               </CardContent>
             </Card>
 
-            {/* Main Feature Card - Crucial: flex-grow to take remaining space */}
-            {/* Add flex-grow */}
-              {/*<CardContent className="p-4 md:p-6 flex-grow flex items-center justify-center w-full">
-                {/* Placeholder element styling 
-                <div className="w-[85%] h-[85%] bg-muted rounded-lg flex items-center justify-center">
-                  <ImageIcon className="h-24 w-24 text-muted-foreground" />
-                </div>
-              </CardContent>*/}
-              {/* <CardFooter className="flex justify-center pb-4 md:pb-6"> 
-                <p className="text-base font-semibold">YANFD PRODUCTS</p> 
-              </CardFooter> 
-              */}
               
               <div className="flex justify-center">
               <MainCard />
@@ -137,7 +137,7 @@ export default function TwTestingPageStrict() {
           <div className="flex flex-col gap-6">
             {/* Pricing/List Card - Uses bg-card */}
 
-            <Card>
+            {false && (<Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-base font-medium">blog title</CardTitle> {/* Adjusted size */}
                 <span className="text-lg font-bold">datetime<span className="text-sm font-normal text-muted-foreground">datetime</span></span> {/* Adjusted size */}
@@ -148,9 +148,10 @@ export default function TwTestingPageStrict() {
                 </CardDescription>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" size="sm">CHECK THIS OUT!</Button> {/* Smaller button */}
+                <Button className="w-full" size="sm">CHECK THIS OUT.</Button> {/* Smaller button */}
               </CardFooter>
-            </Card>
+            </Card> )}
+            <BlogCard />
                 
             {/* Stat Card - Uses bg-card */}
             <div className="flex flex-row justify-around">
@@ -160,8 +161,8 @@ export default function TwTestingPageStrict() {
                       <Clock className="h-5 w-5 text-muted-foreground" /> {/* Slightly smaller icon */}
                  </div>
                  <div>
-                     <p className="text-xl font-bold">100</p> {/* Adjusted size */}
-                     <p className="text-xs text-muted-foreground">Another Card</p>
+                     <p className="text-xl font-bold">78</p> {/* Adjusted size */}
+                     <p className="text-xs text-muted-foreground">TIMES</p>
                  </div>
               </CardContent>
             </Card>
@@ -170,6 +171,7 @@ export default function TwTestingPageStrict() {
             <Card className="w-48">
                 <CardContent className="p-3 flex pt-6 items-center justify-start gap-3"> {/* 添加 justify-center */}
                     <Check className="h-4 w-4 text-primary" />
+                    <ReligiousCrossIcon />
                     <span className="text-xs font-mono">SOMEBODY THAT I USED TO KNOW</span> {/* Smaller text */}
                 </CardContent>
             </Card>
