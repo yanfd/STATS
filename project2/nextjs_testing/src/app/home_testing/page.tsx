@@ -147,7 +147,7 @@ export default function TwTestingPageStrict() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" size="sm">have a chat?</Button> {/* Smaller button */}
+                <Button className="w-full" size="sm">CHECK THIS OUT</Button> {/* Smaller button */}
               </CardFooter>
             </Card>
                 
