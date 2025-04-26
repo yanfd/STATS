@@ -24,6 +24,7 @@ import Parser from 'rss-parser';
 import BlogCard from "@/components/BlogCard";
 import Link from 'next/link'; 
 import ReligiousCrossIcon from "@/components/ReligionCross";
+import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 
 
 
@@ -136,21 +137,6 @@ export default function TwTestingPageStrict() {
           {/* --- Right Column --- */}
           <div className="flex flex-col gap-6">
             {/* Pricing/List Card - Uses bg-card */}
-
-            {false && (<Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-base font-medium">blog title</CardTitle> {/* Adjusted size */}
-                <span className="text-lg font-bold">datetime<span className="text-sm font-normal text-muted-foreground">datetime</span></span> {/* Adjusted size */}
-              </CardHeader>
-              <CardContent className="pt-2"> {/* Adjusted padding */}
-              <CardDescription className="text-sm"> {/* Standard description size */}
-                  blog text.
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full" size="sm">CHECK THIS OUT.</Button> {/* Smaller button */}
-              </CardFooter>
-            </Card> )}
             <BlogCard />
                 
             {/* Stat Card - Uses bg-card */}
@@ -175,11 +161,17 @@ export default function TwTestingPageStrict() {
                 </CardContent>
             </Card>
             </div>
+            {/* New Tweet Card - Uses bg-card */}
+            <TwitterLatestTweetCard />
 
              <Card >
+              <CardHeader>
+              <span className="text-xl font-medium">NEW TWEET</span> {/* Smaller text */}
+              </CardHeader>
                  <CardContent className="p-2 flex items-center gap-2"> {/* Reduced padding */}
                     <Check className="h-4 w-4 text-primary" />
-                    <span className="text-xs font-medium">Label</span> {/* Smaller text */}
+                    
+                    <p className="text-xs text-muted-foreground">testing</p> {/* Smaller text */}
                  </CardContent>
             </Card>
           </div>
