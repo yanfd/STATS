@@ -59,23 +59,26 @@ const TwitterLatestTweetCard: React.FC = () => {
   }
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '15px', borderRadius: '8px', maxWidth: '400px', margin: '20px auto' }}>
-      <h3 style={{ marginTop: 0 }}>Latest Tweet from @MrYANFD</h3>
-      <h4>
-        {/* 确保 link 是有效的 URL */}
-        <a href={latestTweet.link.startsWith('http') ? latestTweet.link : '#'} target="_blank" rel="noopener noreferrer">
-          {latestTweet.title}
-        </a>
-      </h4>
-      {/* 如果 description 字段存在且不为空，并且你想渲染其中的 HTML */}
-      {latestTweet.description && (
-         // 再次提醒：使用 dangerouslySetInnerHTML 要小心，确保内容来源可靠
-        <div dangerouslySetInnerHTML={{ __html: latestTweet.description }} style={{ maxHeight: '150px', overflowY: 'auto', marginBottom: '10px' }} />
-      )}
-      <p style={{ fontSize: '0.9em', color: '#555' }}>Published: {new Date(latestTweet.pubDate).toLocaleString()}</p>
-       {latestTweet.creator && (
-         <p style={{ fontSize: '0.9em', color: '#555' }}>Author: {latestTweet.creator}</p>
-       )}
+        // 请确保 latestTweet 对象及其属性是安全的，这里移除了我之前添加的部分 ?. 检查以更接近你原代码结构
+    <div className="border border-gray-300 p-4 rounded-lg max-w-[400px] mx-auto my-5">
+    {/* 确保 link 是有效的 URL */}
+    <a href={latestTweet.link.startsWith('http') ? latestTweet.link : '#'} target="_blank" rel="noopener noreferrer">
+        {/* 转换 style={{ marginTop: 0 }} 为 className="mt-0" */}
+        <h3 className="mt-0">Latest Tweet from @MrYANFD</h3>
+    </a>
+    {/* 如果 description 字段存在且不为空，并且你想渲染其中的 HTML */}
+    {latestTweet.description && (
+        // 转换 style={{ maxHeight: '150px', overflowY: 'auto', marginBottom: '10px' }}
+        // 为 className="max-h-[150px] overflow-y-auto mb-2.5"
+        <div dangerouslySetInnerHTML={{ __html: latestTweet.description }} className="max-h-[150px] overflow-y-auto mb-2.5" />
+    )}
+    {/* 转换 style={{ fontSize: '0.9em', color: '#555' }} */}
+    {/* 为 className="text-sm text-gray-600" */}
+    <p className="text-sm text-gray-600">Published: {new Date(latestTweet.pubDate).toLocaleString()}</p>
+    {/* 你原先10行里没有 creator 这段，如果不需要显示可以移除 */}
+    {/* {latestTweet.creator && (
+        <p className="text-sm text-gray-600">Author: {latestTweet.creator}</p>
+    )} */}
     </div>
   );
 };
