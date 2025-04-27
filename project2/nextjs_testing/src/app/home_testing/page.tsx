@@ -138,6 +138,9 @@ export default function TwTestingPageStrict() {
           <div className="flex flex-col gap-6">
             {/* Pricing/List Card - Uses bg-card */}
             <BlogCard />
+
+            {/* New Tweet Card - Uses bg-card */}
+            <TwitterLatestTweetCard />
                 
             {/* Stat Card - Uses bg-card */}
             <div className="flex flex-row justify-around items-center"> {/* Flex row for horizontal alignment */}
@@ -161,8 +164,7 @@ export default function TwTestingPageStrict() {
                 </CardContent>
             </Card>
             </div>
-            {/* New Tweet Card - Uses bg-card */}
-            <TwitterLatestTweetCard />
+            
 
           </div>
         </div>

@@ -61,55 +61,26 @@ const TwitterLatestTweetCard: React.FC = () => {
 
   return (
         // 请确保 latestTweet 对象及其属性是安全的，这里移除了我之前添加的部分 ?. 检查以更接近你原代码结构
-        <div className="border border-gray-300 p-4 rounded-lg max-w-[400px] mx-auto my-5">
-        {/* 保持这个静态标题，它不是可点击的部分 */}
-        {/* 添加 mb-2 给下方可点击的标题留出空间 */}
-        <h3 className="mt-0 text-lg font-semibold text-gray-800 mb-2">
-          Latest Tweet from @MrYANFD
-        </h3>
-      
-        {/* *** 使用 a 标签包裹 Button，并使用 Button 的样式作为链接 *** */}
-        {/* 确保 latestTweet 存在 */}
-        {latestTweet && (
-          <a
-            href={latestTweet.link?.startsWith('http') ? latestTweet.link : '#'} // 安全访问 link 属性
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block" // 让整个链接区域是块级的，方便点击
-          >
-            {/* 使用 Button 组件，设置 variant 和 className 来控制样式 */}
-            {/* asChild 属性会使 Button 组件渲染为其子元素 (a 标签) 而不是 <button> 标签，从而保留 a 标签的链接功能 */}
-            {/* variant="link" 提供链接的默认按钮样式 */}
-            {/* className="p-0 h-auto text-left block" 移除默认 Button 内边距和高度，让其内容决定大小，文本左对齐，并确保它像块级元素一样排版 */}
-            <Button variant="link" className="p-0 h-auto text-left block" asChild>
-               {/* 将推文标题放在 Button 里面 */}
-               {/* 安全访问 title 属性 */}
-               <span>{latestTweet.title || 'Loading Tweet Title...'}</span>
-            </Button>
-          </a>
-        )}
-      
-      
-        {/* Description with Tailwind styles */}
-        {latestTweet?.description && ( // 确保 latestTweet 和 description 存在
-          <div
-            dangerouslySetInnerHTML={{ __html: latestTweet.description }}
-            className="max-h-[150px] overflow-y-auto mb-2.5 break-words text-sm text-gray-700 mt-2" // 添加 mt-2 与上方标题分隔
-          />
-        )}
-      
-        {/* Published date with Tailwind styles */}
-        {latestTweet?.pubDate && ( // 确保 pubDate 存在再显示这行
-            <p className="text-sm text-gray-600 mt-2">
-              Published: {new Date(latestTweet.pubDate).toLocaleString()}
-            </p>
-        )}
-      
-      
-         {latestTweet?.creator && ( // 如果 creator 字段也存在并需要显示
-            <p className="text-sm text-gray-600">Author: {latestTweet.creator}</p>
-         )}
-         </div>
+    <div className="border border-gray-300 p-4 rounded-lg max-w-[400px] mx-auto my-5">
+    {/* 确保 link 是有效的 URL */}
+    <a href={latestTweet.link.startsWith('http') ? latestTweet.link : '#'} target="_blank" rel="noopener noreferrer">
+        {/* 转换 style={{ marginTop: 0 }} 为 className="mt-0" */}
+        <Button><h3 className="mt-0">Latest Tweet from @MrYANFD</h3></Button>
+    </a>
+    {/* 如果 description 字段存在且不为空，并且你想渲染其中的 HTML */}
+    {latestTweet.description && (
+        // 转换 style={{ maxHeight: '150px', overflowY: 'auto', marginBottom: '10px' }}
+        // 为 className="max-h-[150px] overflow-y-auto mb-2.5"
+        <div dangerouslySetInnerHTML={{ __html: latestTweet.description }} className="max-h-[150px] overflow-y-auto mb-2.5" />
+    )}
+    {/* 转换 style={{ fontSize: '0.9em', color: '#555' }} */}
+    {/* 为 className="text-sm text-gray-600" */}
+    <p className="text-sm text-gray-600">Published: {new Date(latestTweet.pubDate).toLocaleString()}</p>
+    {/* 你原先10行里没有 creator 这段，如果不需要显示可以移除 */}
+    {/* {latestTweet.creator && (
+        <p className="text-sm text-gray-600">Author: {latestTweet.creator}</p>
+    )} */}
+    </div>
   );
 };
 
