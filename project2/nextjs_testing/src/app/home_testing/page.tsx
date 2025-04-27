@@ -164,16 +164,6 @@ export default function TwTestingPageStrict() {
             {/* New Tweet Card - Uses bg-card */}
             <TwitterLatestTweetCard />
 
-             <Card >
-              <CardHeader>
-              <span className="text-xl font-medium">NEW TWEET</span> {/* Smaller text */}
-              </CardHeader>
-                 <CardContent className="p-2 flex items-center gap-2"> {/* Reduced padding */}
-                    <Check className="h-4 w-4 text-primary" />
-                    
-                    <p className="text-xs text-muted-foreground">testing</p> {/* Smaller text */}
-                 </CardContent>
-            </Card>
           </div>
         </div>
       </main>
