@@ -1,109 +1,174 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Search, Clock, Check, Image as ImageIcon } from "lucide-react";
+import MainCard from "@/components/MainCard";
+import Navbar from "@/components/Navbar";
+import Parser from 'rss-parser';
+import BlogCard from "@/components/BlogCard";
+import Link from 'next/link'; 
+import ReligiousCrossIcon from "@/components/ReligionCross";
+import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
+
+
+
+
+// Using a slightly darker shade for the absolute page background
+// if needed, otherwise bg-background might be sufficient.
+const PAGE_BG_COLOR = "bg-neutral-950"; // Example: Very dark gray/black
+
+export default function TwTestingPageStrict() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    // Force dark mode here and set the overall page background
+    <div className={`dark min-h-screen ${PAGE_BG_COLOR} text-foreground`}>
+      {/* --- Top Navigation Bar --- */}
+      {/* Use Card colors for header bg in dark mode */}
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <Navbar />
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* --- Main Content Area --- */}
+      {/* Constrain width and center */}
+      <main className="container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8 bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]">
+        {/* Grid layout - Use Card background for grid items */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          {/* --- Left Column --- */}
+          <div className="flex flex-col gap-6">
+            {/* Image Card - Uses bg-card */}
+            <Card>
+              <CardContent className="p-4 bg-gradient-to-b from-black-800 via-white/[50%] to-black-800/[30%]">
+                <AspectRatio ratio={1 / 0.5} className="bg-muted rounded-md bg-[url('/almosthuman.PNG')] bg-cover bg-center">
+                  <div className="flex h-full w-full items-center justify-center">
+                    {/* <ImageIcon className="h-16 w-16 text-muted-foreground" /> */}
+                  </div>
+                </AspectRatio>
+              </CardContent>
+              <CardFooter className="flex flex-col items-start  pt-0">
+                <p className="text-lg font-bold">ALMOSTHUMAN GALLERY</p>
+                <p className="text-xs text-muted-foreground pb-4">my deep dark twisted fantasy.</p>
+                <Link href={'https://gallery.yanfd.tech/'} target="_blank" rel="noopener noreferrer" className="w-full"> {/* 让 Link 占据 CardFooter 的宽度 */}
+                  <Button className="w-full" size="sm">
+                    HAVE A LOOK.
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+
+            {/* Accordion - Uses bg-card for items */}
+            <Accordion type="single" collapsible className="w-full">
+              {/* Accordion items implicitly use Card styling via shadcn setup */}
+              <AccordionItem value="item-1">
+                <AccordionTrigger>WORKING ON</AccordionTrigger>
+                <AccordionContent>
+                <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1"> {/* Smaller list text */}
+                  <li>react+next.js</li>
+                  <li>decipher(my new game)</li>
+                  <li>pentesting</li>
+                  <li>cyber security</li>
+                </ul>
+                </AccordionContent>
+              </AccordionItem>
+              {/* Add other AccordionItems similarly */}
+               <AccordionItem value="item-2">
+                <AccordionTrigger>WHAT U ARE?</AccordionTrigger>
+                <AccordionContent>IDK :)</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>WHAT U WANT?</AccordionTrigger>
+                <AccordionContent>escape.</AccordionContent>
+              </AccordionItem>
+               
+            </Accordion>
+          </div>
+
+          {/* --- Center Column - Apply flex to control vertical space --- */}
+          <div className="flex flex-col gap-6 h-full"> {/* Make column flex and take full height */}
+            {/* Search Input Area - Give it a card-like background */}
+            <div className="flex w-full items-center space-x-2 bg-card p-2 rounded-lg border"> {/* Use Card BG, add border */}
+              <Input
+                type="search"
+                placeholder="YOU WONT GET WHAT YOU WANT"
+                // Remove default input border/ring when inside the styled div
+                className="flex-grow bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder-muted-foreground"
+              />
+              <Button type="submit" size="icon" variant="ghost">
+                <Search className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Blabla Card - Uses bg-card */}
+            <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
+              <CardHeader> {/* Reduced padding */}
+                <CardTitle className="font-mono text-4xl text-center">STATS</CardTitle> {/* Slightly smaller title */}
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm text-center"> {/* Standard description size */}
+                If my world were tearing apart <br /> at least I'm the one in charge.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+              
+              <div className="flex justify-center">
+              <MainCard />
+
+                </div>
+
+            
+          </div>
+
+          {/* --- Right Column --- */}
+          <div className="flex flex-col gap-6">
+            {/* Pricing/List Card - Uses bg-card */}
+            <BlogCard />
+
+            {/* New Tweet Card - Uses bg-card */}
+            <TwitterLatestTweetCard />
+                
+            {/* Stat Card - Uses bg-card */}
+            <div className="flex flex-row justify-around items-center"> {/* Flex row for horizontal alignment */}
+            <Card className="w-32">
+              <CardContent className="p-3 flex items-center justify-center gap-3"> {/* Reduced padding, align left */}
+                 <div className="p-2 bg-muted rounded-md">
+                      <Clock className="h-5 w-5 text-muted-foreground" /> {/* Slightly smaller icon */}
+                 </div>
+                 <div>
+                     <p className="text-xl font-bold">78</p> {/* Adjusted size */}
+                     <p className="text-xs text-muted-foreground">TIMES</p>
+                 </div>
+              </CardContent>
+            </Card>
+
+         {/* Label Cards/Sections - Make them more compact */}
+            <Card className="w-48">
+                <CardContent className="p-3 flex items-center justify-start gap-3"> {/* 添加 justify-center */}
+                    <ReligiousCrossIcon />
+                    <span className="text-xs font-mono">SOMEBODY THAT I USED TO KNOW</span> {/* Smaller text */}
+                </CardContent>
+            </Card>
+            </div>
+            
+
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://yanfd.tech/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >jump to blog</a>
-      </footer>
     </div>
   );
 }
