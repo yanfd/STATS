@@ -65,7 +65,7 @@ const TwitterLatestTweetCard: React.FC = () => {
     {/* 确保 link 是有效的 URL */}
     <a href={latestTweet.link.startsWith('http') ? latestTweet.link : '#'} target="_blank" rel="noopener noreferrer">
         {/* 转换 style={{ marginTop: 0 }} 为 className="mt-0" */}
-        <Button><h3 className="mt-0">Latest Tweet from @MrYANFD</h3></Button>
+        <Button variant="link" className='text-white'>LATEST TWEET</Button>
     </a>
     {/* 如果 description 字段存在且不为空，并且你想渲染其中的 HTML */}
     {latestTweet.description && (

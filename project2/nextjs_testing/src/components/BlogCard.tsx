@@ -68,7 +68,7 @@ const BlogCard = () => {
       setLatestPost(data);
       setLoading(false);
       if (!data) {
-        setError('Failed to fetch latest post.');
+        setError('');
       }
     }
 
