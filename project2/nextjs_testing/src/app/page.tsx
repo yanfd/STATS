@@ -25,6 +25,7 @@ import BlogCard from "@/components/BlogCard";
 import Link from 'next/link'; 
 import ReligiousCrossIcon from "@/components/ReligionCross";
 import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
+import SearchBar from "@/components/SearchBar";
 
 
 
@@ -101,17 +102,7 @@ export default function TwTestingPageStrict() {
           {/* --- Center Column - Apply flex to control vertical space --- */}
           <div className="flex flex-col gap-6 h-full"> {/* Make column flex and take full height */}
             {/* Search Input Area - Give it a card-like background */}
-            <div className="flex w-full items-center space-x-2 bg-card p-2 rounded-lg border"> {/* Use Card BG, add border */}
-              <Input
-                type="search"
-                placeholder="YOU WONT GET WHAT YOU WANT"
-                // Remove default input border/ring when inside the styled div
-                className="flex-grow bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder-muted-foreground"
-              />
-              <Button type="submit" size="icon" variant="ghost">
-                <Search className="h-4 w-4" />
-              </Button>
-            </div>
+            <SearchBar />
 
             {/* Blabla Card - Uses bg-card */}
             <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
