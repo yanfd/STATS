@@ -86,7 +86,9 @@ const BlogCard = () => {
   if (!latestPost) {
     return null;
   }
-
+  const snippetToDisplay = latestPost.contentSnippet
+  ? latestPost.contentSnippet.substring(0, 100) + (latestPost.contentSnippet.length > 100 ? '...' : '')
+  : '';
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
@@ -101,9 +103,8 @@ const BlogCard = () => {
 
       <CardContent className="">
         <span className='font-mono text-sm'>{latestPost.title.toUpperCase()}</span>
-        <CardDescription className="text-sm">
-        {latestPost.contentSnippet ? latestPost.contentSnippet.substring(0, 200) : ''}
-        {latestPost.contentSnippet && latestPost.contentSnippet.length > 200 ? '...' : ''}
+        <CardDescription className="text-sm " style={{ whiteSpace: 'pre-wrap' }}>
+          {snippetToDisplay}
         </CardDescription>
       </CardContent>
       <CardFooter className="flex justify-center"> {/* 设置 CardFooter 为 flex 容器并居中 */}
