@@ -32,12 +32,12 @@ import SearchBar from "@/components/SearchBar";
 
 // Using a slightly darker shade for the absolute page background
 // if needed, otherwise bg-background might be sufficient.
-const PAGE_BG_COLOR = "bg-neutral-950"; // Example: Very dark gray/black
+// const PAGE_BG_COLOR = "bg-neutral-950"; // Example: Very dark gray/black
 
 export default function TwTestingPageStrict() {
   return (
     // Force dark mode here and set the overall page background
-    <div className={`dark min-h-screen ${PAGE_BG_COLOR} text-foreground`}>
+    <div className={`dark min-h-screen text-foreground bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]`}>
       {/* --- Top Navigation Bar --- */}
       {/* Use Card colors for header bg in dark mode */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -46,7 +46,7 @@ export default function TwTestingPageStrict() {
 
       {/* --- Main Content Area --- */}
       {/* Constrain width and center */}
-      <main className="container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8 bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]">
+      <main className="container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8">
         {/* Grid layout - Use Card background for grid items */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
@@ -131,7 +131,7 @@ export default function TwTestingPageStrict() {
             <BlogCard />
 
             {/* New Tweet Card - Uses bg-card */}
-            <TwitterLatestTweetCard />
+            {/* <TwitterLatestTweetCard />  卡片功能出现问题，暂时隐藏*/} 
                 
             {/* Stat Card - Uses bg-card */}
             <div className="flex flex-row justify-around items-center"> {/* Flex row for horizontal alignment */}
