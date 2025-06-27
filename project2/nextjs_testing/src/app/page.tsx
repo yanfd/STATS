@@ -26,6 +26,7 @@ import Link from 'next/link';
 import ReligiousCrossIcon from "@/components/ReligionCross";
 import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 import SearchBar from "@/components/SearchBar";
+import TwitrerNew from "@/components/TwitterNew";
 
 
 
@@ -129,6 +130,19 @@ export default function TwTestingPageStrict() {
           <div className="flex flex-col gap-6">
             {/* Pricing/List Card - Uses bg-card */}
             <BlogCard />
+
+            <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
+              <CardHeader>
+                <CardTitle className="font-mono text-2xl text-center">dont know what to say</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm text-center">
+                  I am not a good person, but I am not a bad person either. <br />
+                  I am just a person who is trying to find his way in this world.
+                </CardDescription>
+              </CardContent>
+
+            </Card>
 
             {/* New Tweet Card - Uses bg-card */}
             {/* <TwitterLatestTweetCard />  卡片功能出现问题，暂时隐藏*/} 
