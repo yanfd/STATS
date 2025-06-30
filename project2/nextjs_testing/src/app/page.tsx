@@ -131,14 +131,13 @@ export default function TwTestingPageStrict() {
             {/* Pricing/List Card - Uses bg-card */}
             <BlogCard />
 
-            <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
+            <Card className="bg-gradient-to-tr from-cyan-400 to-gray-800">
               <CardHeader>
-                <CardTitle className="font-mono text-2xl text-center">dont know what to say</CardTitle>
+                <CardTitle className="font-mono text-2xl text-center">ANOTHER CARD</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-sm text-center">
-                  I am not a good person, but I am not a bad person either. <br />
-                  I am just a person who is trying to find his way in this world.
+                <CardDescription className="text-2xl font-mono text-center text-white ">
+                  SOME GOOD WORDS
                 </CardDescription>
               </CardContent>
 
