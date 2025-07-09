@@ -1,0 +1,29 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# API Design
+
+## 前端 API 路由（如有）
+- 放在 `nextjs_testing/src/app/api/` 下，采用 Next.js API 路由规范。
+- 仅用于简单的前端数据处理或 mock，复杂业务建议走后端。
+
+## FastAPI 后端接口
+- 路由统一放在 `nextjs_fastapi/app/api/` 下，按功能模块拆分（如 user, audio, blog 等）。
+- 推荐 RESTful 风格，接口路径小写、用下划线分隔。
+- 输入输出数据结构用 Pydantic schema 明确校验。
+- 所有接口返回统一 JSON 格式，包含 code、msg、data 字段。
+- 跨域支持（CORS）需配置允许前端域名访问。
+
+### 示例
+```python
+# 路由示例
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get('/audio/list')
+async def get_audio_list():
+    return {"code": 0, "msg": "ok", "data": [...]} 
+```

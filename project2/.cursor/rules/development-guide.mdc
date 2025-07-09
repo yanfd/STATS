@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Development Guide
+
+## 前端（Next.js）
+- 组件开发请放在 `src/components/`，页面开发放在 `src/app/` 下。
+- 样式优先用 TailwindCSS，复用性强的 UI 建议封装为组件。
+- 公共资源放在 `public/`，引用时用绝对路径（如 `/rain.mp3`）。
+- 推荐使用 TypeScript，类型声明清晰。
+- 业务逻辑复杂时可拆分 hooks、utils 到 `src/lib/`。
+
+## 后端（FastAPI）
+- 路由、模型、校验、配置分目录管理，便于扩展。
+- 依赖统一写在 `requirements.txt`，用 `pip install -r requirements.txt` 安装。
+- 启动命令建议用 `uvicorn app.main:app --reload`。
+- 所有接口需有类型注解和 Pydantic 校验，返回统一格式。
+- 推荐写好 README.md，说明接口用法和开发流程。
+
+## 通用
+- 前后端接口联调时，注意 CORS 配置。
+- 代码提交前请自测，保持主分支可用。
+- 重要变更建议写在各自的 README.md 或 CHANGELOG。

@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# General Project Guide
+
+本项目为全栈应用，前端采用 Next.js + TypeScript + TailwindCSS，后端计划采用 FastAPI（Python）。  
+前端和后端分别位于 `nextjs_testing` 和 `nextjs_fastapi` 文件夹下，互不干扰，接口通过 HTTP 通信。
+
+- 前端目录：`project2/nextjs_testing`
+- 后端目录（建议新建）：`project2/nextjs_fastapi`
+- 公共资源（如音频、图片）放在 `nextjs_testing/public/`
+- 组件、页面、API 路由等均有独立目录，便于维护和扩展
+
+开发时请遵循各自的开发指南和 API 设计规范，保持代码风格统一，便于团队协作和后期维护。
