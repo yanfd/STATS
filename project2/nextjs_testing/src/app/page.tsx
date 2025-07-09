@@ -31,7 +31,8 @@ import ReligiousCrossIcon from "@/components/ReligionCross";
 import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 import SearchBar from "@/components/SearchBar";
 import TwitrerNew from "@/components/TwitterNew";
-import AudioDance from "@/components/AudioDance";
+import AudioDance from "@/components/AudioDanceCard";
+import AudioDanceCard from "@/components/AudioDanceCard";
 
 
 
@@ -107,7 +108,7 @@ export default function TwTestingPageStrict() {
             </Accordion>
 
 
-            <AudioDance src="/rain.mp3" title="make it rain" description="" />
+            <AudioDanceCard/>
           </div>
 
           {/* --- Center Column - Apply flex to control vertical space --- */}
