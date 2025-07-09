@@ -15,6 +15,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import AudioCard from '@/components/AudioCard';
+
+
+
 import { Input } from "@/components/ui/input";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Search, Clock, Check, Image as ImageIcon } from "lucide-react";
@@ -131,7 +135,7 @@ export default function TwTestingPageStrict() {
             {/* Pricing/List Card - Uses bg-card */}
             <BlogCard />
 
-            <Card className="bg-gradient-to-tr from-cyan-400 to-gray-800">
+            {/* <Card className="bg-gradient-to-tr from-cyan-400 to-gray-800">
               <CardHeader>
                 <CardTitle className="font-mono text-2xl text-center">ANOTHER CARD</CardTitle>
               </CardHeader>
@@ -141,7 +145,10 @@ export default function TwTestingPageStrict() {
                 </CardDescription>
               </CardContent>
 
-            </Card>
+            </Card> */}
+
+            <AudioCard audioSrc="rain.mp3" title="make some noise." />
+            
 
             {/* New Tweet Card - Uses bg-card */}
             {/* <TwitterLatestTweetCard />  卡片功能出现问题，暂时隐藏*/} 
