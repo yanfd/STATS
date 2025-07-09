@@ -1,53 +1,32 @@
-"use client"; // 明确标记这是一个 Client Component
-import MainCard from '@/components/MainCard';
-import Navbar from '@/components/Navbar';
-import PaintCanvas from '@/components/PaintCanvas'; 
+"use client";
 
+import React, { useRef, useEffect } from 'react';
+import Script from 'next/script';
 
-export default function tw_testing() {
-  
+export default function AudioDance() {
+  const audioRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    // 检查 Vudio 是否挂载
+    // @ts-ignore
+    const Vudio = (window as any).Vudio;
+    console.log('Vudio:', Vudio, 'audio:', audioRef.current, 'canvas:', canvasRef.current);
+    if (Vudio && audioRef.current && canvasRef.current) {
+      const vudio = new Vudio(audioRef.current, canvasRef.current, { effect: 'waveform' });
+      vudio.dance();
+      return () => vudio.pause();
+    }
+  }, []);
 
   return (
-    <div className="min-h-screen">
-      {/* 第1个背景 */}
-      <Navbar />
-      <div className="flex min-h-screen justify-center border-b-1 relative
-        bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]
-      ">
-        <div className='flex flex-col-reverse'>
-        <MainCard />
-        </div>
-      
-      </div>
-      {/* 第2个背景 */}
-      <div className="flex min-h-screen justify-center border-b-chart-1">
-        <div className="flex flex-col mt-20 items-center"> {/* 使用 items-center 使内容居中 */}
-          <div className="text-white p-8 bg-gray-900/50 rounded-lg shadow-xl my-1">
-            <h1 className="text-2xl font-bold mb-4">Learn Next.js</h1>
-            <p>16 chapters that take you from React to Next.js.</p>
-            <button className="mt-6 px-4 py-2 bg-white text-black rounded">Start Learning →</button>
-          </div>
-          <div className="text-white p-8 bg-gray-900/50 rounded-lg shadow-xl my-1">
-            <h1 className="text-2xl font-bold mb-4">Learn Next.js</h1>
-            <p>16 chapters that take you from React to Next.js.</p>
-            <button className="mt-6 px-4 py-2 bg-white text-black rounded">Start Learning →</button>
-          </div>
-          <div className="text-white p-8 bg-gray-900/50 rounded-lg shadow-xl my-1">
-            <h1 className="text-2xl font-bold mb-4">Learn Next.js</h1>
-            <p>16 chapters that take you from React to Next.js.</p>
-            <button className="mt-6 px-4 py-2 bg-white text-black rounded">Start Learning →</button>
-          </div>
-        </div>
-      </div>
-
-      {/* 第3个背景 */}
+    <>
+      {/* 引入 vudio.js 脚本 */}
+      <Script src="/libs/vudio.js" strategy="beforeInteractive" />
       <div>
-      <div className="flex-grow flex justify-center items-center">
-        <PaintCanvas initialColor="#FF0000" initialTool="eraser" />
+        <canvas ref={canvasRef} width={256} height={100} style={{ border: '1px solid #ccc' }} />
+        <audio ref={audioRef} src="/rain.mp3" controls />
       </div>
-    
-      </div>
-      
-    </div>
+    </>
   );
 }

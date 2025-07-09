@@ -31,6 +31,7 @@ import ReligiousCrossIcon from "@/components/ReligionCross";
 import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 import SearchBar from "@/components/SearchBar";
 import TwitrerNew from "@/components/TwitterNew";
+import AudioDance from "@/components/AudioDance";
 
 
 
@@ -40,6 +41,8 @@ import TwitrerNew from "@/components/TwitterNew";
 // const PAGE_BG_COLOR = "bg-neutral-950"; // Example: Very dark gray/black
 
 export default function TwTestingPageStrict() {
+
+  
   return (
     // Force dark mode here and set the overall page background
     <div className={`dark min-h-screen text-foreground bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]`}>
@@ -102,6 +105,12 @@ export default function TwTestingPageStrict() {
               </AccordionItem>
                
             </Accordion>
+            <AudioDance
+              audioSrc="rain.mp3"
+              options={{
+                accuracy: 256,
+                waveform: { color: ['#f00', '#0f0', '#00f'], verticalAlign: 'bottom' }
+              }}/>
           </div>
 
           {/* --- Center Column - Apply flex to control vertical space --- */}
