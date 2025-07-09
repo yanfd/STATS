@@ -69,7 +69,7 @@ export default function TwTestingPageStrict() {
                   </div>
                 </AspectRatio>
               </CardContent>
-              <CardFooter className="flex flex-col items-start  pt-0">
+              <CardFooter className="flex flex-col items-start pt-0">
                 <p className="text-lg font-bold">ALMOSTHUMAN GALLERY</p>
                 <p className="text-xs text-muted-foreground pb-4">my deep dark twisted fantasy.</p>
                 <Link href={'https://gallery.yanfd.tech/'} target="_blank" rel="noopener noreferrer" className="w-full"> {/* 让 Link 占据 CardFooter 的宽度 */}
@@ -106,8 +106,8 @@ export default function TwTestingPageStrict() {
                
             </Accordion>
 
-            
-            <AudioDance/>
+
+            <AudioDance src="/rain.mp3" title="make it rain" description="" />
           </div>
 
           {/* --- Center Column - Apply flex to control vertical space --- */}
