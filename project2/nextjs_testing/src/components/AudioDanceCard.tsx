@@ -28,7 +28,7 @@ export default function AudioDanceCard() {
   }, []);
 
   return (
-    <Card>
+    <Card className='bg-grey-200'>
       <Script src="/libs/vudio.js" strategy="beforeInteractive" />
       <CardContent className="p-4 flex flex-col items-center bg-gradient-to-b from-black-800 via-white/50 to-black-800/30">
         <div className="mb-2 text-lg font-bold">make it rain.</div>

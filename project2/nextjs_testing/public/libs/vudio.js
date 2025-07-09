@@ -25,14 +25,14 @@
     // 默认参数
     var __default_option = {
         effect : 'waveform',
-        accuracy : 128,
+        accuracy : 128, //放柱子的数量，我调小一点好了，要求2n 
         width : 256,
         height : 100,
         waveform : {
             maxHeight : 80,
             minHeight : 1,
             spacing : 1,
-            color : '#f00',
+            color : 'white', //default #f00
             shadowBlur : 0,
             shadowColor : '#f00',
             fadeSide : true,

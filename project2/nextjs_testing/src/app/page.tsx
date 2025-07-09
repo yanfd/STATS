@@ -108,7 +108,7 @@ export default function TwTestingPageStrict() {
             </Accordion>
 
 
-            <AudioDanceCard/>
+            
           </div>
 
           {/* --- Center Column - Apply flex to control vertical space --- */}
@@ -154,7 +154,8 @@ export default function TwTestingPageStrict() {
 
             </Card> */}
 
-            <AudioCard audioSrc="rain.mp3" title="make some noise." />
+            {/* <AudioCard audioSrc="rain.mp3" title="make some noise." /> */}
+            <AudioDanceCard/>
             
 
             {/* New Tweet Card - Uses bg-card */}
