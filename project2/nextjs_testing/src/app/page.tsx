@@ -105,12 +105,9 @@ export default function TwTestingPageStrict() {
               </AccordionItem>
                
             </Accordion>
-            <AudioDance
-              audioSrc="rain.mp3"
-              options={{
-                accuracy: 256,
-                waveform: { color: ['#f00', '#0f0', '#00f'], verticalAlign: 'bottom' }
-              }}/>
+
+            
+            <AudioDance/>
           </div>
 
           {/* --- Center Column - Apply flex to control vertical space --- */}
