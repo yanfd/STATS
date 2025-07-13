@@ -83,7 +83,7 @@ const MainCard: React.FC = () => {
   return (
     <div
       ref={cardRef}
-      className="tilt-card w-80 h-110 bg-gradient-to-t from-blue-900/[40%] to-black-800/[50%] rounded-2xl shadow-2xl relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105" // Use transition-transform
+      className="tilt-card w-80 h-90 bg-gradient-to-t from-blue-900/[40%] to-black-800/[50%] rounded-2xl shadow-2xl relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105" // Use transition-transform
       // Add transform-style preserve-3d for correct 3D nesting
       style={{ transformStyle: "preserve-3d" }} 
     >
@@ -121,14 +121,14 @@ const MainCard: React.FC = () => {
         </div>
         
         {/* Bottom Content Block */}
-        <div className="space-y-4"> 
+        {/* <div className="space-y-4"> 
 
           <button className="w-full py-2 bg-white text-blue-700 rounded-lg font-semibold transform transition hover:scale-105 active:scale-95">
             <a href="https://www.yanfd.tech" target="_blank" rel="noopener noreferrer">
               MY BLOG
             </a>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
