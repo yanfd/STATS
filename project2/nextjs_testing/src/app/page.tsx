@@ -18,9 +18,6 @@ import {
 } from "@/components/ui/accordion";
 import AudioCard from '@/components/AudioCard';
 import TwitterPostCard from "@/components/TwitterPostCard";
-
-
-
 import { Input } from "@/components/ui/input";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Search, Clock, Check, Image as ImageIcon } from "lucide-react";
@@ -34,8 +31,8 @@ import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 import SearchBar from "@/components/SearchBar";
 import QuizComponent from "@/components/QuizComponent";
 import TwitrerNew from "@/components/TwitterNew";
-import AudioDance from "@/components/AudioDanceCard";
 import AudioDanceCard from "@/components/AudioDanceCard";
+import { AnimatePresence, motion } from 'framer-motion';
 
 
 
@@ -67,6 +64,15 @@ export default function TwTestingPageStrict() {
 
       {/* --- Main Content Area --- */}
       {/* Constrain width and center */}
+       <motion.div 
+                className="flex justify-center"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: showQuiz ? 40 : 0,
+                  transition: { duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }
+                }}
+              >
       <main className="container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8">
         {/* Grid layout - Use Card background for grid items */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -128,27 +134,43 @@ export default function TwTestingPageStrict() {
             {/* Search Input Area - Give it a card-like background */}
             <SearchBar onShowQuiz={handleShowQuiz} />
             
-            {showQuiz && (
-              <QuizComponent onHide={handleHideQuiz} />
-            )}
+            <AnimatePresence>
+              {showQuiz && (
+                <div className="mt-4">
+                  <QuizComponent onHide={handleHideQuiz} />
+                </div>
+              )}
+            </AnimatePresence>
 
             {/* Blabla Card - Uses bg-card */}
-            <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
-              <CardHeader> {/* Reduced padding */}
-                <CardTitle className="font-mono text-4xl text-center">STATS</CardTitle> {/* Slightly smaller title */}
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm text-center"> {/* Standard description size */}
-                If my world were tearing apart <br /> at least I'm the one in charge.
-                </CardDescription>
-              </CardContent>
-            </Card>
+            <motion.div
+              layout
+              transition={{ 
+                layout: { duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }
+              }}
+            >
+              <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
+                <CardHeader> {/* Reduced padding */}
+                  <CardTitle className="font-mono text-4xl text-center">STATS</CardTitle> {/* Slightly smaller title */}
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-sm text-center"> {/* Standard description size */}
+                  If my world were tearing apart <br /> at least I'm the one in charge.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            </motion.div>
 
               
-              <div className="flex justify-center">
-              <MainCard />
-
-                </div>
+              <motion.div 
+                className="flex justify-center"
+                layout
+                transition={{ 
+                  layout: { duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }
+                }}
+              >
+                <MainCard />
+              </motion.div>
 
             
           </div>
@@ -204,6 +226,7 @@ export default function TwTestingPageStrict() {
           </div>
         </div>
       </main>
+      </motion.div>
     </div>
   );
 }
