@@ -34,7 +34,7 @@ const MonochromeFireworks: React.FC = () => {
     '#ced4da', '#adb5bd', '#6c757d', '#495057'
   ];
 
-  const createFirework = (canvas: HTMLCanvasElement, x?: number, y?: number, isInitial?: boolean) => {
+  const createFirework = (canvas: HTMLCanvasElement, x?: number, y?: number, isInitial: boolean = false) => {
     const firework: Firework = {
       x: x ?? Math.random() * canvas.width,
       y: y ?? canvas.height,
