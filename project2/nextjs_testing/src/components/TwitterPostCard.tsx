@@ -91,7 +91,7 @@ const TwitterPostCard: React.FC = () => {
   const charactersRemaining = 280 - tweetText.length;
 
   return (
-    <Card className="w-full max-w-lg bg-white/10 backdrop-blur-md border border-white/20">
+    <Card className="w-full max-w-lg bg-gre">
       <CardHeader className="w-full flex flex-col items-center pb-2 ">
         <CardTitle className="font-mono text-2xl text-center">
           <div className="text-white mb-2">NEW TWEETS</div>

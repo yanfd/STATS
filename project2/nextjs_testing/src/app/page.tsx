@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AudioCard from '@/components/AudioCard';
+import TwitterPostCard from "@/components/TwitterPostCard";
 
 
 
@@ -30,6 +32,7 @@ import Link from 'next/link';
 import ReligiousCrossIcon from "@/components/ReligionCross";
 import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 import SearchBar from "@/components/SearchBar";
+import QuizComponent from "@/components/QuizComponent";
 import TwitrerNew from "@/components/TwitterNew";
 import AudioDance from "@/components/AudioDanceCard";
 import AudioDanceCard from "@/components/AudioDanceCard";
@@ -42,6 +45,15 @@ import AudioDanceCard from "@/components/AudioDanceCard";
 // const PAGE_BG_COLOR = "bg-neutral-950"; // Example: Very dark gray/black
 
 export default function TwTestingPageStrict() {
+  const [showQuiz, setShowQuiz] = useState(false);
+
+  const handleShowQuiz = () => {
+    setShowQuiz(true);
+  };
+
+  const handleHideQuiz = () => {
+    setShowQuiz(false);
+  };
 
   
   return (
@@ -106,7 +118,7 @@ export default function TwTestingPageStrict() {
               </AccordionItem>
                
             </Accordion>
-
+            {/* <TwitterPostCard  /> */}
 
             
           </div>
@@ -114,7 +126,11 @@ export default function TwTestingPageStrict() {
           {/* --- Center Column - Apply flex to control vertical space --- */}
           <div className="flex flex-col gap-6 h-full"> {/* Make column flex and take full height */}
             {/* Search Input Area - Give it a card-like background */}
-            <SearchBar />
+            <SearchBar onShowQuiz={handleShowQuiz} />
+            
+            {showQuiz && (
+              <QuizComponent onHide={handleHideQuiz} />
+            )}
 
             {/* Blabla Card - Uses bg-card */}
             <Card className="bg-gradient-to-tr from-black-600 to-gray-800">

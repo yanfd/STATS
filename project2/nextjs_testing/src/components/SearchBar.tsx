@@ -7,7 +7,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react'; // 假设 Search 图标来自 lucide-react，请根据你的实际导入路径调整
 
-const SearchBar = () => {
+interface SearchBarProps {
+  onShowQuiz?: () => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onShowQuiz }) => {
   // 使用 state 来存储输入框的内容
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -20,13 +24,17 @@ const SearchBar = () => {
   const performGoogleSearch = (query: string) => {
     // 确保查询内容不为空白
     if (query.trim()) {
-      // 构造 Google 搜索的 URL
-      // encodeURIComponent 确保查询字符串中的特殊字符被正确编码
-      const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-      // 在新标签页打开搜索结果
-      window.open(googleSearchUrl, '_blank');
-      // 如果想在当前标签页跳转，使用:
-      // window.location.href = googleSearchUrl;
+      // 检查是否包含特定关键词来触发测验
+      if (query.toLowerCase().includes('for river')) {
+        if (onShowQuiz) {
+          onShowQuiz();
+        }
+        return;
+      }
+      
+        const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+        window.open(googleSearchUrl, '_blank');
+      
     }
   };
 
