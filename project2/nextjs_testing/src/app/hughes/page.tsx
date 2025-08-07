@@ -19,9 +19,7 @@ export default function Hughes() {
             </div> */}
             
             <div className="space-y-6 text-lg leading-relaxed">
-              {/* <p className="text-gray-200">
-                thank god you can hear my thoughts.
-              </p> */}
+     
               
               <div className=" border-white/10">
                 <p className="text-white-400 italic">
