@@ -30,7 +30,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onShowQuiz }) => {
           onShowQuiz();
         }
         return;
+      }else if (query.toLowerCase().includes('gl')) {
+        window.location.href = 'http://localhost:3000/clutter/particlesGL';
+        return;
+
       }
+      
       
         const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
         window.open(googleSearchUrl, '_blank');
