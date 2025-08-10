@@ -31,7 +31,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onShowQuiz }) => {
         }
         return;
       }else if (query.toLowerCase().includes('gl')) {
-        window.location.href = 'http://localhost:3000/clutter/particlesGL';
+        // 检查是否在本地开发环境
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const baseUrl = isLocalhost 
+          ? 'http://localhost:3000'
+          : process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+        window.location.href = `${baseUrl}/clutter/particlesGL`;
         return;
 
       }

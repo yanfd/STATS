@@ -2,6 +2,7 @@
 
 import React from 'react';
 import MonochromeFireworks from '@/components/MonochromeFireworks';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 
 export default function Hughes() {
   return (
@@ -28,6 +29,26 @@ export default function Hughes() {
                 <p className="text-gray-500 text-sm mt-2">
                   — Me
                 </p>
+                 <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>这是第一个问题吗？</AccordionTrigger>
+        <AccordionContent>
+          是的，这是第一个问题的答案。你可以放任何内容在这里。
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>这是第二个问题吗？</AccordionTrigger>
+        <AccordionContent>
+          第二个问题的答案通常会提供更多详细信息。
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>这是第三个问题吗？</AccordionTrigger>
+        <AccordionContent>
+          最后一个问题的答案，展示了手风琴的基本功能。
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
               </div>
             </div>
           </div>
