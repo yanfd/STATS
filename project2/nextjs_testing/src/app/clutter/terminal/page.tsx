@@ -4,8 +4,8 @@ import React from 'react';
 
 const TerminalPage = () => {
   return (
-    <div className="min-h-screen bg-black p-2 md:p-4 font-mono text-xs md:text-sm">
-      <div className="grid lg:grid-cols-2 lg:grid-rows-2 gap-2 md:gap-4 h-screen">
+    <div className="min-h-screen bg-black p-4 font-mono text-xs md:text-sm">
+      <div className="grid lg:grid-cols-2 lg:grid-rows-2 gap-4 h-screen pt-8 pb-3">
         
         {/* Top Left Block */}
         <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 overflow-hidden lg:row-span-1 lg:col-span-1">
