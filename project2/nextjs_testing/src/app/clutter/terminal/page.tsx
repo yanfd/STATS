@@ -5,10 +5,10 @@ import React from 'react';
 const TerminalPage = () => {
   return (
     <div className="min-h-screen bg-black p-2 md:p-4 font-mono text-xs md:text-sm">
-      <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-1 lg:grid-rows-2 gap-2 md:gap-4 h-screen">
+      <div className="grid lg:grid-cols-2 lg:grid-rows-2 gap-2 md:gap-4 h-screen">
         
         {/* Top Left Block */}
-        <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 overflow-hidden">
+        <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 overflow-hidden lg:row-span-1 lg:col-span-1">
           <div className="absolute top-3 left-3 flex space-x-2">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -87,7 +87,7 @@ const TerminalPage = () => {
         </div>
 
         {/* Bottom Left Block */}
-        <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 overflow-hidden">
+        <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 overflow-hidden lg:row-span-1 lg:col-span-1">
           <div className="absolute top-3 left-3 flex space-x-2">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -166,7 +166,7 @@ const TerminalPage = () => {
         </div>
 
         {/* Right Block (spans 2 rows) */}
-        <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 lg:row-span-2 overflow-hidden">
+        <div className="group relative bg-gray-950 border border-gray-700 hover:border-gray-500 transition-colors duration-200 p-3 md:p-4 overflow-hidden lg:row-span-2 lg:col-span-1 lg:row-start-1 lg:col-start-2">
           <div className="absolute top-3 left-3 flex space-x-2">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
