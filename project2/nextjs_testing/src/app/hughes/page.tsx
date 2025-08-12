@@ -71,19 +71,15 @@ export default function Hughes() {
                     <div className="space-y-4">
                       <h3 className="text-xl font-semibold text-white/80 ">消息列表</h3>
                       {messages.map((message) => (
-                        <Card key={message.id} className="bg-white/5 border-white/10 backdrop-blur-sm">
-                          <CardHeader className="pb-3">
-                            <CardTitle className="text-white/90 text-lg">{message.title}</CardTitle>
-                            <CardDescription className="text-gray-400 text-sm">
-                              {message.date}
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="text-white/80 whitespace-pre-line text-sm">
-                              {message.content}
-                            </div>
-                          </CardContent>
-                        </Card>
+                  
+                        <Accordion type='single' key={message.id}>
+                          <AccordionItem value="item-1">
+                            <AccordionTrigger>{message.title}&nbsp;       &nbsp; &nbsp; &nbsp;  {message.date}</AccordionTrigger>
+                            <AccordionContent className='font-mono whitespace-pre-line'>
+                                {message.content}
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
                       ))}
                     </div>
                   )}
