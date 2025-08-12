@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "date": "12 Aug.",
+    "title": "Dreams and Tears",
+    "content": "Send your dreams where nobody hides\n寄送出你的梦，去到无人隐藏之地\nGive your tears to the tide\n将你的泪水，与潮汐相汇",
+    "timestamp": "2024-08-12"
+  },
+  {
+    "id": 2,
+    "date": "11 Aug.",
+    "title": "Silent Thoughts",
+    "content": "Sometimes the quietest moments speak the loudest truths.\n有时，最安静的时刻述说着最响亮的真理。",
+    "timestamp": "2024-08-11"
+  },
+  {
+    "id": 3,
+    "date": "10 Aug.",
+    "title": "Morning Reflections",
+    "content": "The morning light carries yesterday's dreams into today's reality.\n晨光将昨日的梦想带入今天的现实。",
+    "timestamp": "2024-08-10"
+  }
+]
