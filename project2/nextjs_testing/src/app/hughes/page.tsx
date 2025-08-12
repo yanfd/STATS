@@ -47,7 +47,7 @@ export default function Hughes() {
     <div className="dark min-h-screen text-foreground relative overflow-hidden bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]">
       <MonochromeFireworks />
       
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-8">
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-8 mt-[40vh]">
         <div className="max-w-2xl mx-auto text-center mt-8">
           <div className="backdrop-blur-sm bg-white/5 rounded-3xl border border-white/10 p-12 shadow-2xl">
           
