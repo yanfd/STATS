@@ -72,7 +72,7 @@ export default function Hughes() {
                       <h3 className="text-xl font-semibold text-white/80 ">消息列表</h3>
                       {messages.map((message) => (
                   
-                        <Accordion type='single' key={message.id}>
+                        <Accordion type='single' collapsible key={message.id}>
                           <AccordionItem value="item-1">
                             <AccordionTrigger>{message.title}&nbsp;       &nbsp; &nbsp; &nbsp;  {message.date}</AccordionTrigger>
                             <AccordionContent className='font-mono whitespace-pre-line'>
