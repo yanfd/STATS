@@ -68,8 +68,8 @@ export default function Hughes() {
                   {loading ? (
                     <div className="text-center text-gray-400">加载中...</div>
                   ) : (
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-semibold text-white/80 ">消息列表</h3>
+                    <div className="space-y-4 font-mono">
+                      <h3 className="text-xl font-semibold text-white/80 ">LIST</h3>
                       {messages.map((message) => (
                   
                         <Accordion type='single' collapsible key={message.id}>
@@ -84,7 +84,7 @@ export default function Hughes() {
                     </div>
                   )}
                 </div>
-                 <Accordion type="single" collapsible className="w-full">
+                 {/* <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger>12 Aug.</AccordionTrigger>
         <AccordionContent className='font-mono'>
@@ -98,7 +98,7 @@ export default function Hughes() {
         </AccordionContent>
       </AccordionItem>
 
-    </Accordion>
+    </Accordion> */}
               </div>
             </div>
           </div>
