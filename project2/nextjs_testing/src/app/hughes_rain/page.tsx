@@ -44,7 +44,7 @@ export default function HughesRain() {
 
 
   return (
-    <div className="dark min-h-screen text-foreground relative overflow-hidden bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.3)_0%,_rgba(17,24,39,0.7)_50%,_rgba(0,0,0,1)_80%)]">
+    <div className="dark min-h-screen text-foreground relative overflow-hidden bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(59,130,246,0.3)_0%,_rgba(30,58,138,0.6)_30%,_rgba(15,23,42,0.9)_60%,_rgba(0,0,0,1)_90%)]">
       <MonochromeRain />
       
       <div className="relative z-10 flex items-center justify-center min-h-screen p-8 mt-[40vh]">

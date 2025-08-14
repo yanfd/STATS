@@ -36,10 +36,10 @@ const MonochromeRain: React.FC = () => {
   const rainDropsRef = useRef<RainDrop[]>([]);
   const splashesRef = useRef<Splash[]>([]);
 
-  const grayColors = [
-    '#ffffff', '#f8f9fa', '#e9ecef', '#dee2e6', 
-    '#ced4da', '#adb5bd', '#6c757d', '#495057',
-    '#343a40', '#212529'
+  const moonlightColors = [
+    '#ffffff', '#f0f8ff', '#e6f3ff', '#d1e7dd', 
+    '#b8d4f0', '#9ec5fe', '#6ea8fe', '#4dabf7',
+    '#0d6efd', '#0a58ca'
   ];
 
   const createRainDrop = (canvas: HTMLCanvasElement) => {
@@ -50,7 +50,7 @@ const MonochromeRain: React.FC = () => {
       vy: Math.random() * 3 + 12, // Falling speed
       length: Math.random() * 20 + 15,
       opacity: Math.random() * 0.6 + 0.2,
-      color: grayColors[Math.floor(Math.random() * grayColors.length)],
+      color: moonlightColors[Math.floor(Math.random() * moonlightColors.length)],
       thickness: Math.random() * 1 + 0.5
     };
   };
@@ -86,8 +86,8 @@ const MonochromeRain: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Dark rain atmosphere with subtle fade
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    // Moonlight rain atmosphere with subtle blue fade
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.15)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Add new raindrops
@@ -144,7 +144,7 @@ const MonochromeRain: React.FC = () => {
         if (particle.life > 0) {
           ctx.save();
           ctx.globalAlpha = particle.life * particle.opacity;
-          ctx.fillStyle = '#ffffff';
+          ctx.fillStyle = '#d1e7dd';
           ctx.beginPath();
           ctx.arc(particle.x, particle.y, 1, 0, Math.PI * 2);
           ctx.fill();
@@ -183,8 +183,8 @@ const MonochromeRain: React.FC = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Initialize with dark background
-    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+    // Initialize with moonlight blue background
+    ctx.fillStyle = 'rgba(15, 23, 42, 1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Start animation
