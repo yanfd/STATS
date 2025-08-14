@@ -47,7 +47,7 @@ const MonochromeRain: React.FC = () => {
       x: Math.random() * canvas.width,
       y: -50,
       vx: (Math.random() - 0.5) * 1, // Slight horizontal drift
-      vy: Math.random() * 3 + 8, // Falling speed
+      vy: Math.random() * 3 + 12, // Falling speed
       length: Math.random() * 20 + 15,
       opacity: Math.random() * 0.6 + 0.2,
       color: grayColors[Math.floor(Math.random() * grayColors.length)],
