@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -43,6 +43,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export default function TwTestingPageStrict() {
   const [showQuiz, setShowQuiz] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleShowQuiz = () => {
     setShowQuiz(true);
@@ -51,6 +52,14 @@ export default function TwTestingPageStrict() {
   const handleHideQuiz = () => {
     setShowQuiz(false);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500); // 1.5秒后开始掀开动画
+
+    return () => clearTimeout(timer);
+  }, []);
 
   
   return (
@@ -227,6 +236,16 @@ export default function TwTestingPageStrict() {
         </div>
       </main>
       </motion.div>
+      
+      {/* 黑色遮盖层开屏效果 */}
+      <div 
+               className={`fixed inset-0 bg-black z-[9999] transition-transform duration-[400ms] ease-[cubic-bezier(0.8,0.2,0.38,0.19)] ${
+  isLoading ? 'transform translate-y-0' : 'transform -translate-y-full'
+}`}
+        style={{
+          transformOrigin: 'bottom'
+        }}
+      />
     </div>
   );
 }
