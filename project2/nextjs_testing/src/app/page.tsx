@@ -239,7 +239,7 @@ export default function TwTestingPageStrict() {
       
       {/* 黑色遮盖层开屏效果 */}
       <div 
-               className={`fixed inset-0 bg-black z-[9999] transition-transform duration-[400ms] ease-[cubic-bezier(0.8,0.2,0.38,0.19)] ${
+               className={`fixed inset-0 bg-black z-[9999] transition-transform duration-[400ms] ease-[cubic-bezier(0.8,0.06,0.8,0.19)] ${
   isLoading ? 'transform translate-y-0' : 'transform -translate-y-full'
 }`}
         style={{
