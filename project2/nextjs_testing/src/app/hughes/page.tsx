@@ -32,7 +32,7 @@ export default function Hughes() {
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'list' | 'grouped'>('list');
 
-  const API_BASE_URL = 'http://localhost:8000';
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   const fetchMessages = async () => {
     try {
