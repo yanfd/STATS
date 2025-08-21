@@ -119,3 +119,42 @@ npm run dev
 - 支持缓存机制，减少API调用
 - 按年月分组展示
 - 保持原有的手风琴UI效果
+
+
+### 不要动这里
+
+  部署步骤
+
+  1. 首次服务器设置
+
+  # SSH到你的服务器
+  ssh user@your-server
+
+  # 下载并运行初始化脚本
+  curl -O https://raw.githubusercontent.com/你的仓库/main/p
+  roject2/nextjs_fastapi/deploy/server-setup.sh
+  bash server-setup.sh
+
+  2. 配置GitHub Secrets
+
+  在GitHub仓库设置中添加：
+  - SERVER_HOST: 你的服务器IP
+  - SERVER_USER: SSH用户名
+  - SERVER_PORT: 22
+  - SERVER_SSH_KEY: SSH私钥
+  - HUGHES_GITHUB_TOKEN: 访问Obsidian仓库的token
+
+  3. 配置Vercel环境变量
+
+  在Vercel项目设置中添加：
+  NEXT_PUBLIC_API_URL=https://你的服务器:8000
+
+  4. 自动部署
+
+  每次push到main分支，GitHub Actions会自动：
+  - SSH到服务器
+  - 拉取最新代码
+  - 安装依赖
+  - 重启服务
+
+  这样你的FastAPI就能持续运行，提供稳定的API服务了！
