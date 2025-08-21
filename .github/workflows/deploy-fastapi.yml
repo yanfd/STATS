@@ -11,6 +11,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # 只有设置了必要的secrets才运行
+    if: ${{ secrets.SERVER_HOST != '' }}
     
     steps:
     - name: Checkout code
@@ -22,7 +24,7 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        port: ${{ secrets.SERVER_PORT }}
+        port: ${{ secrets.SERVER_PORT || 22 }}
         script: |
           # 进入项目目录
           cd ~/apps/hughes-api || mkdir -p ~/apps/hughes-api && cd ~/apps/hughes-api
@@ -60,7 +62,7 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        port: ${{ secrets.SERVER_PORT }}
+        port: ${{ secrets.SERVER_PORT || 22 }}
         script: |
           sudo systemctl status hughes-api --no-pager || echo "Service not yet configured"
           curl -s http://localhost:8000/api/hughes/status || echo "API not responding yet"
