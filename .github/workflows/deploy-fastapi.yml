@@ -17,8 +17,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # 只有设置了必要的secrets才运行
-    if: ${{ secrets.SERVER_HOST != '' }}
     
     steps:
     - name: Checkout code
