@@ -121,7 +121,7 @@ export default function Hughes() {
                 {/* Sync Controls */}
                 <div className="mt-4 mb-6 flex items-center justify-between">
                   <div className="flex gap-2">
-                    <button
+                    {/* <button
                       onClick={syncFromGitHub}
                       disabled={syncing}
                       className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50 text-sm"
@@ -133,7 +133,7 @@ export default function Hughes() {
                       className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
                     >
                       {viewMode === 'list' ? '按月分组' : '列表视图'}
-                    </button>
+                    </button> */}
                   </div>
                   {lastSync && (
                     <p className="text-xs text-gray-500">
@@ -164,8 +164,9 @@ export default function Hughes() {
                         messages.map((message) => (
                           <Accordion type='single' collapsible key={message.id}>
                             <AccordionItem value="item-1">
-                              <AccordionTrigger>
-                                {message.title}&nbsp;&nbsp;&nbsp;&nbsp;{message.date}
+                              <AccordionTrigger className="flex justify-between items-center">
+                                <span>{message.title.split(' ').slice(0,10).join(' ')}</span>
+                                <span className="text-sm text-gray-500 ml-auto mr-2">{message.date}</span>
                               </AccordionTrigger>
                               <AccordionContent className='font-mono whitespace-pre-line text-left'>
                                 {message.content || '(空)'}
