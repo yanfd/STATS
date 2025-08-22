@@ -121,6 +121,44 @@ npm run dev
 - 保持原有的手风琴UI效果
 
 
+### 待办事项 - GitHub Actions部署配置
+
+#### 必须完成的配置项：
+
+1. **配置GitHub Secrets**（在GitHub仓库的 Settings > Secrets and variables > Actions）
+   - [ ] `SERVER_HOST`: 你的服务器IP地址或域名
+   - [ ] `SERVER_USER`: SSH登录用户名（建议创建专门的部署用户）
+   - [ ] `SERVER_SSH_KEY`: SSH私钥（使用`ssh-keygen`生成，将私钥内容复制到这里）
+   - [ ] `SERVER_PORT`: SSH端口（可选，默认22）
+   - [ ] `HUGHES_GITHUB_TOKEN`: 用于访问Obsidian-Archive私有仓库的Personal Access Token
+   - [ ] `GITHUB_TOKEN`: 用于拉取代码的token（如果仓库是私有的）
+
+2. **服务器准备**
+   - [ ] 确保服务器已安装Python 3.8+
+   - [ ] 确保服务器已安装git
+   - [ ] 创建专门的部署用户（可选但推荐）
+   - [ ] 配置SSH密钥认证（将公钥添加到服务器的`~/.ssh/authorized_keys`）
+
+3. **生成SSH密钥对**（本地执行）
+   ```bash
+   # 生成密钥对
+   ssh-keygen -t ed25519 -C "github-actions-deploy" -f ~/.ssh/github-actions-key
+   
+   # 查看私钥（复制到SERVER_SSH_KEY）
+   cat ~/.ssh/github-actions-key
+   
+   # 查看公钥（添加到服务器的authorized_keys）
+   cat ~/.ssh/github-actions-key.pub
+   ```
+
+4. **服务器端配置**
+   - [ ] 将公钥添加到服务器：`echo "公钥内容" >> ~/.ssh/authorized_keys`
+   - [ ] 测试SSH连接：`ssh -i ~/.ssh/github-actions-key user@server`
+
+5. **测试部署**
+   - [ ] 所有Secrets配置完成后，push代码到main分支触发自动部署
+   - [ ] 检查GitHub Actions日志确保部署成功
+
 ### 不要动这里
 
   部署步骤

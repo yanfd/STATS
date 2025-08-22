@@ -8,6 +8,12 @@ on:
       - '.github/workflows/deploy-fastapi.yml'
   workflow_dispatch:  # 允许手动触发
 
+# 安全说明：
+# - 所有敏感信息存储在GitHub Secrets中（Settings > Secrets > Actions）
+# - Secrets是加密的，不会出现在日志中
+# - 建议：使用SSH密钥而非密码，并限制SSH用户权限
+# - 建议：在服务器上创建专门的部署用户，只给必要权限
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,8 +29,9 @@ jobs:
       with:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
+        key: ${{ secrets.SERVER_SSH_KEY }}  # 使用SSH密钥，不用密码
         port: ${{ secrets.SERVER_PORT || 22 }}
+        # password: ${{ secrets.SERVER_PASSWORD }}  # 不推荐使用密码
         script: |
           # 进入项目目录
           cd ~/apps/hughes-api || mkdir -p ~/apps/hughes-api && cd ~/apps/hughes-api
@@ -33,7 +40,7 @@ jobs:
           if [ -d ".git" ]; then
             git pull origin main
           else
-            git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git .
+            git clone https://github.com/${{ github.repository }}.git .
           fi
           
           # 进入FastAPI目录
