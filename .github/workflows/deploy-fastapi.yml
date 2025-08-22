@@ -31,16 +31,17 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}  # 使用SSH密钥，不用密码
         port: ${{ secrets.SERVER_PORT || 22 }}
-        # password: ${{ secrets.SERVER_PASSWORD }}  # 不推荐使用密码
         script: |
-          # 进入项目目录
-          cd ~/apps/hughes-api || mkdir -p ~/apps/hughes-api && cd ~/apps/hughes-api
+          # 进入项目目录（使用正确的路径）
+          cd ~/apps/tailwind_test || mkdir -p ~/apps/tailwind_test && cd ~/apps
           
           # 如果有旧的repo，拉取更新；否则克隆
-          if [ -d ".git" ]; then
+          if [ -d "tailwind_test/.git" ]; then
+            cd tailwind_test
             git pull origin main
           else
-            git clone https://github.com/${{ github.repository }}.git .
+            git clone https://github.com/${{ github.repository }}.git tailwind_test
+            cd tailwind_test
           fi
           
           # 进入FastAPI目录
@@ -53,13 +54,41 @@ jobs:
           
           # 激活虚拟环境并安装依赖
           source venv/bin/activate
+          pip install --upgrade pip
+          pip install pyaudioop  # Python 3.13兼容性
           pip install -r requirements.txt
           
-          # 设置环境变量
-          export GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
+          # 创建.env文件
+          cat > .env << 'EOF'
+          GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
+          HUGHES_GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
+          EOF
           
-          # 重启服务
-          sudo systemctl restart hughes-api || echo "Service restart failed, may need manual setup"
+          # 创建或更新systemd服务
+          sudo tee /etc/systemd/system/hughes-api.service > /dev/null << 'SERVICE'
+          [Unit]
+          Description=Hughes API FastAPI Service
+          After=network.target
+          
+          [Service]
+          Type=simple
+          User=root
+          WorkingDirectory=/root/apps/tailwind_test/project2/nextjs_fastapi
+          Environment="PATH=/root/apps/tailwind_test/project2/nextjs_fastapi/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+          Environment="GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}"
+          Environment="HUGHES_GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}"
+          ExecStart=/root/apps/tailwind_test/project2/nextjs_fastapi/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+          Restart=always
+          RestartSec=10
+          
+          [Install]
+          WantedBy=multi-user.target
+          SERVICE
+          
+          # 重载并重启服务
+          sudo systemctl daemon-reload
+          sudo systemctl enable hughes-api
+          sudo systemctl restart hughes-api
           
           echo "Deployment completed!"
     
@@ -71,5 +100,17 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT || 22 }}
         script: |
+          # 检查服务状态
           sudo systemctl status hughes-api --no-pager || echo "Service not yet configured"
-          curl -s http://localhost:8000/api/hughes/status || echo "API not responding yet"
+          
+          # 等待服务启动
+          sleep 3
+          
+          # 测试API端点
+          echo "Testing API endpoints..."
+          curl -s http://localhost:8000/ || echo "API root not responding"
+          curl -s http://localhost:8000/api/hughes/status || echo "Hughes API not responding"
+          
+          # 显示最近日志
+          echo "Recent logs:"
+          sudo journalctl -u hughes-api -n 20 --no-pager
