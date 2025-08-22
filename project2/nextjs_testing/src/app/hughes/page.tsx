@@ -167,7 +167,7 @@ export default function Hughes() {
                           <Accordion type='single' collapsible key={message.id}>
                             <AccordionItem value="item-1">
                               <AccordionTrigger className="flex justify-between items-center">
-                                <span>{message.title.split(' ').slice(0,10).join(' ')}</span>
+                                <span>{message.title.length > 15 ? message.title.slice(0, 15) + '...' : message.title}</span>
                                 <span className="text-sm text-gray-500 ml-auto mr-2">{message.date}</span>
                               </AccordionTrigger>
                               <AccordionContent className='font-mono whitespace-pre-line text-left'>
