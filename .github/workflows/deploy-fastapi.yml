@@ -59,11 +59,18 @@ jobs:
           pip install pyaudioop  # Python 3.13兼容性
           pip install -r requirements.txt
           
-          # 创建.env文件
-          cat > .env << 'EOF'
+          # 创建持久配置目录（在项目外）
+          sudo mkdir -p /etc/hughes-api
+          
+          # 将Token保存到安全位置（不会被git覆盖）
+          sudo tee /etc/hughes-api/env > /dev/null << 'EOF'
           GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
           HUGHES_GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
           EOF
+          
+          # 设置权限（只有root可读）
+          sudo chmod 600 /etc/hughes-api/env
+          sudo chown root:root /etc/hughes-api/env
           
           # 创建或更新systemd服务
           sudo tee /etc/systemd/system/hughes-api.service > /dev/null << 'SERVICE'
@@ -76,8 +83,7 @@ jobs:
           User=root
           WorkingDirectory=/root/apps/tailwind_test/project2/nextjs_fastapi
           Environment="PATH=/root/apps/tailwind_test/project2/nextjs_fastapi/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-          Environment="GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}"
-          Environment="HUGHES_GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}"
+          EnvironmentFile=/etc/hughes-api/env
           ExecStart=/root/apps/tailwind_test/project2/nextjs_fastapi/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
           Restart=always
           RestartSec=10
