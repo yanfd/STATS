@@ -112,6 +112,15 @@ jobs:
           curl -s http://localhost:8000/ || echo "API root not responding"
           curl -s http://localhost:8000/api/hughes/status || echo "Hughes API not responding"
           
+          # 触发数据同步
+          echo "Triggering Hughes data sync..."
+          curl -X GET http://localhost:8000/api/hughes/sync || echo "Sync failed"
+          
+          # 验证数据是否同步成功
+          echo "Verifying data sync..."
+          sleep 2
+          curl -s http://localhost:8000/api/hughes/messages | head -c 200
+          
           # 显示最近日志
           echo "Recent logs:"
           sudo journalctl -u hughes-api -n 20 --no-pager
