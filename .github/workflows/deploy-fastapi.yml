@@ -6,6 +6,7 @@ on:
     paths:
       - 'project2/nextjs_fastapi/**'
       - '.github/workflows/deploy-fastapi.yml'
+      - 'project2/nextjs_testing/src/a'
   workflow_dispatch:  # 允许手动触发
 
 # 安全说明：
