@@ -37,7 +37,9 @@ jobs:
           # 如果有旧的repo，拉取更新；否则克隆
           if [ -d "tailwind_test/.git" ]; then
             cd tailwind_test
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main
+            git clean -fd
           else
             git clone https://github.com/${{ github.repository }}.git tailwind_test
             cd tailwind_test
