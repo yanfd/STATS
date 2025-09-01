@@ -119,15 +119,15 @@ export default function Hughes() {
 
           {/* Error Display */}
           {error && (
-            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-300">
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 text-sm text-red-300">
               {error}
             </div>
           )}
 
           {/* Main Content */}
-          <div className="flex gap-6 h-[calc(100vh-200px)]">
+          <div className="flex gap-6 h-[calc(100vh-200px)] rounded-none">
             {/* Left Panel - Month List */}
-            <Card className="w-64 backdrop-blur-sm bg-white/5 border-white/10">
+            <Card className="w-64 backdrop-blur-sm bg-white/5 border-white/10 rounded-none">
               <CardHeader>
                 <CardTitle className="text-white/80">月份</CardTitle>
               </CardHeader>
@@ -135,14 +135,14 @@ export default function Hughes() {
                 {loading ? (
                   <div className="text-center p-4 text-gray-400">loading...</div>
                 ) : (
-                  <div className="overflow-y-auto max-h-[calc(100vh-300px)]">
+                  <div className="overflow-y-auto max-h-[calc(100vh-300px)] ">
                     {Object.entries(groupedMessages)
                       .sort((a, b) => b[0].localeCompare(a[0]))
                       .map(([key, group]) => (
                         <Button
                           key={key}
                           variant={selectedMonth === key ? "secondary" : "ghost"}
-                          className="w-full justify-start px-4 py-3 rounded-none hover:bg-white/10"
+                          className="w-full justify-start px-4 py-3 hover:bg-white/10"
                           onClick={() => setSelectedMonth(key)}
                         >
                           <div className="flex flex-col items-start">
@@ -161,7 +161,7 @@ export default function Hughes() {
             </Card>
 
             {/* Right Panel - Daily Content */}
-            <Card className="flex-1 backdrop-blur-sm bg-white/5 border-white/10">
+            <Card className="flex-1 backdrop-blur-sm bg-white/5 border-white/10 rounded-none">
               <CardHeader>
                 <CardTitle className="text-white/80">
                   {selectedMonth && groupedMessages[selectedMonth] ? 
@@ -176,7 +176,7 @@ export default function Hughes() {
                 ) : selectedMonth && groupedMessages[selectedMonth] ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[calc(100vh-350px)]">
                     {groupedMessages[selectedMonth].messages.map((message) => (
-                      <Card key={message.id} className="backdrop-blur-sm bg-white/5 border-white/10 hover:bg-white/10 transition-colors">
+                      <Card key={message.id} className="backdrop-blur-sm bg-white/5 border-white/10 hover:bg-white/10 transition-colors rounded-none">
                         <CardHeader className="pb-3">
                           <div className="flex items-start justify-between">
                             <div className="text-2xl font-bold text-white/60">
