@@ -110,7 +110,7 @@ export default function Hughes() {
           {/* Header */}
           <div className="text-center mb-8">
             <p className="text-white-400 italic text-xl">
-              "thank god you can hear my thoughts." 
+              "thank god you can hear my thoughts. " 
             </p>
             <p className="text-gray-500 text-sm mt-2">
               — still Me
