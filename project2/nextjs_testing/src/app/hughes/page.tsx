@@ -113,7 +113,7 @@ export default function Hughes() {
               "thank god you can hear my thoughts." 
             </p>
             <p className="text-gray-500 text-sm mt-2">
-              — Me
+              — still Me
             </p>
           </div>
 
