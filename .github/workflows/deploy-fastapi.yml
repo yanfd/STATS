@@ -49,15 +49,15 @@ jobs:
           cd project2/nextjs_fastapi
           
           # 创建虚拟环境（如果不存在）
-          if [ ! -d "venv" ]; then
-            python3 -m venv venv
-          fi
-          
-          # 激活虚拟环境并安装依赖
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install pyaudioop  # Python 3.13兼容性
-          pip install -r requirements.txt
+            if [ ! -d "venv" ]; then
+              python3 -m venv venv
+            fi
+
+            # 用虚拟环境的 python/pip 安装依赖
+            ./venv/bin/python -m pip install --upgrade pip
+            ./venv/bin/pip install pyaudioop
+            ./venv/bin/pip install -r requirements.txt
+
           
           # 创建持久配置目录（在项目外）
           sudo mkdir -p /etc/hughes-api
