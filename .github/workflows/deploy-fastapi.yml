@@ -48,15 +48,17 @@ jobs:
           # 进入FastAPI目录
           cd project2/nextjs_fastapi
           
-          # 创建虚拟环境（如果不存在）
-            if [ ! -d "venv" ]; then
-              python3 -m venv venv
-            fi
-
-            # 用虚拟环境的 python/pip 安装依赖
-            ./venv/bin/python -m pip install --upgrade pip
-            ./venv/bin/pip install pyaudioop
-            ./venv/bin/pip install -r requirements.txt
+          # 删除旧的虚拟环境并重新创建（确保干净的环境）
+          rm -rf venv
+          python3 -m venv venv
+          
+          # 用虚拟环境的 python 安装 pip（确保 pip 存在）
+          ./venv/bin/python -m ensurepip --upgrade
+          
+          # 升级 pip 并安装依赖
+          ./venv/bin/python -m pip install --upgrade pip
+          ./venv/bin/pip install pyaudioop
+          ./venv/bin/pip install -r requirements.txt
 
           
           # 创建持久配置目录（在项目外）
