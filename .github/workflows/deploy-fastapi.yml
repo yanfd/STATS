@@ -57,7 +57,11 @@ jobs:
           
           # 升级 pip 并安装依赖
           ./venv/bin/python -m pip install --upgrade pip
-          ./venv/bin/pip install pyaudioop
+          
+          # 尝试安装 pyaudioop，但不阻止部署
+          ./venv/bin/pip install pyaudioop || echo "Warning: pyaudioop installation failed, continuing..."
+          
+          # 安装其他依赖
           ./venv/bin/pip install -r requirements.txt
 
           

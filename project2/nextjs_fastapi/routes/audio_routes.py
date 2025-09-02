@@ -2,7 +2,15 @@ from fastapi import APIRouter, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from pathlib import Path
 import uuid
-from audio_utils import audio_processor
+
+# Make audio_utils import optional
+try:
+    from audio_utils import audio_processor
+    AUDIO_PROCESSING_ENABLED = True
+except ImportError as e:
+    print(f"Warning: Audio processing disabled: {e}")
+    AUDIO_PROCESSING_ENABLED = False
+    audio_processor = None
 
 router = APIRouter()
 

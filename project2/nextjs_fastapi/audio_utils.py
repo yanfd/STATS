@@ -2,11 +2,18 @@ import os
 import shutil
 from pathlib import Path
 from typing import List
-import librosa
-import soundfile as sf
 import numpy as np
-from pydub import AudioSegment
-from scipy.signal import spectrogram
+
+# Optional imports - audio processing functionality
+try:
+    import librosa
+    import soundfile as sf
+    from pydub import AudioSegment
+    from scipy.signal import spectrogram
+    AUDIO_LIBS_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Audio processing libraries not fully available: {e}")
+    AUDIO_LIBS_AVAILABLE = False
 
 class AudioProcessor:
     def __init__(self):
