@@ -164,10 +164,10 @@ export default function Hughes() {
             <Card className="flex-1 backdrop-blur-sm bg-white/5 border-white/10 rounded-none">
               <CardHeader>
                 <CardTitle className="text-white/80">
-                  {selectedMonth && groupedMessages[selectedMonth] ? 
+                  {/* {selectedMonth && groupedMessages[selectedMonth] ? 
                     formatMonth(groupedMessages[selectedMonth].year, groupedMessages[selectedMonth].month) + ' 日志' : 
                     '选择月份查看日志'
-                  }
+                  } */}
                 </CardTitle>
               </CardHeader>
               <CardContent>
