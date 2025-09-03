@@ -1,151 +1,209 @@
-# Twitter的小型Cli应用
+# STATS - Next.js 实验项目集
 
-english version [ENG](https://github.com/yanfd/TwitterNew/blob/main/README_EN.md) 
+[English Version](#stats---nextjs-experimental-projects)
 
-[TOC]
+## 项目概览
 
+这是一个包含多个 Next.js 实验性项目的代码库，主要用于测试和探索现代 Web 开发技术，包括 3D 可视化、UI 组件库和交互式界面设计。
 
+## 项目结构
 
-## Update Available V1.1.0 🚀
+### 🌍 `/globe` 和 `/globe2` - 3D 地球可视化
+使用 Three.js 构建的交互式 3D 地球渲染器：
+- **动态星空背景** - 带有动画效果的星场
+- **大气光晕效果** - 自定义 GLSL 着色器实现大气层渲染
+- **渐进式纹理加载** - 从线框到高分辨率纹理的平滑过渡
+- **颜色过渡动画** - 流畅的颜色变换效果
 
-使用Twitter的X API v2。
+技术栈：React、Three.js、Framer Motion、Tailwind CSS
 
-### version
+### 🎨 `/project2/nextjs_testing` - UI 组件实验室
+丰富的 React 组件库和界面实验平台：
 
-- main branch
-  - twitter_new.py 以Cli方式运行
-- feature
-  - GUI_CTkinter.py 以桌面程式运行
+**组件特性：**
+- 可复用的卡片组件（信息卡、音频播放器、Twitter 集成）
+- 基于 Radix UI 原语和 shadcn/ui 的现代组件
+- RSS 解析和 Twitter API 集成
+- 音频可视化和交互式动画
+- 3D 粒子效果和视觉特效
 
-### 功能
+**页面路由：**
+- `/home` - 主页面展示
+- `/flipcard` - 翻转卡片动画
+- `/rss_testing` - RSS 订阅测试
+- `/tw_testing` - Twitter 集成测试
+- `/hughes_rain` - 雨滴动画效果
+- `/pages3D` - 3D 页面实验
+- `/clutter/particlesGL` - WebGL 粒子系统
 
-- [x] greetings
-- [x] 推文发送
-- [x] 图像插入
-- [x] GUI
-- [x] mockup背景
+## 技术栈
 
-![](https://p.ipic.vip/eo9v36.png)
+- **框架**: Next.js 15+ (App Router)
+- **开发工具**: Turbopack
+- **样式**: Tailwind CSS v4+ with PostCSS
+- **3D 图形**: Three.js with custom shaders
+- **UI 组件**: 
+  - Radix UI primitives
+  - shadcn/ui components
+  - Lucide React icons
+- **动画**: Framer Motion
+- **语言**: TypeScript
 
-![](https://p.ipic.vip/5t3qjo.png)
+## 快速开始
+
+### 安装依赖
+
+```bash
+# 进入项目目录
+cd globe # 或 globe2 或 project2/nextjs_testing
+
+# 安装依赖
+npm install
+```
+
+### 开发命令
+
+```bash
+# 启动开发服务器 (使用 Turbopack)
+npm run dev
+
+# 构建生产版本
+npm run build
+
+# 启动生产服务器
+npm run start
+
+# 运行代码检查
+npm run lint
+```
+
+## 架构特点
+
+- **客户端渲染模式** - 使用 `"use client"` 指令的现代 React 模式
+- **模块化组件结构** - 遵循 shadcn/ui 规范，使用 `@/components/ui/` 导入
+- **自动化资源管理** - Three.js 组件自动处理清理和动画循环
+- **响应式设计** - 使用 Tailwind 工具类实现自适应布局
+- **完整类型支持** - 全面使用 TypeScript 类型定义
+
+## 项目特色
+
+### Globe 项目
+- 实时 3D 渲染性能优化
+- 自定义着色器实现独特视觉效果
+- 流畅的用户交互体验
+
+### NextJS Testing 项目
+- 组件化设计系统
+- 多种数据源集成（RSS、Twitter API）
+- 丰富的动画和过渡效果
+- 实验性 UI 模式探索
 
 ---
 
-Feb22 update(CTkinter版本)
+# STATS - Next.js Experimental Projects
 
-import PIL实现mockup
+[中文版本](#stats---nextjs-实验项目集)
 
-Feb20 updated.  
+## Project Overview
 
-import PyQT
+A repository containing multiple Next.js experimental projects for testing and exploring modern web development technologies, including 3D visualization, UI component libraries, and interactive interface design.
 
-Feb17更新，加装GUI玩玩，未merge于main branch. 
+## Project Structure
 
-import CTkinter
+### 🌍 `/globe` and `/globe2` - 3D Globe Visualization
+Interactive 3D globe renderers built with Three.js:
+- **Animated Starfield** - Dynamic star background with animation
+- **Atmospheric Glow Effects** - Custom GLSL shaders for atmosphere rendering
+- **Progressive Texture Loading** - Smooth transition from wireframe to high-res textures
+- **Color Transition Animations** - Fluid color transformation effects
 
-Feb 10更新，增加图像插入功能:)
+Tech Stack: React, Three.js, Framer Motion, Tailwind CSS
 
-已满足本人需求，有其他问题欢迎提交issue
+### 🎨 `/project2/nextjs_testing` - UI Component Lab
+Rich React component library and interface experimentation platform:
 
----
+**Component Features:**
+- Reusable card components (info cards, audio players, Twitter integration)
+- Modern components based on Radix UI primitives and shadcn/ui
+- RSS parsing and Twitter API integration
+- Audio visualization and interactive animations
+- 3D particle effects and visual effects
 
-其他如查看回复/转发等操作较为繁琐，效率不如网站。
+**Page Routes:**
+- `/home` - Main page showcase
+- `/flipcard` - Flip card animations
+- `/rss_testing` - RSS feed testing
+- `/tw_testing` - Twitter integration testing
+- `/hughes_rain` - Rain drop animation effects
+- `/pages3D` - 3D page experiments
+- `/clutter/particlesGL` - WebGL particle systems
 
-方便的话可以集成Alfred的workflow
+## Technology Stack
 
+- **Framework**: Next.js 15+ (App Router)
+- **Build Tool**: Turbopack for development
+- **Styling**: Tailwind CSS v4+ with PostCSS
+- **3D Graphics**: Three.js with custom shaders
+- **UI Components**: 
+  - Radix UI primitives
+  - shadcn/ui components
+  - Lucide React icons
+- **Animation**: Framer Motion
+- **Language**: TypeScript
 
+## Quick Start
 
-### 使用
+### Install Dependencies
 
-#### 下载项目
+```bash
+# Navigate to project directory
+cd globe # or globe2 or project2/nextjs_testing
 
-```
-git clone https://github.com/yanfd/TwitterNew.git
-```
-
-cd切换到对应目录
-
-
-
-#### 安装依赖库
-
-安装前建议启动虚拟环境。
-
-```shell
-source twienv/bin/activate
-```
-
-- tweepy：X的官方开发库
-- pyfiglet：用于banner生成
-- prompt_toolkit：文字编辑区域，比input好使
-
-```shell
-pip3 install tweepy pyfiglet prompt_toolkit
-```
-
-
-
-#### 获取自己的推特密钥
-
-登陆[X Developer Portal](https://developer.twitter.com/en/portal/projects/) ，注册/登陆/创建应用
-
-生成 API_KEY，API_SECRET，ACCESS_TOKEN，ACCESS_TOKEN_SECRET
-
-在setting中将
-
-![](https://p.ipic.vip/ld3oje.png)
-
-设置为**可读并可写**
-
-![](https://p.ipic.vip/cft2y9.png)
-
-下面三个required随便填写。
-
-
-
-程序为安全需要把推特密钥放置到了环境变量里。
-
-获取完的keys，添加至.bashrc或.zshrc环境配置文件中(取决于你用的shell是哪种类型)
-
-```
-export 'BEARER_TOKEN'='$YOUR_BEARER'
-export 'API_KEY'='$your_api_key'
-export 'API_SECRET'='$your_api_secret'
-export 'ACCESS_TOKEN'='$your_access_token'
-export 'ACCESS_TOKEN_SECRET'='$your_access_token_secret'
+# Install dependencies
+npm install
 ```
 
-source ~/.bashrc 
+### Development Commands
 
-⬆️加载配置文件
+```bash
+# Start development server (with Turbopack)
+npm run dev
 
+# Build for production
+npm run build
 
+# Start production server
+npm run start
 
-**运行**
-
+# Run linting
+npm run lint
 ```
-python3 twitter_new.py
-```
 
-- 输入文本后，ESC+Enter下一步
+## Architecture Features
 
-- 插入图片，需绝对路径（可选）
+- **Client-side Rendering Pattern** - Modern React patterns with `"use client"` directives
+- **Modular Component Structure** - Following shadcn/ui conventions with `@/components/ui/` imports
+- **Automated Resource Management** - Three.js components handle cleanup and animation loops
+- **Responsive Design** - Adaptive layouts using Tailwind utilities
+- **Full Type Support** - Comprehensive TypeScript type definitions
 
-- 继续ESC+Enter结束
+## Project Highlights
 
-  
+### Globe Projects
+- Optimized real-time 3D rendering performance
+- Custom shaders for unique visual effects
+- Smooth user interaction experience
 
-![](https://p.ipic.vip/a0r0x6.png)
+### NextJS Testing Project
+- Component-based design system
+- Multiple data source integrations (RSS, Twitter API)
+- Rich animations and transitions
+- Experimental UI pattern exploration
 
-![](https://p.ipic.vip/t17eoa.png)
+## License
 
-deactivate退出虚拟环境
+MIT
 
+## Author
 
-
-### 可能出现的问题
-
-- apikeys在生成时一般只会出现一次。请自己备份好
-- 提示权限不足只能读取有限endpoint，说明没有设置为**可读并可写**
-- 依赖库建议安装在虚拟环境中。如果是全剧环境可能会报危
-- 其他请进行issues提交
+Yanfeng Wu
