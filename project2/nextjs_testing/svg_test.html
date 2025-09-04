@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG 小方块动画测试</title>
+    <style>
+        body {
+            display: flex; /* 使用 Flexbox 布局 */
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            min-height: 100vh; /* 保证 body 至少占满视口高度 */
+            background-color: black; /* 浅灰色背景 */
+            margin: 0; /* 移除默认外边距 */
+            overflow: hidden; /* 防止滚动条出现 */
+        }
+
+        /* 这是你的 SVG 容器的样式，可以调整整体大小 */
+        #loading-animation {
+            width: 100px; /* SVG 整体宽度 */
+            height: 100px; /* SVG 整体高度 */
+            border: 1px dashed #ccc; /* 方便你看到 SVG 的边界 */
+        }
+
+        /* 针对 SVG 中小方块的动画样式 */
+        /* 假设你的小方块在 Figma 中被命名为 'my-square'，导出后会有 id="my-square" */
+        #my-square {
+            /* 确保变换的原点是元素的中心，这样它会围绕自身中心跳动 */
+            transform-origin: center center; 
+            /* 应用动画 */
+            animation: bounce 1.2s ease-in-out infinite alternate; /* 1.2秒，缓入缓出，无限循环，来回播放 */
+        }
+
+        /* 定义 'bounce' 动画的关键帧 */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0); /* 起始状态：不位移 */
+            }
+            50% {
+                transform: translateY(-20px); /* 动画进行到一半：向上位移 20px */
+            }
+            100% {
+                transform: translateY(0); /* 结束状态：回到原位 */
+            }
+        }
+
+        /* 你也可以试试旋转动画，注释掉上面的 bounce 动画，启用下面的代码 */
+        /*
+        #my-square {
+            transform-origin: center center;
+            animation: rotateSquare 2s linear infinite;
+        }
+
+        @keyframes rotateSquare {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        */
+
+    </style>
+</head>
+<body>
+
+    <!-- 在这里粘贴你的 SVG 代码 -->
+    <!-- 我这里提供一个简单的 SVG 小方块作为示例，你可以替换成你的 Figma 导出代码 -->
+    <svg id="loading-animation" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 你的小方块，id="my-square" 是关键 -->
+        <rect id="my-square" x="25" y="25" width="50" height="50" rx="10" fill="#4285F4"/> 
+        <!-- 如果你的 SVG 有其他部分，它们会在这里，但不会被 #my-square 的动画影响 -->
+    </svg>
+    <svg src="../nextjs_testing/public/svg_pic/start_button.svg"></svg>
+
+</body>
+</html>
+
