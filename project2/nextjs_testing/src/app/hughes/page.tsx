@@ -5,6 +5,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import MonochromeRain from '@/components/MonochromeRain';
+import { X } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -28,6 +29,7 @@ export default function Hughes() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
 
   const fetchMessages = async () => {
     try {
@@ -174,36 +176,71 @@ export default function Hughes() {
                 {loading ? (
                   <div className="text-center text-gray-400">loading...</div>
                 ) : selectedMonth && groupedMessages[selectedMonth] ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[calc(100vh-350px)]">
-                    {groupedMessages[selectedMonth].messages.map((message) => (
-                      <Card key={message.id} className="backdrop-blur-sm bg-white/5 border-white/10 hover:bg-white/10 transition-colors rounded-none">
-                        <CardHeader className="pb-3">
-                          <div className="flex items-start justify-between">
-                            <div className="text-2xl font-bold text-white/60">
-                              {formatDate(message.date)}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[calc(100vh-350px)] relative">
+                    {groupedMessages[selectedMonth].messages.map((message) => {
+                      const isExpanded = selectedMessage?.id === message.id;
+                      return (
+                        <React.Fragment key={message.id}>
+                          <Card 
+                            className={`backdrop-blur-sm bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 rounded-none cursor-pointer flex flex-col
+                              ${isExpanded ? 'opacity-0' : ''}
+                            `}
+                            onClick={() => setSelectedMessage(message)}
+                          >
+                            <CardHeader className="pb-3">
+                              <div className="flex items-start justify-between">
+                                <div className="text-2xl font-bold text-white/60">
+                                  {formatDate(message.date)}
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  {message.timestamp?.split(' ')[1] || ''}
+                                </div>
+                              </div>
+                              <CardTitle className="text-sm font-medium text-white/80 mt-2">
+                                {message.title}
+                              </CardTitle>
+                            </CardHeader>
+                          </Card>
+                          
+                          {/* 展开的覆盖层 */}
+                          {isExpanded && (
+                            <div 
+                              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm text-card-foreground gap-6 border py-6 shadow-sm flex-1 border-white/10 rounded-none"
+                              onClick={() => setSelectedMessage(null)}
+                            >
+                              <Card 
+                                className="w-[100%] max-w-4xl h-[100%] backdrop-blur-md bg-white/10 border-white/20 rounded-none overflow-hidden flex flex-col"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <CardHeader className="pb-3 border-b border-white/10">
+                                  <div className="flex items-start justify-between">
+                                    <div>
+                                      <div className="text-3xl font-bold text-white/80 mb-2">
+                                        {formatDate(message.date)}
+                                      </div>
+                                      <CardTitle className="text-xl font-medium text-white/90">
+                                        {message.title}
+                                      </CardTitle>
+                                    </div>
+                                    <button 
+                                      onClick={() => setSelectedMessage(null)}
+                                      className="text-white/60 hover:text-white/90 text-2xl"
+                                    >
+                                      <X />
+                                    </button>
+                                  </div>
+                                </CardHeader>
+                                <CardContent className="flex-1 overflow-y-auto p-6">
+                                  <div className="text-base text-white/80 whitespace-pre-line">
+                                    {message.content || '(空)'}
+                                  </div>
+                                </CardContent>
+                              </Card>
                             </div>
-                            <div className="text-xs text-gray-500">
-                              {message.timestamp?.split(' ')[1] || ''}
-                            </div>
-                          </div>
-                          <CardTitle className="text-sm font-medium text-white/80 mt-2">
-                            {message.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <Accordion type="single" collapsible>
-                            <AccordionItem value="content" className="border-0">
-                              <AccordionTrigger className="text-xs text-gray-400 hover:text-white/60 py-1">
-                                查看内容
-                              </AccordionTrigger>
-                              <AccordionContent className="text-sm text-white/70 whitespace-pre-line pt-2">
-                                {message.content || '(空)'}
-                              </AccordionContent>
-                            </AccordionItem>
-                          </Accordion>
-                        </CardContent>
-                      </Card>
-                    ))}
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center text-gray-400">
