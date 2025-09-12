@@ -160,11 +160,12 @@ export default function TwTestingPageStrict() {
             >
               <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
                 <CardHeader> {/* Reduced padding */}
-                  <CardTitle className="font-mono text-4xl text-center">STATS</CardTitle> {/* Slightly smaller title */}
+                  <CardTitle className="font-mono text-4xl text-center">Happy 23 Birthday.</CardTitle> {/* Slightly smaller title */}
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-sm text-center"> {/* Standard description size */}
-                  If my world were tearing apart <br /> at least I'm the one in charge.
+                  {/* If my world were tearing apart <br /> at least I'm the one in charge. */}
+                  At least im doin it.
                   </CardDescription>
                 </CardContent>
               </Card>

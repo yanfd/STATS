@@ -45,3 +45,28 @@ Component library and UI experimentation:
 - Three.js components handle their own cleanup and animation loops
 - Responsive design patterns with Tailwind utilities
 - TypeScript throughout with proper type definitions
+
+## Conversation History & Context
+
+### Session: 2025-09-11
+
+**Morning Session**
+- User greeted and asked about Claude CLI memory storage methods
+- Explained that Claude CLI doesn't persist memory between sessions
+- Suggested common approaches: CLAUDE.md, command history, manual exports, Git commits
+- User requested to update CLAUDE.md to save conversation records
+
+**Key Decisions & Changes:**
+- Added this Conversation History section to track important interactions
+- Will maintain ongoing record of significant code changes and decisions
+
+### Ongoing Tasks & Notes
+
+**Current Focus Areas:**
+- Hughes page development (user opened hughes/page.tsx and hughes_routes.py)
+- Testing FastAPI integration (user opened test.py)
+
+**Important Context to Remember:**
+- User prefers concise responses
+- User is working on multiple Next.js projects with FastAPI backend
+- Repository contains experimental UI components and 3D visualizations
