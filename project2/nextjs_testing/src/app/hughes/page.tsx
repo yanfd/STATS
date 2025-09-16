@@ -233,7 +233,7 @@ export default function Hughes() {
                                 </CardHeader>
                                 <CardContent className="flex-1 overflow-y-auto p-6">
                                   <div className="text-base text-white/80 whitespace-pre-line">
-                                    {message.content || '(空)'}
+                                    <ReactMarkdown>{message.content || '(空)'}</ReactMarkdown>
                                   </div>
                                 </CardContent>
                               </Card>
