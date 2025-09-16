@@ -8,7 +8,8 @@ import MonochromeRain from '@/components/MonochromeRain';
 import { X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import YanfdAnimation from '@/components/ui/loading';
 interface Message {
   id: number;
   date: string;
@@ -137,7 +138,10 @@ export default function Hughes() {
               </CardHeader>
               <CardContent className="p-0">
                 {loading ? (
-                  <div className="text-center p-4 text-gray-400">loading...</div>
+                  //<div className="text-center p-4 text-gray-400">loading...</div>
+                  <div className='flex justify-center items-center h-64 md:h-[calc(100vh-350px)]'>
+                    <img src='/water_loading.gif' alt='loading...' className='w-16 h-16 mx-auto'/>
+                  </div>
                 ) : (
                   <div className="overflow-y-auto h-auto md:h-[calc(100vh-200px)] ">
                     {Object.entries(groupedMessages)
@@ -176,7 +180,9 @@ export default function Hughes() {
               </CardHeader>
               <CardContent>
                 {loading ? (
-                  <div className="text-center text-gray-400">loading...</div>
+                  <div className='flex justify-center items-center h-64 md:h-[calc(100vh-350px)]'>
+                    <img src='/water_loading.gif' alt='loading...' className='w-32 h-32'/>
+                  </div>
                 ) : selectedMonth && groupedMessages[selectedMonth] ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 overflow-y-auto h-auto md:h-[calc(100vh-200px)] relative">
                     {groupedMessages[selectedMonth].messages.map((message) => {
