@@ -108,7 +108,7 @@ export default function Hughes() {
     <div className="dark min-h-screen text-foreground relative overflow-hidden bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]">
       <MonochromeRain />
       
-      <div className="relative z-10 min-h-screen p-8">
+      <div className="relative z-10 min-h-screen p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -128,9 +128,9 @@ export default function Hughes() {
           )}
 
           {/* Main Content */}
-          <div className="flex gap-6 h-[calc(100vh-200px)] rounded-none">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 h-auto md:h-[calc(100vh-200px)] rounded-none">
             {/* Left Panel - Month List */}
-            <Card className="w-64 backdrop-blur-sm bg-white/5 border-white/10 rounded-none">
+            <Card className="w-full md:w-64 backdrop-blur-sm bg-white/5 border-white/10 rounded-none">
               <CardHeader>
                 <CardTitle className="text-white/80">月份</CardTitle>
               </CardHeader>
@@ -138,7 +138,7 @@ export default function Hughes() {
                 {loading ? (
                   <div className="text-center p-4 text-gray-400">loading...</div>
                 ) : (
-                  <div className="overflow-y-auto max-h-[calc(100vh-300px)] ">
+                  <div className="overflow-y-auto h-auto md:h-[calc(100vh-200px)] ">
                     {Object.entries(groupedMessages)
                       .sort((a, b) => b[0].localeCompare(a[0]))
                       .map(([key, group]) => (
@@ -177,7 +177,7 @@ export default function Hughes() {
                 {loading ? (
                   <div className="text-center text-gray-400">loading...</div>
                 ) : selectedMonth && groupedMessages[selectedMonth] ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto max-h-[calc(100vh-350px)] relative">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 overflow-y-auto h-auto md:h-[calc(100vh-200px)] relative">
                     {groupedMessages[selectedMonth].messages.map((message) => {
                       const isExpanded = selectedMessage?.id === message.id;
                       return (
