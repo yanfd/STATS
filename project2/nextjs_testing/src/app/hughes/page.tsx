@@ -182,7 +182,7 @@ export default function Hughes() {
                     <img src='/water_loading.gif' alt='loading...' className='w-32 h-32'/>
                   </div>
                 ) : selectedMonth && groupedMessages[selectedMonth] ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 overflow-y-auto h-auto md:h-[calc(100vh-200px)] relative">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 overflow-y-auto h-auto md:h-[calc(100vh-280px)] relative">
                     {groupedMessages[selectedMonth].messages.map((message) => {
                       const isExpanded = selectedMessage?.id === message.id;
                       return (
@@ -211,11 +211,11 @@ export default function Hughes() {
                           {/* 展开的覆盖层 */}
                           {isExpanded && (
                             <div 
-                              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm text-card-foreground gap-6 border py-6 shadow-sm flex-1 border-white/10 rounded-none"
+                              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm text-card-foreground gap-6 border py-6 shadow-sm flex-1 border-white/10 rounded-none p-4"
                               onClick={() => setSelectedMessage(null)}
                             >
                               <Card 
-                                className="w-[100%] max-w-4xl h-[100%] backdrop-blur-md bg-white/10 border-white/20 rounded-none overflow-hidden flex flex-col"
+                                className="w-[90%] max-w-4xl h-[90%] max-h-[90vh] backdrop-blur-md bg-white/10 border-white/20 rounded-none overflow-hidden flex flex-col"
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 <CardHeader className="pb-3 border-b border-white/10">
