@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import MonochromeRain from '@/components/MonochromeRain';
 import { X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import YanfdAnimation from '@/components/ui/loading';
 interface Message {
   id: number;
