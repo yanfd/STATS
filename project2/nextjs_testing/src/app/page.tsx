@@ -45,6 +45,8 @@ export default function TwTestingPageStrict() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const imageUrl = 'https://cdn-icons-png.flaticon.com/512/124/124021.png';
+
   const handleShowQuiz = () => {
     setShowQuiz(true);
   };
@@ -107,6 +109,44 @@ export default function TwTestingPageStrict() {
                 </Link>
               </CardFooter>
             </Card>
+
+            {/* quick navigation */}
+            <div className='flex justify-around w-full'> {/* 建议使用 w-full 确保占据全部可用宽度 */}
+            <a href='https://x.com/home' className="flex-1 mx-2 ">
+                <Card className="h-20 bg-gradient-to-br from-blue-400 to-grey-800 rounded-md border-0 shadow-none">
+                    <CardContent className="w-full h-full flex items-center justify-center p-0"> {/* 确保内容居中 */}
+                      <img src="source/twitter.png" alt="X" className="h-full w-auto object-contain" />
+                    </CardContent>
+                </Card>
+            </a>
+            <a href='https://www.youtube.com' className="flex-1 mx-2">
+                <Card className="h-20 bg-gradient-to-br from-red-800 to-grey-800 rounded-md border-0 shadow-none">
+                    <CardContent className="w-full h-full flex items-center justify-center p-0">
+                        {/* <span className="text-2xl font-mono align-middle"></span> */}
+                        <img src="source/ytb.png" alt="YTB" className="h-full w-auto object-contain" />
+                    </CardContent>
+                </Card>
+            </a>
+            <a href='https://github.com/yanfd' className="flex-1 mx-2">
+                <Card className="h-20 bg-gradient-to-br from-white to-black rounded-md border-0 shadow-none">
+                    <CardContent className="w-full h-full flex items-center justify-center p-0">
+                        <img src="source/github.png" alt="github" className="h-full w-auto object-contain" />
+                    </CardContent>
+                </Card>
+            </a>
+            </div>
+            {/* <div className='flex justify-around w-full'> 
+              <Link href={'https://x.com/home'} target="_blank" rel="noopener noreferrer" className="flex-1"> 
+              <Button className="">button1</Button>
+              </Link>
+              
+              <Link href={'https://x.com/home'} target="_blank" rel="noopener noreferrer" className="flex-1"> 
+              <Button className="">button1</Button>
+              </Link>
+              <Link href={'https://x.com/home'} target="_blank" rel="noopener noreferrer" className="flex-1"> 
+              <Button className="">button1</Button>
+              </Link>
+            </div> */}
 
             {/* Accordion - Uses bg-card for items */}
             <Accordion type="single" collapsible className="w-full">
