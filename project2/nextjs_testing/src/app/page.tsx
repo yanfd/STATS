@@ -258,7 +258,7 @@ export default function TwTestingPageStrict() {
                  </div>
                  <div>
                      <p className="text-xl font-bold">78</p> {/* Adjusted size */}
-                     <p className="text-xs text-muted-foreground">TIMES</p>
+                     <p className="text-xs text-muted-foreground">TIMES(XD)</p>
                  </div>
               </CardContent>
             </Card>
