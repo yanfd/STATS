@@ -129,7 +129,7 @@ type MyProps ={
     onClick: () => void;
 }
 
-export const MyButton = ({ count, onClick }: MyProps) => {
+const MyButton = ({ count, onClick }: MyProps) => {
     return (
         <button onClick={onClick}>
             clicked {count}times.

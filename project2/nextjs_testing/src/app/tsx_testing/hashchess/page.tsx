@@ -70,6 +70,12 @@ export default function TerminalBrowser() {
   const [selectedItem, setSelectedItem] = useState<FileItem | null>(null)
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['1', '2']))
   const containerRef = useRef<HTMLDivElement>(null)
+  const [windowHeight, setWindowHeight] = useState(0)
+
+  // Set window height on client side only
+  React.useEffect(() => {
+    setWindowHeight(window.innerHeight)
+  }, [])
 
   // Track scroll progress - monitor the container's scroll position
   const { scrollY } = useScroll({
@@ -77,13 +83,13 @@ export default function TerminalBrowser() {
   })
 
   // Transform scroll to opacity (fade out completely by 50vh)
-  const textOpacity = useTransform(scrollY, [0, window.innerHeight * 0.5], [1, 0])
+  const textOpacity = useTransform(scrollY, [0, windowHeight * 0.5], [1, 0])
 
   // Transform for left text (slides up and out)
-  const leftY = useTransform(scrollY, [0, window.innerHeight * 0.5], [0, -150])
+  const leftY = useTransform(scrollY, [0, windowHeight * 0.5], [0, -150])
 
   // Transform for right text (slides down and out)
-  const rightY = useTransform(scrollY, [0, window.innerHeight * 0.5], [0, 150])
+  const rightY = useTransform(scrollY, [0, windowHeight * 0.5], [0, 150])
 
   const toggleFolder = (folderId: string) => {
     setExpandedFolders(prev => {
