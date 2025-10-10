@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 interface FileItem {
   id: string
@@ -42,60 +42,16 @@ const recentFiles = [
   { id: '3', name: 'README.md', path: 'README.md', modified: '3 days ago' },
 ]
 
-// Section wrapper component with vertical text animations
+// Section wrapper component without text animations
 function ScrollSection({
-  leftText,
-  rightText,
   children,
   bgColor
 }: {
-  leftText: string
-  rightText: string
   children: React.ReactNode
   bgColor: string
 }) {
   return (
     <section className={`relative h-screen snap-start ${bgColor} overflow-hidden`}>
-      {/* Left side text - slides up from bottom */}
-      <motion.div
-        className="fixed left-8 top-0 h-screen flex items-end pointer-events-none z-10"
-        initial={{ y: 100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        exit={{ y: -100, opacity: 0 }}
-        transition={{
-          duration: 0.8,
-          ease: [0.25, 0.1, 0.25, 1.0]
-        }}
-        viewport={{ once: false, amount: 0.3 }}
-      >
-        <p
-          className="text-sm tracking-widest text-gray-500 font-mono pb-20"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          {leftText}
-        </p>
-      </motion.div>
-
-      {/* Right side text - slides down from top */}
-      <motion.div
-        className="fixed right-8 top-0 h-screen flex items-start pointer-events-none z-10"
-        initial={{ y: -100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        exit={{ y: 100, opacity: 0 }}
-        transition={{
-          duration: 0.8,
-          ease: [0.25, 0.1, 0.25, 1.0]
-        }}
-        viewport={{ once: false, amount: 0.3 }}
-      >
-        <p
-          className="text-sm tracking-widest text-gray-500 font-mono pt-20"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          {rightText}
-        </p>
-      </motion.div>
-
       {/* Main content */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -113,6 +69,21 @@ function ScrollSection({
 export default function TerminalBrowser() {
   const [selectedItem, setSelectedItem] = useState<FileItem | null>(null)
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['1', '2']))
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Track scroll progress - monitor the container's scroll position
+  const { scrollY } = useScroll({
+    container: containerRef
+  })
+
+  // Transform scroll to opacity (fade out completely by 50vh)
+  const textOpacity = useTransform(scrollY, [0, window.innerHeight * 0.5], [1, 0])
+
+  // Transform for left text (slides up and out)
+  const leftY = useTransform(scrollY, [0, window.innerHeight * 0.5], [0, -150])
+
+  // Transform for right text (slides down and out)
+  const rightY = useTransform(scrollY, [0, window.innerHeight * 0.5], [0, 150])
 
   const toggleFolder = (folderId: string) => {
     setExpandedFolders(prev => {
@@ -256,11 +227,57 @@ export default function TerminalBrowser() {
   )
 
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
+    <div ref={containerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
+      {/* Fixed vertical text - only visible on first page */}
+      <motion.div
+        className="fixed left-0 top-0 h-screen w-1/5 flex items-end justify-center pointer-events-none z-10"
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+          ease: [0.25, 0.1, 0.25, 1.0]
+        }}
+        style={{
+          opacity: textOpacity,
+          y: leftY
+        }}
+      >
+        <p
+          className="text-8xl font-bold tracking-wider text-transparent pb-20"
+          style={{
+            writingMode: 'vertical-rl',
+            WebkitTextStroke: '2px rgba(156, 163, 175, 0.5)'
+          }}
+        >
+          TERMINAL
+        </p>
+      </motion.div>
+
+      <motion.div
+        className="fixed right-0 top-0 h-screen w-1/5 flex items-start justify-center pointer-events-none z-10"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+          ease: [0.25, 0.1, 0.25, 1.0]
+        }}
+        style={{
+          opacity: textOpacity,
+          y: rightY
+        }}
+      >
+        <p
+          className="text-8xl font-bold tracking-wider text-gray-400 pt-20"
+          style={{ writingMode: 'vertical-rl' }}
+        >
+          BROWSER
+        </p>
+      </motion.div>
+
       {/* Section 1 - Welcome */}
       <ScrollSection
-        leftText="TERMINAL"
-        rightText="BROWSER"
         bgColor="bg-gradient-to-br from-black via-gray-900 to-black"
       >
         <div className="h-full flex items-center justify-center px-20">
@@ -271,7 +288,7 @@ export default function TerminalBrowser() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              HASHCHESS
+              YANFD PRODUCTS
             </motion.h1>
             <motion.p
               className="text-xl text-gray-400 font-mono"
@@ -295,8 +312,6 @@ export default function TerminalBrowser() {
 
       {/* Section 2 - File Browser */}
       <ScrollSection
-        leftText="EXPLORE FILES"
-        rightText="NAVIGATION"
         bgColor="bg-gray-900"
       >
         <TerminalContent />
@@ -304,8 +319,6 @@ export default function TerminalBrowser() {
 
       {/* Section 3 - Info */}
       <ScrollSection
-        leftText="FEATURES"
-        rightText="DETAILS"
         bgColor="bg-gradient-to-br from-gray-900 via-black to-gray-900"
       >
         <div className="h-full flex items-center justify-center px-20">
