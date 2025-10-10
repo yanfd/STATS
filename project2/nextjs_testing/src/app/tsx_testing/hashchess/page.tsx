@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 
 interface FileItem {
   id: string
@@ -40,6 +41,74 @@ const recentFiles = [
   { id: '2-1', name: 'Button.tsx', path: 'components/Button.tsx', modified: '1 day ago' },
   { id: '3', name: 'README.md', path: 'README.md', modified: '3 days ago' },
 ]
+
+// Section wrapper component with vertical text animations
+function ScrollSection({
+  leftText,
+  rightText,
+  children,
+  bgColor
+}: {
+  leftText: string
+  rightText: string
+  children: React.ReactNode
+  bgColor: string
+}) {
+  return (
+    <section className={`relative h-screen snap-start ${bgColor} overflow-hidden`}>
+      {/* Left side text - slides up from bottom */}
+      <motion.div
+        className="fixed left-8 top-0 h-screen flex items-end pointer-events-none z-10"
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        exit={{ y: -100, opacity: 0 }}
+        transition={{
+          duration: 0.8,
+          ease: [0.25, 0.1, 0.25, 1.0]
+        }}
+        viewport={{ once: false, amount: 0.3 }}
+      >
+        <p
+          className="text-sm tracking-widest text-gray-500 font-mono pb-20"
+          style={{ writingMode: 'vertical-rl' }}
+        >
+          {leftText}
+        </p>
+      </motion.div>
+
+      {/* Right side text - slides down from top */}
+      <motion.div
+        className="fixed right-8 top-0 h-screen flex items-start pointer-events-none z-10"
+        initial={{ y: -100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        exit={{ y: 100, opacity: 0 }}
+        transition={{
+          duration: 0.8,
+          ease: [0.25, 0.1, 0.25, 1.0]
+        }}
+        viewport={{ once: false, amount: 0.3 }}
+      >
+        <p
+          className="text-sm tracking-widest text-gray-500 font-mono pt-20"
+          style={{ writingMode: 'vertical-rl' }}
+        >
+          {rightText}
+        </p>
+      </motion.div>
+
+      {/* Main content */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: false, amount: 0.3 }}
+        className="h-full"
+      >
+        {children}
+      </motion.div>
+    </section>
+  )
+}
 
 export default function TerminalBrowser() {
   const [selectedItem, setSelectedItem] = useState<FileItem | null>(null)
@@ -98,8 +167,9 @@ export default function TerminalBrowser() {
     ))
   }
 
-  return (
-    <div className="h-screen bg-gray-900 text-gray-100 font-mono text-sm flex">
+  // Terminal Browser Component
+  const TerminalContent = () => (
+    <div className="h-full bg-gray-900 text-gray-100 font-mono text-sm flex">
       {/* Left Side - Two Sections */}
       <div className="w-1/2 flex flex-col border-r border-gray-700">
         {/* Top Section - File Tree */}
@@ -111,7 +181,7 @@ export default function TerminalBrowser() {
             {renderFileTree(mockFiles)}
           </div>
         </div>
-        
+
         {/* Bottom Section - Recent Files */}
         <div className="h-1/3 overflow-y-auto">
           <div className="bg-gray-800 px-3 py-2 border-b border-gray-700 text-xs text-gray-400 uppercase">
@@ -151,7 +221,7 @@ export default function TerminalBrowser() {
             )}
           </div>
         </div>
-        
+
         <div className="flex-1 p-4 overflow-y-auto">
           {selectedItem ? (
             <div>
@@ -182,6 +252,98 @@ export default function TerminalBrowser() {
           )}
         </div>
       </div>
+    </div>
+  )
+
+  return (
+    <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
+      {/* Section 1 - Welcome */}
+      <ScrollSection
+        leftText="TERMINAL"
+        rightText="BROWSER"
+        bgColor="bg-gradient-to-br from-black via-gray-900 to-black"
+      >
+        <div className="h-full flex items-center justify-center px-20">
+          <div className="text-center">
+            <motion.h1
+              className="text-7xl font-bold text-white mb-6 font-mono"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              HASHCHESS
+            </motion.h1>
+            <motion.p
+              className="text-xl text-gray-400 font-mono"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              Terminal-style file browser built with React
+            </motion.p>
+            <motion.div
+              className="mt-8 text-gray-600 text-sm"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              Scroll down to explore ↓
+            </motion.div>
+          </div>
+        </div>
+      </ScrollSection>
+
+      {/* Section 2 - File Browser */}
+      <ScrollSection
+        leftText="EXPLORE FILES"
+        rightText="NAVIGATION"
+        bgColor="bg-gray-900"
+      >
+        <TerminalContent />
+      </ScrollSection>
+
+      {/* Section 3 - Info */}
+      <ScrollSection
+        leftText="FEATURES"
+        rightText="DETAILS"
+        bgColor="bg-gradient-to-br from-gray-900 via-black to-gray-900"
+      >
+        <div className="h-full flex items-center justify-center px-20">
+          <div className="max-w-4xl">
+            <motion.h2
+              className="text-5xl font-bold text-white mb-8 font-mono"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Key Features
+            </motion.h2>
+            <motion.div
+              className="grid grid-cols-2 gap-6 text-gray-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+                <h3 className="text-xl font-bold text-blue-400 mb-2">File Tree</h3>
+                <p className="text-sm">Navigate through folders and files with an intuitive tree structure</p>
+              </div>
+              <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+                <h3 className="text-xl font-bold text-blue-400 mb-2">Recent Files</h3>
+                <p className="text-sm">Quick access to your recently opened files</p>
+              </div>
+              <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+                <h3 className="text-xl font-bold text-blue-400 mb-2">Code Preview</h3>
+                <p className="text-sm">View file contents with syntax highlighting</p>
+              </div>
+              <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+                <h3 className="text-xl font-bold text-blue-400 mb-2">Terminal Style</h3>
+                <p className="text-sm">Classic terminal aesthetic with modern functionality</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </ScrollSection>
     </div>
   )
 }
