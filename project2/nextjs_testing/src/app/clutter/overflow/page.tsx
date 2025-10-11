@@ -256,7 +256,7 @@ export default function TerminalBrowser() {
             WebkitTextStroke: '2px rgba(156, 163, 175, 0.5)'
           }}
         >
-          TERMINAL
+          YANFD
         </p>
       </motion.div>
 
@@ -278,7 +278,7 @@ export default function TerminalBrowser() {
           className="text-8xl font-bold tracking-wider text-gray-400 pt-20"
           style={{ writingMode: 'vertical-rl' }}
         >
-          BROWSER
+            PRODUCTS
         </p>
       </motion.div>
 
