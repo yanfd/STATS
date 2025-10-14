@@ -357,13 +357,6 @@ export default function TwTestingPageStrict() {
         {/* Fixed vertical text - visible on second page */}
         <motion.div
           className="fixed left-0 top-0 h-screen w-1/5 flex items-end justify-center pointer-events-none z-10"
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.2,
-            ease: [0.25, 0.1, 0.25, 1.0]
-          }}
           style={{
             opacity: textOpacity,
             y: leftY
@@ -382,13 +375,6 @@ export default function TwTestingPageStrict() {
 
         <motion.div
           className="fixed right-0 top-0 h-screen w-1/5 flex items-start justify-center pointer-events-none z-10"
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.2,
-            ease: [0.25, 0.1, 0.25, 1.0]
-          }}
           style={{
             opacity: textOpacity,
             y: rightY
