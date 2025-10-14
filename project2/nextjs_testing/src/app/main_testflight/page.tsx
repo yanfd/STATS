@@ -97,11 +97,19 @@ export default function TwTestingPageStrict() {
     [0, 1, 1, 0]
   );
 
-  // Transform for left text (slides up and out)
-  const leftY = useTransform(scrollY, [windowHeight, windowHeight * 1.5], [0, -150]);
+  // Transform for left text (slides from bottom to top)
+  const leftY = useTransform(
+    scrollY,
+    [windowHeight * 0.5, windowHeight, windowHeight * 2, windowHeight * 2.5],
+    [300, 0, 0, -300]
+  );
 
-  // Transform for right text (slides down and out)
-  const rightY = useTransform(scrollY, [windowHeight, windowHeight * 1.5], [0, 150]);
+  // Transform for right text (slides from top to bottom)
+  const rightY = useTransform(
+    scrollY,
+    [windowHeight * 0.5, windowHeight, windowHeight * 2, windowHeight * 2.5],
+    [-300, 0, 0, 300]
+  );
 
   // Page 1 Content - Original MainCard page
   const Page1Content = () => (
@@ -362,10 +370,10 @@ export default function TwTestingPageStrict() {
           }}
         >
           <p
-            className="text-8xl font-bold tracking-wider text-transparent pb-20"
+            className="text-[12rem] font-bold tracking-wider text-transparent pb-20"
             style={{
               writingMode: 'vertical-rl',
-              WebkitTextStroke: '2px rgba(156, 163, 175, 0.5)'
+              WebkitTextStroke: '3px rgba(156, 163, 175, 0.5)'
             }}
           >
             YANFD
@@ -387,7 +395,7 @@ export default function TwTestingPageStrict() {
           }}
         >
           <p
-            className="text-8xl font-bold tracking-wider text-gray-400 pt-20"
+            className="text-[12rem] font-bold tracking-wider text-gray-400 pt-20"
             style={{ writingMode: 'vertical-rl' }}
           >
             TECH
