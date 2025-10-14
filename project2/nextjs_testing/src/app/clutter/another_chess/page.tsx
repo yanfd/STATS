@@ -31,6 +31,7 @@ function Square() {
 // 当你单击它的时候，Square 组件需要显示“X”。
 // 在 Square 内部声明一个名为 handleClick 的函数。然后，将 onClick 添加到由 Square 返回的 JSX 元素的 button 的 props 中：
 export default function board() {
+    const  [squares,setSquares] = useState(Array(9).fill(null));
     
 
   return (
