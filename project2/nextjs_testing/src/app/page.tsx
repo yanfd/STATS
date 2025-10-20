@@ -180,7 +180,7 @@ export default function TwTestingPageStrict() {
               </div>
 
               {/* Accordion - Uses bg-card for items */}
-              <Accordion type="single" collapsible className="w-full">
+              {/* <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                   <AccordionTrigger>WORKING ON</AccordionTrigger>
                   <AccordionContent>
@@ -200,7 +200,7 @@ export default function TwTestingPageStrict() {
                   <AccordionTrigger>WHAT U WANT?</AccordionTrigger>
                   <AccordionContent>escape.</AccordionContent>
                 </AccordionItem>
-              </Accordion>
+              </Accordion> */}
             </div>
 
             {/* --- Center Column - Apply flex to control vertical space --- */}

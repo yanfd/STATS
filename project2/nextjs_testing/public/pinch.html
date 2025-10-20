@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>本地多图拼接｜Local Photo Stitcher</title>
+  <style>
+    :root {
+      --bg: #f0f0f3;          /* 灰色背景 */
+      --panel: #ffffff;
+      --ink: #111;
+      --muted: #666;
+      --brand: #0f62fe;
+      --danger: #e03e3e;
+      --ok: #12a150;
+      --radius: 14px;
+      --gap: 12px;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, PingFang SC, "Noto Sans CJK", "Microsoft YaHei", sans-serif;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    header { display: flex; gap: var(--gap); flex-wrap: wrap; align-items: center; justify-content: space-between; }
+    header .title { font-size: 20px; font-weight: 700; }
+
+    .panel { background: var(--panel); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,.06); padding: 12px; }
+
+    .controls { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
+    @media (min-width: 720px) {
+      .controls { grid-template-columns: 1fr auto auto auto; align-items: end; }
+    }
+
+    .row-actions, .global-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    label { font-size: 13px; color: var(--muted); }
+    select, button, input[type="file"], .mode { border: 1px solid #ddd; background: #fff; border-radius: 10px; padding: 8px 10px; font-size: 14px; }
+    button { cursor: pointer; }
+    button.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
+    button.ghost { background: #fff; color: var(--ink); }
+    button.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+
+    .uploader { border: 2px dashed #bbb; border-radius: var(--radius); padding: 18px; text-align: center; color: var(--muted); }
+    .uploader.dragover { background: #fafafa; border-color: var(--brand); color: var(--brand); }
+
+    .board { display: grid; gap: var(--gap); }
+
+    .line { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 10px; display: grid; gap: 10px; }
+    .line-header { display: flex; align-items: center; justify-content: space-between; }
+    .line-header .badge { font-size: 12px; color: #fff; background: #a0a0a0; border-radius: 999px; padding: 2px 8px; }
+    .items { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+
+    .item { user-select: none; background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; padding: 8px; display: grid; gap: 6px; cursor: grab; }
+    .item.dragging { opacity: .45; }
+    .item .fn { font-size: 12px; color: var(--muted); word-break: break-all; }
+    .item .tag { font-size: 12px; background: #eef3ff; color: #1a47b8; padding: 2px 6px; border-radius: 8px; width: max-content; }
+
+    .result-wrap { display: grid; gap: 8px; justify-items: center; }
+    .result-wrap canvas, .result-wrap img { max-width: 100%; height: auto; background: #fff; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+    .hint { color: var(--muted); font-size: 13px; text-align: center; }
+
+    .progress { height: 10px; background: #e9edf7; border-radius: 999px; overflow: hidden; position: relative; }
+    .bar { height: 100%; width: 0%; background: linear-gradient(90deg, #7aa2ff, #2b6cff); transition: width .25s ease; }
+    .progress-text { text-align: center; font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+    .row-toolbar { display: flex; gap: 6px; }
+    .row-toolbar button { padding: 6px 8px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title">本地多图拼接（纯前端，无上传）</div>
+      <div style="font-size:12px;color:var(--muted)">拖拽/长按可排序与跨行移动 · 手机与电脑自适应</div>
+    </header>
+
+    <section class="panel controls" aria-label="全局控制">
+      <div>
+        <div class="uploader" id="dropzone">
+          <div style="font-weight:600">拖拽图片到此处，或点击选择文件</div>
+          <div style="font-size:12px">支持多选：PNG / JPG / JPEG / WebP / BMP / GIF（首帧）</div>
+          <input id="fileInput" type="file" accept="image/*" multiple style="margin-top:10px" />
+        </div>
+      </div>
+
+      <div class="mode">
+        <label for="modeSel">拼接模式：</label>
+        <select id="modeSel">
+          <option value="grid" selected>多行拼接（行内横拼 + 行间纵拼）</option>
+          <option value="row">单行横向拼接（统一到行内最大高度）</option>
+          <option value="col">单列纵向拼接（统一到列内最大宽度）</option>
+        </select>
+      </div>
+
+      <div class="row-actions">
+        <button id="addRowBtn" class="ghost" title="添加一行">+ 新增一行</button>
+        <button id="clearBtn" class="danger" title="清空所有行与文件">清空</button>
+      </div>
+
+      <div class="global-actions">
+        <button id="composeBtn" class="primary">开始拼接</button>
+        <button id="downloadBtn" class="ghost" disabled>下载PNG</button>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:12px" aria-label="排序画板">
+      <div style="margin-bottom:8px; font-size:13px; color:var(--muted)">初始以矩形显示文件名与序号；可拖动到其他行，系统自动重排并重编号（多文件行用 [行,列]，单文件行用 [行]）。</div>
+      <div id="board" class="board"></div>
+    </section>
+
+    <section class="panel" style="margin-top:12px" aria-label="进度与结果">
+      <div id="progressArea" style="display:none">
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="bar" id="bar"></div>
+        </div>
+        <div class="progress-text" id="progressText">准备开始拼接…</div>
+      </div>
+
+      <div class="result-wrap" id="resultWrap" style="display:none; margin-top:8px">
+        <canvas id="resultCanvas"></canvas>
+        <div class="hint">拼接完成 ✅ 长按或右键图片可保存；也可点击“下载PNG”。</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ---- 状态：二维数组 rows[rowIndex] = [{ file, url, name, img }]
+    const rows = [];
+    const boardEl = document.getElementById('board');
+    const addRowBtn = document.getElementById('addRowBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const composeBtn = document.getElementById('composeBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const modeSel = document.getElementById('modeSel');
+
+    const fileInput = document.getElementById('fileInput');
+    const dropzone = document.getElementById('dropzone');
+
+    const progressArea = document.getElementById('progressArea');
+    const bar = document.getElementById('bar');
+    const progressText = document.getElementById('progressText');
+    const resultWrap = document.getElementById('resultWrap');
+    const resultCanvas = document.getElementById('resultCanvas');
+
+    // 初始两行，方便用户拖拽
+    function initRows() {
+      if (rows.length === 0) { rows.push([]); rows.push([]); }
+      renderBoard();
+    }
+
+    // 文件导入
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault(); dropzone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+    function handleFiles(fileList) {
+      const files = Array.from(fileList).filter(f => /image\/(png|jpeg|jpg|webp|bmp|gif)/i.test(f.type) || /\.(png|jpe?g|webp|bmp|gif)$/i.test(f.name));
+      if (!files.length) return;
+      if (rows.length === 0) rows.push([]);
+      // 默认均匀分配到当前最后一行
+      const target = rows[rows.length-1];
+      files.forEach(file => {
+        const url = URL.createObjectURL(file);
+        const name = file.name;
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => { renderBoard(); };
+        img.src = url;
+        target.push({ file, url, name, img });
+      });
+      renderBoard();
+    }
+
+    // 渲染排序面板
+    function renderBoard() {
+      boardEl.innerHTML = '';
+      rows.forEach((line, rIdx) => {
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line';
+
+        // 行头部
+        const header = document.createElement('div');
+        header.className = 'line-header';
+        const left = document.createElement('div');
+        left.innerHTML = `<span class="badge">第 ${rIdx+1} 行</span>`;
+        const right = document.createElement('div');
+        right.className = 'row-toolbar';
+        const upBtn = document.createElement('button'); upBtn.textContent = '上移行'; upBtn.onclick = () => moveRow(rIdx, -1);
+        const downBtn = document.createElement('button'); downBtn.textContent = '下移行'; downBtn.onclick = () => moveRow(rIdx, +1);
+        const insertBtn = document.createElement('button'); insertBtn.textContent = '在下方插入行'; insertBtn.onclick = () => { rows.splice(rIdx+1,0,[]); renderBoard(); };
+        const delBtn = document.createElement('button'); delBtn.textContent = '删除本行'; delBtn.onclick = () => { rows.splice(rIdx,1); if(rows.length===0) rows.push([]); renderBoard(); };
+        right.append(upBtn, downBtn, insertBtn, delBtn);
+        header.append(left, right);
+
+        // 行内容
+        const items = document.createElement('div');
+        items.className = 'items';
+        items.dataset.row = rIdx;
+        // 行级接收拖放
+        items.addEventListener('dragover', (e) => { e.preventDefault(); });
+        items.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const payload = JSON.parse(e.dataTransfer.getData('text/plain') || '{}');
+          if (payload && typeof payload.r === 'number') {
+            moveItem(payload.r, payload.c, rIdx, null); // drop到行末
+          }
+        });
+
+        line.forEach((it, cIdx) => {
+          const item = document.createElement('div');
+          item.className = 'item';
+          item.draggable = true;
+          item.dataset.r = rIdx; item.dataset.c = cIdx;
+
+          // 标签：序号 [行,列] 或 [行]
+          const tag = document.createElement('div');
+          const label = line.length === 1 ? `[${rIdx+1}]` : `[${rIdx+1}, ${cIdx+1}]`;
+          tag.className = 'tag'; tag.textContent = label;
+          const fn = document.createElement('div'); fn.className = 'fn'; fn.textContent = it.name || '(未命名图片)';
+          item.append(tag, fn);
+
+          // 拖拽（鼠标）
+          item.addEventListener('dragstart', (e) => {
+            item.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', JSON.stringify({ r: rIdx, c: cIdx }));
+            e.dataTransfer.effectAllowed = 'move';
+          });
+          item.addEventListener('dragend', () => item.classList.remove('dragging'));
+
+          // 触摸长按启动拖动（移动端）
+          let pressTimer = null; let isDragging = false;
+          item.addEventListener('touchstart', (e) => {
+            pressTimer = setTimeout(() => {
+              isDragging = true; item.classList.add('dragging');
+            }, 320);
+          });
+          item.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            const el = document.elementFromPoint(touch.clientX, touch.clientY);
+            const itemsGrid = el && el.closest('.items');
+            if (itemsGrid) { /* 视觉跟随省略：移动端简化为在 touchend 定位 */ }
+          }, { passive: true });
+          item.addEventListener('touchend', (e) => {
+            clearTimeout(pressTimer);
+            if (!isDragging) return; isDragging = false; item.classList.remove('dragging');
+            const touch = e.changedTouches[0];
+            const el = document.elementFromPoint(touch.clientX, touch.clientY);
+            const targetItems = el && el.closest('.items');
+            if (targetItems) {
+              const toR = parseInt(targetItems.dataset.row, 10);
+              moveItem(rIdx, cIdx, toR, null);
+            }
+          });
+
+          // 允许在同一行内前后插入
+          item.addEventListener('dragover', (e) => { e.preventDefault(); });
+          item.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const payload = JSON.parse(e.dataTransfer.getData('text/plain') || '{}');
+            if (!payload || typeof payload.r !== 'number') return;
+            const before = shouldInsertBefore(e, item);
+            moveItem(payload.r, payload.c, rIdx, before ? cIdx : cIdx + 1);
+          });
+
+          items.appendChild(item);
+        });
+
+        lineEl.append(header, items);
+        boardEl.appendChild(lineEl);
+      });
+    }
+
+    function shouldInsertBefore(e, itemEl) {
+      const rect = itemEl.getBoundingClientRect();
+      // 横向卡片：比较鼠标位置与元素中心
+      return (e.clientX - rect.left) < rect.width / 2;
+    }
+
+    function moveRow(rIdx, delta) {
+      const to = rIdx + delta;
+      if (to < 0 || to >= rows.length) return;
+      const tmp = rows[rIdx]; rows[rIdx] = rows[to]; rows[to] = tmp;
+      renderBoard();
+    }
+
+    function moveItem(fromR, fromC, toR, toC) {
+      if (fromR === toR && toC !== null && fromC < toC) toC--; // 同一行向后拖动的索引修正
+      const item = rows[fromR].splice(fromC, 1)[0];
+      if (!rows[toR]) rows[toR] = [];
+      if (toC === null || toC === undefined || toC > rows[toR].length) {
+        rows[toR].push(item);
+      } else {
+        rows[toR].splice(Math.max(0, toC), 0, item);
+      }
+      // 若源行被拖空，保留空行（方便继续放置）；但避免全部都空
+      if (rows.every(l => l.length === 0)) rows.splice(1);
+      renderBoard();
+    }
+
+    addRowBtn.addEventListener('click', () => { rows.push([]); renderBoard(); });
+    clearBtn.addEventListener('click', () => {
+      rows.splice(0, rows.length); rows.push([]); resultWrap.style.display='none'; downloadBtn.disabled = true; renderBoard();
+    });
+
+    // ---- 拼接主流程
+    composeBtn.addEventListener('click', async () => {
+      const mode = modeSel.value;
+      // 收集所有图片是否存在
+      const imgs = rows.flat();
+      if (imgs.length === 0) { alert('请先添加图片'); return; }
+      progressArea.style.display = 'block';
+      resultWrap.style.display = 'none';
+      setProgress(0, '准备开始拼接…');
+
+      const ctxOut = resultCanvas.getContext('2d');
+      ctxOut.imageSmoothingEnabled = true;
+
+      if (mode === 'row') {
+        // 单行横向：把所有图片放在一行，统一到最大高度
+        const oneRow = rows.flat();
+        const { canvas: rowCanvas } = await buildRowCanvas(oneRow);
+        resultCanvas.width = rowCanvas.width; resultCanvas.height = rowCanvas.height;
+        const out = resultCanvas.getContext('2d'); out.imageSmoothingEnabled = true;
+        out.drawImage(rowCanvas, 0, 0);
+        setProgress(100, '拼接完成。');
+      } else if (mode === 'col') {
+        // 单列纵向：逐个纵向叠加；宽度统一为最大宽度
+        const list = rows.flat();
+        // 先找到最大宽度（以原图宽度为准）
+        const maxW = Math.max(...list.map(it => it.img.naturalWidth || it.img.width || 1));
+        let combined = null; // {canvas}
+        for (let i = 0; i < list.length; i++) {
+          const it = list[i];
+          const scale = maxW / (it.img.naturalWidth || it.img.width || maxW);
+          const w = Math.round((it.img.naturalWidth || it.img.width) * scale);
+          const h = Math.round((it.img.naturalHeight || it.img.height) * scale);
+          const c = document.createElement('canvas'); c.width = w; c.height = h;
+          const cx = c.getContext('2d'); cx.imageSmoothingEnabled = true; cx.drawImage(it.img, 0, 0, w, h);
+          if (!combined) {
+            combined = c;
+          } else {
+            combined = await stackVertical(combined, c);
+          }
+          setProgress(Math.round(((i+1)/list.length)*100), `拼接进行到第${i+1}张。`);
+          await nextFrame();
+        }
+        resultCanvas.width = combined.width; resultCanvas.height = combined.height;
+        resultCanvas.getContext('2d').drawImage(combined, 0, 0);
+        setProgress(100, '拼接完成。');
+      } else {
+        // grid：先按行横拼，再跨行纵拼
+        const rowCanvases = [];
+        for (let r = 0; r < rows.length; r++) {
+          const line = rows[r];
+          if (line.length === 0) continue; // 跳过空行
+          const { canvas: rc } = await buildRowCanvas(line);
+          rowCanvases.push(rc);
+          const pct = Math.round(((r+1)/Math.max(1, rows.length))*70); // 前70% 进度给行内处理
+          setProgress(pct, `拼接进行到第${r+1}行。`);
+          await nextFrame();
+        }
+        // 纵向叠加（宽度对齐：小的放大到与大的相同）
+        let combined = null;
+        for (let i = 0; i < rowCanvases.length; i++) {
+          const rowC = rowCanvases[i];
+          if (!combined) {
+            combined = rowC;
+          } else {
+            combined = await stackVertical(combined, rowC, true);
+          }
+          const pct = 70 + Math.round(((i+1)/Math.max(1,rowCanvases.length))*30);
+          setProgress(pct, `纵向合成到第${i+1}层。`);
+          await nextFrame();
+        }
+        if (!combined) { alert('没有可拼接的图片。'); return; }
+        resultCanvas.width = combined.width; resultCanvas.height = combined.height;
+        resultCanvas.getContext('2d').drawImage(combined, 0, 0);
+        setProgress(100, '拼接完成。');
+      }
+
+      resultWrap.style.display = 'grid';
+      downloadBtn.disabled = false;
+    });
+
+    // 行内横向拼接：高度统一到本行 h_max
+    async function buildRowCanvas(line) {
+      if (!line || line.length === 0) {
+        const c = document.createElement('canvas'); c.width = 1; c.height = 1; return { canvas: c };
+      }
+      const hMax = Math.max(...line.map(it => (it.img.naturalHeight || it.img.height || 1)));
+      const widths = line.map(it => Math.round((it.img.naturalWidth || it.img.width) * (hMax / (it.img.naturalHeight || it.img.height))));
+      const totalW = widths.reduce((a,b)=>a+b, 0);
+      const c = document.createElement('canvas'); c.width = Math.max(1, totalW); c.height = Math.max(1, hMax);
+      const cx = c.getContext('2d'); cx.imageSmoothingEnabled = true;
+      let x = 0;
+      for (let i = 0; i < line.length; i++) {
+        const it = line[i];
+        const w = widths[i];
+        cx.drawImage(it.img, x, 0, w, hMax);
+        x += w;
+      }
+      return { canvas: c };
+    }
+
+    // 纵向堆叠，两张 canvas：若宽度不同，把较小的按比例放大到较大宽度
+    async function stackVertical(topCanvas, bottomCanvas, scaleToMaxWidth = true) {
+      let a = topCanvas, b = bottomCanvas;
+      const wa = a.width, wb = b.width;
+      let targetW = scaleToMaxWidth ? Math.max(wa, wb) : wa; // 默认对齐更大的宽度
+      // 缩放到同一宽度
+      if (wa !== targetW) a = scaleCanvas(a, targetW);
+      if (wb !== targetW) b = scaleCanvas(b, targetW);
+
+      const out = document.createElement('canvas');
+      out.width = targetW;
+      out.height = a.height + b.height;
+      const cx = out.getContext('2d'); cx.imageSmoothingEnabled = true;
+      cx.drawImage(a, 0, 0);
+      cx.drawImage(b, 0, a.height);
+      return out;
+    }
+
+    function scaleCanvas(srcCanvas, targetW) {
+      const scale = targetW / srcCanvas.width;
+      const targetH = Math.round(srcCanvas.height * scale);
+      const c = document.createElement('canvas'); c.width = targetW; c.height = targetH;
+      const cx = c.getContext('2d'); cx.imageSmoothingEnabled = true;
+      cx.drawImage(srcCanvas, 0, 0, targetW, targetH);
+      return c;
+    }
+
+    function setProgress(pct, text) {
+      bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+      bar.parentElement.setAttribute('aria-valuenow', pct);
+      progressText.textContent = text;
+    }
+
+    function nextFrame() { return new Promise(r => requestAnimationFrame(()=>r())); }
+
+    // 下载 PNG
+    downloadBtn.addEventListener('click', () => {
+      resultCanvas.toBlob((blob) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'stitch.png';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      }, 'image/png');
+    });
+
+    // 初始
+    initRows();
+  </script>
+</body>
+</html>
