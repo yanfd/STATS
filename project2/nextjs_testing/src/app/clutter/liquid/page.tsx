@@ -12,7 +12,7 @@ export default function LiquidGlassPage() {
       <LiquidGlass>
         <div className="p-6">
           <h2>Your content here</h2>
-          <p>This will have the liquid glass effect</p>
+          <p>This will have the liquid glass effect hh</p>
         </div>
       </LiquidGlass>
     </div>
