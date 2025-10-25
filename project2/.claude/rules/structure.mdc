@@ -1,28 +1,90 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
-# Project Structure
+# 项目结构 (Project Structure)
 
-- `project2/`
-  - `nextjs_testing/`  前端 Next.js 项目
-    - `public/`         静态资源（图片、音频、js库等）
-    - `src/`
-      - `components/`   复用型 UI 组件（如 AudioCard、AudioDanceCard、BlogCard 等）
-      - `app/`          Next.js 13+ 路由与页面目录
-        - `home/`       首页相关页面
-        - `api/`        前端 API 路由（如有）
-        - 其他页面目录
-      - `lib/`          工具函数、hooks 等
-    - `package.json`    前端依赖与脚本
-    - `tsconfig.json`   TypeScript 配置
-    - `README.md`       前端说明文档
-  - `nextjs_fastapi/`   后端 FastAPI 项目（建议新建）
-    - `app/`            FastAPI 主应用目录
-      - `api/`          路由与接口
-      - `models/`       数据模型
-      - `schemas/`      Pydantic 校验
-      - `core/`         配置与启动
-    - `requirements.txt` Python 依赖
-    - `README.md`       后端说明文档
+## STATS 整体结构
+
+```
+STATS/
+├── globe/                    # 3D 地球可视化项目 1
+│   ├── src/
+│   │   └── components/      # Three.js 组件
+│   ├── app/
+│   ├── public/              # 静态资源（纹理、模型等）
+│   └── package.json
+│
+├── globe2/                   # 3D 地球可视化项目 2
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+└── project2/
+    ├── nextjs_testing/       # 前端 Next.js 项目
+    │   ├── public/          # 静态资源（图片、音频、js 库等）
+    │   ├── src/
+    │   │   ├── components/  # 可复用 UI 组件
+    │   │   │   ├── ui/     # shadcn/ui 组件
+    │   │   │   ├── AudioCard.tsx
+    │   │   │   ├── AudioDanceCard.tsx
+    │   │   │   ├── BlogCard.tsx
+    │   │   │   └── ...
+    │   │   ├── app/         # Next.js App Router 路由
+    │   │   │   ├── home/
+    │   │   │   ├── hughes/
+    │   │   │   ├── flipcard/
+    │   │   │   ├── rss_testing/
+    │   │   │   ├── tw_testing/
+    │   │   │   ├── hughes_rain/
+    │   │   │   ├── pages3D/
+    │   │   │   ├── clutter/
+    │   │   │   │   ├── particlesGL/
+    │   │   │   │   ├── another_chess/
+    │   │   │   │   ├── liquid/
+    │   │   │   │   ├── pic_merge/
+    │   │   │   │   ├── terminal/
+    │   │   │   │   └── ...
+    │   │   │   └── api/     # Next.js API 路由
+    │   │   │       ├── hughes/
+    │   │   │       └── latest-tweet/
+    │   │   └── lib/         # 工具函数、hooks 等
+    │   ├── package.json
+    │   ├── tsconfig.json
+    │   └── README.md
+    │
+    └── nextjs_fastapi/       # 后端 FastAPI 项目
+        ├── routes/          # API 路由模块
+        │   ├── audio_routes.py
+        │   ├── waveform_routes.py
+        │   ├── effects_routes.py
+        │   └── hughes_routes.py
+        ├── schemas/         # Pydantic 数据验证模型
+        │   └── response.py
+        ├── utils/           # 工具函数
+        │   ├── audio_processing.py
+        │   └── hughes_sync.py
+        ├── uploads/         # 上传文件存储
+        ├── processed/       # 处理后文件存储
+        ├── main.py          # FastAPI 应用入口
+        ├── requirements.txt # Python 依赖
+        └── venv/            # Python 虚拟环境
+```
+
+## 关键目录说明
+
+### Frontend (nextjs_testing)
+- **src/components/**: 所有可复用组件，包括 UI 库和自定义组件
+- **src/app/**: Next.js 15 App Router 页面和 API 路由
+- **public/**: 静态资源文件
+
+### Backend (nextjs_fastapi)
+- **routes/**: 按功能模块拆分的 API 路由
+- **schemas/**: Pydantic 模型定义
+- **utils/**: 业务逻辑和工具函数
+- **uploads/ & processed/**: 文件存储目录
+
+### Globe Projects
+- **src/components/**: Three.js 3D 组件
+- **public/**: 3D 纹理和模型资源

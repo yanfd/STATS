@@ -1,25 +1,95 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: false
 ---
-# Development Guide
+# 开发指南 (Development Guide)
 
-## 前端（Next.js）
-- 组件开发请放在 `src/components/`，页面开发放在 `src/app/` 下。
-- 样式优先用 TailwindCSS，复用性强的 UI 建议封装为组件。
-- 公共资源放在 `public/`，引用时用绝对路径（如 `/rain.mp3`）。
-- 推荐使用 TypeScript，类型声明清晰。
-- 业务逻辑复杂时可拆分 hooks、utils 到 `src/lib/`。
+## 前端开发 (Next.js)
 
-## 后端（FastAPI）
-- 路由、模型、校验、配置分目录管理，便于扩展。
-- 依赖统一写在 `requirements.txt`，用 `pip install -r requirements.txt` 安装。
-- 启动命令建议用 `uvicorn app.main:app --reload`。
-- 所有接口需有类型注解和 Pydantic 校验，返回统一格式。
-- 推荐写好 README.md，说明接口用法和开发流程。
+### 项目启动
+```bash
+cd project2/nextjs_testing
+npm install
+npm run dev          # 启动开发服务器 (Turbopack)
+npm run build        # 构建生产版本
+npm run start        # 启动生产服务器
+npm run lint         # 运行代码检查
+```
 
-## 通用
-- 前后端接口联调时，注意 CORS 配置。
-- 代码提交前请自测，保持主分支可用。
-- 重要变更建议写在各自的 README.md 或 CHANGELOG。
+### 开发规范
+- **组件开发**: 放在 `src/components/`，页面放在 `src/app/`
+- **样式**: 优先使用 Tailwind CSS v4+，复用性强的 UI 封装为组件
+- **静态资源**: 放在 `public/`，使用绝对路径引用（如 `/rain.mp3`）
+- **类型安全**: 全面使用 TypeScript，确保类型声明清晰
+- **业务逻辑**: 复杂逻辑拆分为 hooks 或 utils，放在 `src/lib/`
+- **UI 组件**: 遵循 shadcn/ui 规范，使用 `@/components/ui/` 导入
+- **渲染模式**: 使用 `"use client"` 指令进行客户端渲染
+
+### 技术栈
+- Next.js 15+ (App Router)
+- TypeScript
+- Tailwind CSS v4+ with PostCSS
+- Radix UI primitives
+- shadcn/ui components
+- Lucide React icons
+- Framer Motion (动画)
+- Three.js (3D 可视化，在 Globe 项目中)
+
+## 后端开发 (FastAPI)
+
+### 项目启动
+```bash
+cd project2/nextjs_fastapi
+python -m venv venv                    # 创建虚拟环境
+source venv/bin/activate               # macOS/Linux
+# 或 venv\Scripts\activate            # Windows
+pip install -r requirements.txt       # 安装依赖
+uvicorn main:app --reload             # 启动开发服务器
+# 或 python main.py
+```
+
+### 开发规范
+- **模块化**: 路由、模型、校验、配置分目录管理
+- **类型注解**: 所有接口使用类型注解和 Pydantic 校验
+- **返回格式**: 统一 JSON 格式（code, msg, data）
+- **文档**: 重要功能写在 README 或注释中
+- **依赖管理**: 新依赖统一写在 `requirements.txt`
+
+### 技术栈
+- FastAPI
+- Python 3.13
+- Pydantic (数据验证)
+- Uvicorn (ASGI 服务器)
+
+## Globe 项目开发
+
+### 启动方式
+```bash
+cd globe  # 或 globe2
+npm install
+npm run dev
+npm run build
+```
+
+### 技术特点
+- **3D 渲染**: Three.js + 自定义 GLSL 着色器
+- **性能优化**: 自动资源清理和动画循环管理
+- **渐进加载**: 纹理从线框到高分辨率的平滑过渡
+- **视觉效果**: 动画星空、大气光晕、颜色过渡
+
+## 通用规范
+
+### 前后端联调
+- FastAPI 已配置 CORS，支持 localhost:3000 和生产域名
+- 前端通过 `/api/*` 访问后端接口
+- 注意环境变量配置（开发/生产环境）
+
+### 代码质量
+- 提交前自测，保持主分支稳定
+- 重要变更记录在 README.md 或 Git commit 中
+- 保持代码风格一致
+
+### 项目文档
+- 各子项目有独立的 README.md
+- `.claude/rules/` 包含 AI 辅助开发的项目规范

@@ -1,25 +1,75 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: false
 ---
-# API Design
+# API 设计规范 (API Design Guide)
 
-## FastAPI 后端接口
-- 路由统一放在 `nextjs_fastapi/app/api/` 下，按功能模块拆分（如 user, audio, blog 等）。
-- 推荐 RESTful 风格，接口路径小写、用下划线分隔。
-- 输入输出数据结构用 Pydantic schema 明确校验。
-- 所有接口返回统一 JSON 格式，包含 code、msg、data 字段。
-- 跨域支持（CORS）需配置允许前端域名访问。
+## FastAPI 后端接口规范
 
-### 示例
+### 路由组织
+- 路由按功能模块拆分，放在 `nextjs_fastapi/routes/` 目录下
+- 当前模块：
+  - `audio_routes.py` - 音频上传和基础处理
+  - `waveform_routes.py` - 音频波形生成
+  - `effects_routes.py` - 音效应用
+  - `hughes_routes.py` - Hughes 数据同步和查询
+
+### 命名规范
+- 路径使用小写，下划线分隔（snake_case）
+- 推荐 RESTful 风格
+- 前缀统一使用 `/api/`
+
+### 数据验证
+- 使用 Pydantic schemas 进行输入输出数据校验
+- Schema 定义放在 `schemas/` 目录
+
+### 返回格式
+建议统一 JSON 格式：
 ```python
-# 路由示例
-from fastapi import APIRouter
-
-router = APIRouter()
-
-@router.get('/audio/list')
-async def get_audio_list():
-    return {"code": 0, "msg": "ok", "data": [...]} 
+{
+    "code": 0,      # 0 表示成功，非 0 表示错误
+    "msg": "ok",    # 消息说明
+    "data": {...}   # 实际数据
+}
 ```
+
+### CORS 配置
+- 已配置允许的域名：
+  - `http://localhost:3000`
+  - `http://127.0.0.1:3000`
+  - `https://stats.yanfd.tech`
+  - `https://api.yanfd.tech`
+- 允许所有 HTTP 方法和请求头
+- 启用凭证支持
+
+### 生命周期管理
+- 使用 `lifespan` 进行启动/关闭时的资源管理
+- 当前实现：启动时自动同步 Hughes 数据
+- 可选：定期任务（如每 6 小时同步一次数据）
+
+### 路由示例
+
+```python
+from fastapi import APIRouter, File, UploadFile
+from schemas.response import StandardResponse
+
+router = APIRouter(prefix="/api/audio", tags=["audio"])
+
+@router.post("/upload")
+async def upload_audio(file: UploadFile = File(...)):
+    return {
+        "code": 0,
+        "msg": "上传成功",
+        "data": {"filename": file.filename}
+    }
+```
+
+### 文件存储
+- 上传文件存储在 `uploads/` 目录
+- 处理后文件存储在 `processed/` 目录
+- 应用启动时自动创建这些目录
+
+### 错误处理
+- 使用 FastAPI 的 `HTTPException` 抛出 HTTP 错误
+- 捕获并记录异常，返回友好的错误信息给前端

@@ -1,16 +1,46 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
-# General Project Guide
+# 项目总览 (General Project Guide)
 
-本项目为全栈应用，前端采用 Next.js + TypeScript + TailwindCSS，后端计划采用 FastAPI（Python）。  
-前端和后端分别位于 `nextjs_testing` 和 `nextjs_fastapi` 文件夹下，互不干扰，接口通过 HTTP 通信。
+STATS 是一个包含多个实验性 Next.js 项目的代码库，用于测试和探索现代 Web 开发技术。
 
-- 前端目录：`project2/nextjs_testing`
-- 后端目录（建议新建）：`project2/nextjs_fastapi`
-- 公共资源（如音频、图片）放在 `nextjs_testing/public/`
-- 组件、页面、API 路由等均有独立目录，便于维护和扩展
+## 主要项目
 
-开发时请遵循各自的开发指南和 API 设计规范，保持代码风格统一，便于团队协作和后期维护。
+### 1. Globe 项目 (`/globe` 和 `/globe2`)
+交互式 3D 地球可视化项目：
+- 使用 Three.js 和自定义 GLSL 着色器
+- 实现动画星空、大气光晕效果
+- 渐进式纹理加载（线框 → 高分辨率纹理）
+- 技术栈：React + Three.js + Framer Motion + Tailwind CSS
+
+### 2. NextJS Testing (`/project2/nextjs_testing`)
+UI 组件实验室和界面开发平台：
+- 丰富的可复用 React 组件库
+- 使用 Radix UI primitives 和 shadcn/ui 组件
+- 包含音频可视化、Twitter 集成、RSS 解析等功能
+- 多个页面路由用于测试不同 UI 模式
+- 技术栈：Next.js 15+ + TypeScript + Tailwind CSS v4+
+
+### 3. FastAPI 后端 (`/project2/nextjs_fastapi`)
+Python 后端 API 服务：
+- 音频处理接口（上传、波形生成、音效应用）
+- Hughes 数据同步 API
+- CORS 配置支持前端跨域访问
+- 技术栈：FastAPI + Python 3.13
+
+## 开发规范
+
+### 用户偏好
+- 简洁的响应风格，避免冗长
+- 中文交流为主
+- 正在进行多项目并行开发
+
+### 技术特点
+- 全部使用 TypeScript
+- 客户端渲染模式 (`"use client"` 指令)
+- 组件遵循 shadcn/ui 规范 (`@/components/ui/` 导入)
+- Tailwind CSS 响应式设计
+- Three.js 组件自动处理资源清理和动画循环
