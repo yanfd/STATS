@@ -33,6 +33,7 @@ import QuizComponent from "@/components/QuizComponent";
 import TwitrerNew from "@/components/TwitterNew";
 import AudioDanceCard from "@/components/AudioDanceCard";
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import TerminalContent from '@/components/overflow/TerminalContent'
 
 // Section wrapper component
 function ScrollSection({
@@ -351,6 +352,81 @@ export default function TwTestingPageStrict() {
     </div>
   );
 
+  // Pages 2-4: reuse sections from /clutter/overflow
+  // Simple inline replicas to avoid cross-route imports
+  const OverflowIntro = () => (
+    <div className="h-full flex items-center justify-center px-20">
+      <div className="text-center">
+        <motion.h1
+          className="text-7xl font-bold text-white mb-6 font-mono"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          YANFD PRODUCTS
+        </motion.h1>
+        <motion.p
+          className="text-xl text-gray-400 font-mono"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          Terminal-style file browser built with React
+        </motion.p>
+        <motion.div
+          className="mt-8 text-gray-600 text-sm"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          Scroll down to explore ↓
+        </motion.div>
+      </div>
+    </div>
+  );
+
+  const OverflowTerminal = () => (
+    <TerminalContent />
+  );
+
+  const OverflowFeatures = () => (
+    <div className="h-full flex items-center justify-center px-20">
+      <div className="max-w-4xl">
+        <motion.h2
+          className="text-5xl font-bold text-white mb-8 font-mono"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          Key Features
+        </motion.h2>
+        <motion.div
+          className="grid grid-cols-2 gap-6 text-gray-300"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+            <h3 className="text-xl font-bold text-blue-400 mb-2">File Tree</h3>
+            <p className="text-sm">Navigate through folders and files with an intuitive tree structure</p>
+          </div>
+          <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+            <h3 className="text-xl font-bold text-blue-400 mb-2">Recent Files</h3>
+            <p className="text-sm">Quick access to your recently opened files</p>
+          </div>
+          <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+            <h3 className="text-xl font-bold text-blue-400 mb-2">Code Preview</h3>
+            <p className="text-sm">View file contents with syntax highlighting</p>
+          </div>
+          <div className="border border-gray-700 p-6 rounded-lg bg-gray-800/50">
+            <h3 className="text-xl font-bold text-blue-400 mb-2">Terminal Style</h3>
+            <p className="text-sm">Classic terminal aesthetic with modern functionality</p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="dark">
       <div ref={containerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
@@ -393,14 +469,19 @@ export default function TwTestingPageStrict() {
           <Page1Content />
         </ScrollSection>
 
-        {/* Section 2 - With extending motion text */}
+        {/* Section 2 - Overflow Intro (from /clutter/overflow page 1) */}
         <ScrollSection bgColor="bg-gradient-to-br from-black via-gray-900 to-black">
-          <Page2Content />
+          <OverflowIntro />
         </ScrollSection>
 
-        {/* Section 3 - Info/Features */}
+        {/* Section 3 - Overflow Terminal preview (from /clutter/overflow page 2) */}
+        <ScrollSection bgColor="bg-gray-900">
+          <OverflowTerminal />
+        </ScrollSection>
+
+        {/* Section 4 - Overflow Features (from /clutter/overflow page 3) */}
         <ScrollSection bgColor="bg-gradient-to-br from-gray-900 via-black to-gray-900">
-          <Page3Content />
+          <OverflowFeatures />
         </ScrollSection>
       </div>
 
