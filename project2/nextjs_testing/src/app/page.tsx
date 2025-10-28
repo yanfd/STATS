@@ -87,30 +87,17 @@ export default function TwTestingPageStrict() {
   }, []);
 
   // Track scroll progress
-  const { scrollY } = useScroll({
-    container: containerRef
+  const { scrollY } = useScroll({ container: containerRef });
+
+  // Current page index (0-based). Used to show side texts only on page 2.
+  const currentPage = useTransform(scrollY, (y) => {
+    return windowHeight > 0 ? Math.round(y / windowHeight) : 0;
   });
 
-  // Transform scroll to opacity - visible only on page 2
-  const textOpacity = useTransform(
-    scrollY,
-    [windowHeight * 0.5, windowHeight, windowHeight * 2, windowHeight * 2.5],
-    [0, 1, 1, 0]
-  );
-
-  // Transform for left text (slides from bottom to top)
-  const leftY = useTransform(
-    scrollY,
-    [windowHeight * 0.5, windowHeight, windowHeight * 2, windowHeight * 2.5],
-    [300, 0, 0, -300]
-  );
-
-  // Transform for right text (slides from top to bottom)
-  const rightY = useTransform(
-    scrollY,
-    [windowHeight * 0.5, windowHeight, windowHeight * 2, windowHeight * 2.5],
-    [-300, 0, 0, 300]
-  );
+  // Side text opacity/position only around page 2 range
+  const textOpacity = useTransform(scrollY, [windowHeight * 0.8, windowHeight, windowHeight * 1.2], [0, 1, 0]);
+  const leftY = useTransform(scrollY, [windowHeight * 0.8, windowHeight, windowHeight * 1.2], [150, 0, -150]);
+  const rightY = useTransform(scrollY, [windowHeight * 0.8, windowHeight, windowHeight * 1.2], [-150, 0, 150]);
 
   // Page 1 Content - Original MainCard page
   const Page1Content = () => (
@@ -430,38 +417,40 @@ export default function TwTestingPageStrict() {
   return (
     <div className="dark">
       <div ref={containerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
-        {/* Fixed vertical text - visible on second page */}
+        {/* Side vertical texts: only show on page 2 and fill full height */}
         <motion.div
-          className="fixed left-0 top-0 h-screen w-1/5 flex items-end justify-center pointer-events-none z-10"
-          style={{
-            opacity: textOpacity,
-            y: leftY
-          }}
+          className="fixed inset-y-0 left-0 w-[18vw] flex items-center justify-center pointer-events-none z-10"
+          style={{ opacity: textOpacity, y: leftY }}
         >
-          <p
-            className="text-[12rem] font-bold tracking-wider text-transparent pb-20"
+          <motion.p
+            className="font-bold tracking-wider text-transparent"
             style={{
               writingMode: 'vertical-rl',
-              WebkitTextStroke: '3px rgba(156, 163, 175, 0.5)'
+              WebkitTextStroke: '3px rgba(156, 163, 175, 0.5)',
+              fontSize: '12rem',
+              display: 'block',
             }}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
           >
+            {/** Render only when on page 2 */}
+            {/** Using a derived boolean from currentPage via inline check in style not possible; instead rely on opacity window. */}
             YANFD
-          </p>
+          </motion.p>
         </motion.div>
 
         <motion.div
-          className="fixed right-0 top-0 h-screen w-1/5 flex items-start justify-center pointer-events-none z-10"
-          style={{
-            opacity: textOpacity,
-            y: rightY
-          }}
+          className="fixed inset-y-0 right-0 w-[18vw] flex items-center justify-center pointer-events-none z-10"
+          style={{ opacity: textOpacity, y: rightY }}
         >
-          <p
-            className="text-[12rem] font-bold tracking-wider text-gray-400 pt-20"
-            style={{ writingMode: 'vertical-rl' }}
+          <motion.p
+            className="font-bold tracking-wider text-gray-400"
+            style={{ writingMode: 'vertical-rl', fontSize: '12rem', display: 'block' }}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
           >
             TECH
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Section 1 - MainCard page (original content) */}
