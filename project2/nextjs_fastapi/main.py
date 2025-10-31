@@ -62,6 +62,8 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "https://stats.yanfd.tech",  # 添加你的生产环境域名
         "https://api.yanfd.tech"     # 也允许API自己的域名（如果需要）
+        "https://stats.yanfd.cn",  # 添加你的生产环境域名
+        "https://api.yanfd.cn"     # 也允许API自己的域名（如果需要）
     ],
     allow_credentials=True,
     allow_methods=["*"],

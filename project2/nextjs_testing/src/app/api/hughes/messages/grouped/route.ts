@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.yanfd.tech';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.yanfd.cn';
 
 export async function GET() {
   try {

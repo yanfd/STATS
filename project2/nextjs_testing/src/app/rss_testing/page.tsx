@@ -31,7 +31,7 @@ const parser = new Parser();
 
 async function fetchLatestPostFromRss(): Promise<BlogPost | null> {
   try {
-    const feed = await parser.parseURL('https://www.yanfd.tech/atom.xml');
+    const feed = await parser.parseURL('https://www.yanfd.cn/atom.xml');
     const latestPost = feed.items[0];
 
     // 优先使用 image 标签中的 url，如果不存在则使用 enclosure 的 url

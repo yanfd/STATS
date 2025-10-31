@@ -45,7 +45,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ onHide }) => {
         setShowSuccess(true);
         
         setTimeout(() => {
-          window.location.href = 'https://stats.yanfd.tech/hughes';
+          window.location.href = 'https://stats.yanfd.cn/hughes';
         }, 1000);
       } else {
         setCurrentQuestionIndex(currentQuestionIndex + 1);

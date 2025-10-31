@@ -134,7 +134,7 @@ export default function TwTestingPageStrict() {
                 <CardFooter className="flex flex-col items-start pt-0">
                   <p className="text-lg font-bold">ALMOSTHUMAN GALLERY</p>
                   <p className="text-xs text-muted-foreground pb-4">my deep dark twisted fantasy.</p>
-                  <Link href={'https://gallery.yanfd.tech/'} target="_blank" rel="noopener noreferrer" className="w-full">
+                  <Link href={'https://gallery.yanfd.cn/'} target="_blank" rel="noopener noreferrer" className="w-full">
                     <Button className="w-full" size="sm">
                       HAVE A LOOK.
                     </Button>

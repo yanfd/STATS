@@ -40,6 +40,8 @@ alwaysApply: false
   - `http://127.0.0.1:3000`
   - `https://stats.yanfd.tech`
   - `https://api.yanfd.tech`
+  - `https://stats.yanfd.cn`
+  - `https://api.yanfd.cn`
 - 允许所有 HTTP 方法和请求头
 - 启用凭证支持
 

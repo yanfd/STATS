@@ -34,7 +34,7 @@ const parser = new Parser();
 
 async function fetchLatestPostFromRss(): Promise<BlogPost | null> {
   try {
-    const feed = await parser.parseURL('https://www.yanfd.tech/atom.xml');
+    const feed = await parser.parseURL('https://www.yanfd.cn/atom.xml');
     const latestPost = feed.items[0];
 
     let imageUrl: string | undefined = latestPost?.image?.url || latestPost?.enclosure?.url;
