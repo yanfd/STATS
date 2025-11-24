@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,9 +23,16 @@ import MainCard from "@/components/MainCard";
 import Navbar from "@/components/Navbar";
 import Parser from 'rss-parser';
 import BlogCard from "@/components/BlogCard";
-import Link from 'next/link'; 
+import Link from 'next/link';
 import ReligiousCrossIcon from "@/components/ReligionCross";
 import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
+import {
+  BackgroundSource,
+  BackgroundConfig,
+  DEFAULT_GRADIENT,
+  getBackgroundImageUrl,
+  UNSPLASH_CONFIG,
+} from "@/config/backgroundImages";
 
 
 
@@ -34,18 +42,78 @@ import TwitterLatestTweetCard from "@/components/TwitterLatestTweetCard";
 const PAGE_BG_COLOR = "bg-neutral-950"; // Example: Very dark gray/black
 
 export default function TwTestingPageStrict() {
+  // 背景配置状态
+  const [backgroundConfig, setBackgroundConfig] = useState<BackgroundConfig>({
+    type: 'gradient',
+    value: DEFAULT_GRADIENT,
+  });
+
+  // 背景图片 URL（用于图片类型背景）
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string | null>(null);
+
+  // 处理背景切换
+  const handleBackgroundChange = (source: BackgroundSource) => {
+    let newConfig: BackgroundConfig = { type: source, value: '' };
+
+    switch (source) {
+      case 'gradient':
+        newConfig.value = DEFAULT_GRADIENT;
+        setBackgroundImageUrl(null);
+        break;
+      case 'unsplash':
+        // 生成新的随机图片 URL（添加时间戳避免缓存）
+        const unsplashUrl = `${UNSPLASH_CONFIG.getRandomUrl()}&t=${Date.now()}`;
+        newConfig.value = unsplashUrl;
+        setBackgroundImageUrl(unsplashUrl);
+        break;
+      case 'r2':
+        // R2 图床逻辑（预留）
+        const r2Url = getBackgroundImageUrl(newConfig);
+        if (r2Url) {
+          newConfig.value = r2Url;
+          setBackgroundImageUrl(r2Url);
+        }
+        break;
+    }
+
+    setBackgroundConfig(newConfig);
+  };
+
+  // 获取 main 标签的样式
+  const getMainStyle = () => {
+    if (backgroundImageUrl) {
+      return {
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${backgroundImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      };
+    }
+    return {};
+  };
+
+  const mainClassName = backgroundConfig.type === 'gradient'
+    ? `container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8 ${DEFAULT_GRADIENT}`
+    : 'container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8';
+
   return (
     // Force dark mode here and set the overall page background
     <div className={`dark min-h-screen ${PAGE_BG_COLOR} text-foreground`}>
       {/* --- Top Navigation Bar --- */}
       {/* Use Card colors for header bg in dark mode */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <Navbar />
+        <Navbar
+          onBackgroundChange={handleBackgroundChange}
+          currentBackground={backgroundConfig.type}
+        />
       </header>
 
       {/* --- Main Content Area --- */}
       {/* Constrain width and center */}
-      <main className="container mx-auto max-w-screen-xl p-4 md:p-6 lg:p-8 bg-[radial-gradient(ellipse_farthest-corner_at_50%_130%,_rgba(100,116,139,0.5)_0%,_rgba(17,24,39,0.9)_50%,_rgba(0,0,0,1)_80%)]">
+      <main
+        className={mainClassName}
+        style={getMainStyle()}
+      >
         {/* Grid layout - Use Card background for grid items */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 

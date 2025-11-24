@@ -27,7 +27,7 @@ async def lifespan(app: FastAPI):
         print("API will continue running, data will sync on first request")
     
     # 启动定期同步任务（可选）
-    # asyncio.create_task(periodic_sync())
+    asyncio.create_task(periodic_sync())
     
     yield  # 应用运行中
     
@@ -38,7 +38,7 @@ async def lifespan(app: FastAPI):
 async def periodic_sync():
     """每6小时同步一次数据"""
     while True:
-        await asyncio.sleep(6 * 60 * 60)  # 6小时
+        await asyncio.sleep(6 * 60 * 60 *4)  # 24小时
         try:
             print(f"[{datetime.now()}] Running periodic sync...")
             from routes.hughes_routes import sync_hughes_data

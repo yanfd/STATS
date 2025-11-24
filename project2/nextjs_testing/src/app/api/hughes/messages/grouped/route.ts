@@ -9,6 +9,8 @@ export async function GET() {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store', // 禁用缓存，每次都获取最新数据
+      next: { revalidate: 0 } // 不进行重新验证缓存
     });
 
     if (!response.ok) {
@@ -18,7 +20,15 @@ export async function GET() {
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+
+    // 返回响应并设置缓存控制头
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
+    });
   } catch (error: any) {
     console.error('Proxy error:', error);
     return NextResponse.json(

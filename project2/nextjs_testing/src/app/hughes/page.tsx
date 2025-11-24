@@ -35,8 +35,14 @@ export default function Hughes() {
   const fetchMessages = async () => {
     try {
       setError(null);
-      // 使用本地API路由避免CORS问题
-      const response = await fetch('/api/hughes/messages');
+      // 使用本地API路由避免CORS问题，添加时间戳防止缓存
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/api/hughes/messages?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -44,9 +50,14 @@ export default function Hughes() {
       
       const data = await response.json();
       console.log('Fetched messages data:', data);
-      
-      // 获取分组数据
-      const groupedResponse = await fetch('/api/hughes/messages/grouped');
+
+      // 获取分组数据，添加时间戳防止缓存
+      const groupedResponse = await fetch(`/api/hughes/messages/grouped?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
       
       if (groupedResponse.ok) {
         const groupedData = await groupedResponse.json();
