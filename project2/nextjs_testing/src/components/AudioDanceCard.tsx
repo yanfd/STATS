@@ -5,8 +5,9 @@ import Script from 'next/script';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { cn } from '@/lib/utils';
 
-export default function AudioDanceCard() {
+export default function AudioDanceCard({ className }: { className?: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const vudioRef = useRef<any>(null);
@@ -61,7 +62,7 @@ export default function AudioDanceCard() {
   }, []);
 
   return (
-    <Card className='bg-grey-200'>
+    <Card className={cn('bg-grey-200 text-slate-900', className)}>
       <Script src="/libs/vudio.js" strategy="beforeInteractive" />
       <CardContent className="p-4 flex flex-col items-center bg-gradient-to-b from-black-800 via-white/50 to-black-800/30">
         <div className="mb-2 text-lg font-bold">make it rain.</div>
@@ -77,7 +78,7 @@ export default function AudioDanceCard() {
           {playing ? 'STOP' : 'MAKE IT'}
         </Button>
         <div className="w-full max-w-xs flex items-center gap-2 mt-2">
-          <span className="text-sm text-gray-500">VOLUME</span>
+          <span className="text-sm opacity-60">VOLUME</span>
           <Slider
             defaultValue={[volume]}
             max={100}
@@ -86,7 +87,7 @@ export default function AudioDanceCard() {
             onValueChange={handleVolumeChange}
             className="flex-1 mx-2"
           />
-          <span className="text-sm text-gray-500 w-8 text-right">{volume}</span>
+          <span className="text-sm opacity-60 w-8 text-right">{volume}</span>
         </div>
       </CardContent>
       <CardFooter className="flex flex-col items-start pt-0">

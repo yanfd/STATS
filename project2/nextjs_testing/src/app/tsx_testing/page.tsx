@@ -12,6 +12,7 @@ import { Clock } from "lucide-react";
 import ReligiousCrossIcon from "@/components/ReligionCross";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
+import { timeStamp } from 'console';
 
 // Helper for section layout
 function Section({ children, className = "" }: { children: React.ReactNode, className?: string }) {
@@ -23,6 +24,14 @@ function Section({ children, className = "" }: { children: React.ReactNode, clas
 }
 
 export default function TsxTestingPage() {
+    const now: Date = new Date();
+    const targetDate: Date = new Date(2024, 11, 30); // 2024年12月30日
+
+    // 计算毫秒差
+    const differenceInMilliseconds: number = now.getTime() - targetDate.getTime();
+    //day
+    const null_time: number = Math.round(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
     return (
         <div id="scroll-container" className="relative bg-black text-white h-screen overflow-y-scroll snap-y snap-mandatory overflow-x-hidden">
             <ThreeBackground />
@@ -57,7 +66,7 @@ export default function TsxTestingPage() {
                         transition={{ repeat: Infinity, duration: 2 }}
                         className="absolute bottom-10 text-white/50 text-sm"
                     >
-                        SCROLL TO EXPLORE
+                        下滑探索
                     </motion.div>
                 </Section>
 
@@ -69,18 +78,17 @@ export default function TsxTestingPage() {
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-5xl font-bold mb-6 font-mono">CHAOS & ORDER</h2>
+                            <h2 className="text-5xl font-bold mb-6 font-mono">WHERE WE GO</h2>
                             <p className="text-xl text-gray-300 mb-6 leading-relaxed">
                                 Navigating through the digital noise to find clarity.
-                                Exploring the boundaries between generative art and functional design.
                             </p>
                             <div className="flex gap-4">
                                 <Card className="bg-white/5 border-white/10 backdrop-blur-md p-4 flex-1">
-                                    <h3 className="text-lg font-bold text-blue-400">React + Next.js</h3>
+                                    <h3 className="text-lg font-bold text-white">React + Next.js</h3>
                                     <p className="text-sm text-gray-400">Building the future web</p>
                                 </Card>
                                 <Card className="bg-white/5 border-white/10 backdrop-blur-md p-4 flex-1">
-                                    <h3 className="text-lg font-bold text-purple-400">Game Dev</h3>
+                                    <h3 className="text-lg font-bold text-white">Game Dev</h3>
                                     <p className="text-sm text-gray-400">Interactive experiences</p>
                                 </Card>
                             </div>
@@ -140,7 +148,7 @@ export default function TsxTestingPage() {
                                 whileHover={{ scale: 1.05 }}
                                 className="flex justify-center"
                             >
-                                <AudioDanceCard />
+                                <AudioDanceCard className="text-white" />
                             </motion.div>
 
                             <div className="flex flex-col gap-6 justify-center">
@@ -156,10 +164,12 @@ export default function TsxTestingPage() {
 
                                 <Card className="bg-black/40 border-white/10 backdrop-blur-md">
                                     <CardContent className="p-6 flex items-center gap-4">
-                                        <ReligiousCrossIcon />
+                                        <ReligiousCrossIcon className="text-white" />
                                         <div className="text-left">
-                                            <p className="text-xl font-bold text-white">FAITH</p>
-                                            <p className="text-xs text-gray-500 uppercase">KEEP BELIEVING</p>
+                                            <p className="text-xl font-bold text-white">SOMEBODY THAT I USED TO KNOW.</p>
+                                            <p className="text-xs text-gray-500 uppercase">{null_time} DAYS.</p>
+                                            <p className="text-xs text-gray-500 uppercase"></p>
+
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -175,7 +185,7 @@ export default function TsxTestingPage() {
                             initial={{ opacity: 0, scale: 0.5 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1 }}
-                            className="text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+                            className="text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-br from-blue-200 to-grey-600"
                         >
                             ALMOST HUMAN
                         </motion.h2>

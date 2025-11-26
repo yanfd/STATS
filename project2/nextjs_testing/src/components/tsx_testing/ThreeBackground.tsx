@@ -36,8 +36,10 @@ export default function ThreeBackground() {
         // Store initial positions and indices for calculations
         const initialPositions: { x: number; y: number; z: number; idx: number }[] = [];
 
-        const color1 = new THREE.Color(0x00ffff); // Cyan
-        const color2 = new THREE.Color(0xff00ff); // Magenta
+        const colorSphere = new THREE.Color(0x00ffff); // Cyan
+        const colorChaos = new THREE.Color(0xF8F8F8); // Magenta
+        const colorWave = new THREE.Color(0xF9F9F9); // Blue
+        const colorRing = new THREE.Color(0xF9F9F9); // Orange
 
         // Initial Form: Sphere
         for (let i = 0; i < particleCount; i++) {
@@ -63,9 +65,9 @@ export default function ThreeBackground() {
             initialPositions.push({ x, y, z, idx: i });
 
             // Initial Color
-            colors[i3] = color1.r;
-            colors[i3 + 1] = color1.g;
-            colors[i3 + 2] = color1.b;
+            colors[i3] = colorSphere.r;
+            colors[i3 + 1] = colorSphere.g;
+            colors[i3 + 2] = colorSphere.b;
         }
 
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -193,8 +195,20 @@ export default function ThreeBackground() {
                 posArray[i3 + 1] = currentY;
                 posArray[i3 + 2] = currentZ;
 
-                // Color mixing
-                const mixedColor = color1.clone().lerp(color2, animState.colorMix + Math.sin(p.idx * 0.01 + time) * 0.2);
+                // Color mixing based on form
+                let mixedColor;
+                if (animState.form < 1) {
+                    mixedColor = colorSphere.clone().lerp(colorChaos, animState.form);
+                } else if (animState.form < 2) {
+                    mixedColor = colorChaos.clone().lerp(colorWave, animState.form - 1);
+                } else {
+                    mixedColor = colorWave.clone().lerp(colorRing, animState.form - 2);
+                }
+
+                // Add some shimmer
+                const shimmer = Math.sin(p.idx * 0.01 + time) * 0.2;
+                mixedColor.addScalar(shimmer);
+
                 colArray[i3] = mixedColor.r;
                 colArray[i3 + 1] = mixedColor.g;
                 colArray[i3 + 2] = mixedColor.b;
