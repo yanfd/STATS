@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 // Helper for section layout
 function Section({ children, className = "" }: { children: React.ReactNode, className?: string }) {
     return (
-        <section className={`relative min-h-screen flex flex-col items-center justify-center p-6 ${className}`}>
+        <section className={`relative min-h-screen flex flex-col items-center justify-center p-6 snap-start ${className}`}>
             {children}
         </section>
     );
@@ -24,14 +24,14 @@ function Section({ children, className = "" }: { children: React.ReactNode, clas
 
 export default function TsxTestingPage() {
     return (
-        <div className="relative bg-black text-white overflow-x-hidden">
+        <div id="scroll-container" className="relative bg-black text-white h-screen overflow-y-scroll snap-y snap-mandatory overflow-x-hidden">
             <ThreeBackground />
 
             <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-md">
                 <Navbar />
             </header>
 
-            <div className="relative z-10">
+            <div className="scroll-content relative z-10">
 
                 {/* SECTION 1: SPHERE FORM - HERO */}
                 <Section>

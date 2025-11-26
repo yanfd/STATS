@@ -94,7 +94,8 @@ export default function ThreeBackground() {
         // The trigger will be the main scroll container or the body if using native scroll
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: "body", // Use body as the trigger for the whole page scroll
+                trigger: ".scroll-content",
+                scroller: "#scroll-container",
                 start: "top top",
                 end: "bottom bottom",
                 scrub: 1,
