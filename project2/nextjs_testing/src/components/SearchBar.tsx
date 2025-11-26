@@ -30,21 +30,30 @@ const SearchBar: React.FC<SearchBarProps> = ({ onShowQuiz }) => {
           onShowQuiz();
         }
         return;
-      }else if (query.toLowerCase().includes('gl')) {
+      } else if (query.toLowerCase().includes('gl')) {
         // 检查是否在本地开发环境
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const baseUrl = isLocalhost 
+        const baseUrl = isLocalhost
           ? 'http://localhost:3000'
           : process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
         window.location.href = `${baseUrl}/clutter/particlesGL`;
         return;
 
+      } else if (query.toLowerCase().includes('stats2')) {
+        // 检查是否在本地开发环境
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const baseUrl = isLocalhost
+          ? 'http://localhost:3000'
+          : process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+        window.location.href = `${baseUrl}/tsx_testing`;
+        return;
+
       }
-      
-      
-        const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-        window.open(googleSearchUrl, '_blank');
-      
+
+
+      const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      window.open(googleSearchUrl, '_blank');
+
     }
   };
 
