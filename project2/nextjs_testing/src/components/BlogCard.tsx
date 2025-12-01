@@ -41,7 +41,7 @@ async function fetchLatestPostFromRss(): Promise<BlogPost | null> {
 
     return {
       title: latestPost?.title || '',
-      link: latestPost?.link || '',
+      link: latestPost?.link?.replace('yanfd.tech', 'yanfd.cn') || '',
       pubDate: latestPost?.pubDate || '',
       content: latestPost?.content || '',
       contentSnippet: latestPost?.contentSnippet || '',
@@ -87,16 +87,16 @@ const BlogCard = () => {
     return null;
   }
   const snippetToDisplay = latestPost.contentSnippet
-  ? latestPost.contentSnippet.substring(0, 100) + (latestPost.contentSnippet.length > 100 ? '...' : '')
-  : '';
+    ? latestPost.contentSnippet.substring(0, 100) + (latestPost.contentSnippet.length > 100 ? '...' : '')
+    : '';
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
         <CardTitle className="font-mono text-2xl font-medium ">LATEST BLOG</CardTitle>
         <span>
-          {new Date(latestPost.isoDate).toLocaleDateString('en-US').slice(0,3)}
+          {new Date(latestPost.isoDate).toLocaleDateString('en-US').slice(0, 3)}
           <span className="ml-1 text-sm font-normal text-muted-foreground">
-            {new Date(latestPost.isoDate).toLocaleDateString().slice(6,10)}
+            {new Date(latestPost.isoDate).toLocaleDateString().slice(6, 10)}
           </span>
         </span>
       </CardHeader>

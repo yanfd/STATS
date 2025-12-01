@@ -12,7 +12,6 @@ import { Clock } from "lucide-react";
 import ReligiousCrossIcon from "@/components/ReligionCross";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
-import { timeStamp } from 'console';
 
 // Helper for section layout
 function Section({ children, className = "" }: { children: React.ReactNode, className?: string }) {
