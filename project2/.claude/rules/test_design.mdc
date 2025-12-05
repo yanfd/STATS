@@ -1,0 +1,49 @@
+---
+description: Design document for the Tree Page feature
+globs: src/app/tree/**/*
+alwaysApply: true
+---
+# Tree Page Design
+
+## Overview
+A relaxing, interactive page featuring a customizable tree scene with lofi music. The design focuses on a flat, low-saturation aesthetic.
+我喜欢圣诞树那种松树类型。另外整体的树叶要动态地摇来摇去。整体的颜色不要这么亮，要阴沉暗淡一些。现在的太晃眼了。
+## Features
+
+### 1. Scene Customization
+- **Seasons**:
+  - **Spring**: Fresh greens, pink blossoms.
+  - **Summer**: Deep greens, vibrant sun.
+  - **Autumn**: Orange/Red foliage.
+  - **Winter**: Bare branches, white accents.
+- **Weather**:
+  - **Sunny**: Clear sky, bright lighting.
+  - **Rain**: Grey sky, rain animation (CSS/Canvas).
+  - **Snow**: White sky, falling snow animation.
+
+### 2. Audio Player
+- **Lofi Player**:
+  - Simple play/pause control.
+  - Volume control.
+  - Visualizer (optional, simple bars).
+  - Source: Placeholder MP3 or stream URL.
+
+### 3. Visual Style
+- **Aesthetic**: Flat design (2D vector style).
+- **Color Palette**: Low saturation, pastel tones (e.g., Sage Green, Dusty Rose, Slate Blue).
+- **Layout**: Centered tree composition with floating controls.
+
+## Technical Implementation
+
+### Frontend (`nextjs_testing`)
+- **Route**: `/tree`
+- **Components**:
+  - `TreeScene`: Handles the visual rendering of the tree and weather.
+  - `ControlPanel`: UI for switching seasons and weather.
+  - `LofiPlayer`: Audio player component.
+- **State Management**:
+  - `season`: 'spring' | 'summer' | 'autumn' | 'winter'
+  - `weather`: 'sunny' | 'rain' | 'snow'
+
+### Backend (`nextjs_fastapi`)
+- *Future*: API to sync user preferences or fetch blog posts (Hughes integration).

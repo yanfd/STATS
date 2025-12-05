@@ -9,12 +9,6 @@ STATS 是一个包含多个实验性 Next.js 项目的代码库，用于测试�
 
 ## 主要项目
 
-### 1. Globe 项目 (`/globe` 和 `/globe2`)
-交互式 3D 地球可视化项目：
-- 使用 Three.js 和自定义 GLSL 着色器
-- 实现动画星空、大气光晕效果
-- 渐进式纹理加载（线框 → 高分辨率纹理）
-- 技术栈：React + Three.js + Framer Motion + Tailwind CSS
 
 ### 2. NextJS Testing (`/project2/nextjs_testing`)
 UI 组件实验室和界面开发平台：
@@ -39,7 +33,7 @@ Python 后端 API 服务：
 - 正在进行多项目并行开发
 
 ### 技术特点
-- 全部使用 TypeScript
+- 前端使用 TypeScript +tailwindCSS，后端python+fastapi
 - 客户端渲染模式 (`"use client"` 指令)
 - 组件遵循 shadcn/ui 规范 (`@/components/ui/` 导入)
 - Tailwind CSS 响应式设计
