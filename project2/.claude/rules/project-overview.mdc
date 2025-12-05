@@ -3,7 +3,7 @@ description:
 globs:
 alwaysApply: true
 ---
-# 项目总览 (General Project Guide)
+# 项目总览 (Project Overview)
 
 STATS 是一个包含多个实验性 Next.js 项目的代码库，用于测试和探索现代 Web 开发技术。
 

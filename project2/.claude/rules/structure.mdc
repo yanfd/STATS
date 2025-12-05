@@ -88,3 +88,42 @@ STATS/
 ### Globe Projects
 - **src/components/**: Three.js 3D 组件
 - **public/**: 3D 纹理和模型资源
+
+## 技术栈 (Technology Stack)
+
+### Backend (`nextjs_fastapi`)
+- **Framework**: FastAPI
+- **Language**: Python
+- **Entry Point**: `main.py`
+- **Key Features**:
+  - Audio processing (upload, waveform, effects)
+  - Hughes data synchronization
+  - CORS configuration for frontend integration
+- **Routes**:
+  - `/api/audio`: Audio file management
+  - `/api/waveform`: Waveform generation
+  - `/api/effects`: Audio effects processing
+  - `/api/hughes`: Hughes data integration
+
+### Frontend (`nextjs_testing`)
+- **Framework**: Next.js 15.2.4 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: 
+  - Radix UI primitives
+  - Lucide React icons
+  - Framer Motion for animations
+  - Recharts for charts
+- **Key Libraries**:
+  - `three`: 3D graphics
+  - `rss-parser`: RSS feed parsing
+  - `liquid-glass-react`: UI effects
+
+## 开发约定 (Development Conventions)
+
+- **Ports**:
+  - Frontend: `http://localhost:3000`
+  - Backend: `http://localhost:8000`
+- **API Communication**:
+  - Frontend communicates with backend via HTTP requests to `http://localhost:8000` (or configured production URL).
+  - CORS is enabled on the backend to allow requests from the frontend.
