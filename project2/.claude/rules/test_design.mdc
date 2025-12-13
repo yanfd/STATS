@@ -8,6 +8,8 @@ alwaysApply: true
 ## Overview
 A relaxing, interactive page featuring a customizable tree scene with lofi music. The design focuses on a flat, low-saturation aesthetic.
 我喜欢圣诞树那种松树类型。另外整体的树叶要动态地摇来摇去。整体的颜色不要这么亮，要阴沉暗淡一些。现在的太晃眼了。
+
+字体颜色现在是写死的，写的干净清晰一点和背景对比度高一些。另外季节天气控制面板增加隐藏打开按钮，lofi音频增加更多内容（或者可以选一个开源的地方获取更多歌？增加音量调整按钮和播放列表。另外音频模块也要隐藏按钮。
 ## Features
 
 ### 1. Scene Customization
