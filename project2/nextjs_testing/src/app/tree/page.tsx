@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import TimelineScene from '@/components/tree/TimelineScene';
+import AtmosphereBackground from '@/components/tree/AtmosphereBackground';
 import WeatherOverlay from '@/components/tree/WeatherOverlay';
 import Controls from '@/components/tree/Controls';
 import LofiPlayer from '@/components/tree/LofiPlayer';
@@ -15,11 +16,14 @@ export default function TreePage() {
 
     const [selectedMessage, setSelectedMessage] = useState<any | null>(null);
     const [groupedMessages, setGroupedMessages] = useState<Record<string, any>>({}); // Using any for now until we import the type, or better yet, let's just use the type if we can import it. Actually, I'll use the type in the import.
+    const [loading, setLoading] = useState(true);
 
     // Fetch data
     useEffect(() => {
         const fetchMessages = async () => {
             try {
+                // Hard reset loading to verify state
+                setLoading(true);
                 const timestamp = new Date().getTime();
                 const response = await fetch(`/api/hughes/messages/grouped?t=${timestamp}`, {
                     cache: 'no-store',
@@ -31,6 +35,8 @@ export default function TreePage() {
                 }
             } catch (error) {
                 console.error("Failed to fetch tree data", error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchMessages();
@@ -39,12 +45,16 @@ export default function TreePage() {
     // Background colors based on season/weather (Darker/Gloomier palette)
     // Actually, Canvas has its own background color, so this outer div background is less important 
     // but useful for transitions or loading states.
-    const getBackground = () => {
-        return 'bg-black'; // Let 3D handle the color
-    };
+    // The getBackground function is no longer needed as the background is handled by AtmosphereBackground and hardcoded class.
+    // const getBackground = () => {
+    //     return 'bg-black'; // Let 3D handle the color
+    // };
 
     return (
-        <div className={`relative w-full h-screen overflow-hidden ${getBackground()}`}>
+        <div className="relative w-full h-screen overflow-hidden bg-black text-white">
+
+            {/* Background Layer */}
+            <AtmosphereBackground season={season} weather={weather} />
 
             {/* Weather Overlay - Optional, but we have 3D weather now. 
                 Let's keep the CSS overlay if it adds to the effect, or remove it to rely on 3D.
@@ -54,12 +64,20 @@ export default function TreePage() {
 
             {/* Main Scene - Flat Timeline */}
             <div className="absolute inset-0 z-10 overflow-y-auto">
-                <TimelineScene
-                    season={season}
-                    weather={weather}
-                    data={groupedMessages}
-                    onSelectMessage={setSelectedMessage}
-                />
+                {loading ? (
+                    <div className="flex h-full items-center justify-center">
+                        <div className="text-white/30 animate-pulse text-sm tracking-widest uppercase">
+                            Loading Timeline...
+                        </div>
+                    </div>
+                ) : (
+                    <TimelineScene
+                        season={season}
+                        weather={weather}
+                        data={groupedMessages}
+                        onSelectMessage={setSelectedMessage}
+                    />
+                )}
             </div>
 
             {/* UI Controls */}
