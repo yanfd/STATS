@@ -4,6 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageGroup } from '@/types/hughes';
 import { X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface TimelineSceneProps {
     season: 'spring' | 'summer' | 'autumn' | 'winter';
@@ -64,7 +66,7 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
                                 whileHover={{ scale: 1.02, x: 10 }}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.05 }}
+                                transition={{ delay: index * 0.05, duration: 0.1, ease: 'linear' }}
                             >
                                 {/* Left: Label */}
                                 <div className="flex flex-col w-24 flex-shrink-0">
@@ -116,7 +118,7 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-0 md:p-12"
+                        className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xl p-0 md:p-12"
                         onClick={handleCloseMonth}
                     >
                         <motion.div
@@ -163,9 +165,11 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
                                             <h3 className="text-xl font-medium text-white/80 group-hover:text-white mb-2 transition-colors">
                                                 {msg.title}
                                             </h3>
-                                            <p className="text-sm text-white/40 line-clamp-2 leading-relaxed font-light">
-                                                {msg.content}
-                                            </p>
+                                            <div className="text-sm text-white/40 line-clamp-3 leading-relaxed font-light prose prose-invert prose-sm max-w-none [&>p]:m-0 [&>img]:rounded-md [&>img]:mt-2">
+                                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                    {msg.content}
+                                                </ReactMarkdown>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 ))}

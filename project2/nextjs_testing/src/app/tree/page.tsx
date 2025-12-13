@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import TimelineScene from '@/components/tree/TimelineScene';
 import AtmosphereBackground from '@/components/tree/AtmosphereBackground';
@@ -142,10 +144,10 @@ export default function TreePage() {
                                     ✕
                                 </button>
                             </div>
-                            <div className="prose prose-invert max-w-none">
-                                <p className="whitespace-pre-line leading-relaxed text-gray-300">
+                            <div className="prose prose-invert max-w-none [&>img]:rounded-xl [&>img]:shadow-lg">
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                     {selectedMessage.content}
-                                </p>
+                                </ReactMarkdown>
                             </div>
                         </motion.div>
                     </motion.div>
