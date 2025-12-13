@@ -5,22 +5,20 @@ import React, { useMemo } from 'react';
 interface AtmosphereBackgroundProps {
     season: 'spring' | 'summer' | 'autumn' | 'winter';
     weather: 'sunny' | 'rain' | 'snow';
+    backgroundImage?: string | null;
 }
 
-export default function AtmosphereBackground({ season, weather }: AtmosphereBackgroundProps) {
+export default function AtmosphereBackground({ season, weather, backgroundImage }: AtmosphereBackgroundProps) {
 
     // Gradients Config (Deep, moody, premium)
     const gradients = useMemo(() => {
-        switch (season) {
-            case 'spring':
-                return 'radial-gradient(circle at 50% 10%, #2D3A2F 0%, #1A221C 40%, #0D110E 100%)'; // Deep Moss
-            case 'summer':
-                return 'radial-gradient(circle at 50% 10%, #1B352C 0%, #0F1F1A 40%, #050A08 100%)'; // Deep Forest
-            case 'autumn':
-                return 'radial-gradient(circle at 50% 10%, #3E2723 0%, #281815 40%, #120B09 100%)'; // Deep Earth
-            case 'winter':
-                return 'radial-gradient(circle at 50% 10%, #263238 0%, #161D21 40%, #0B0E10 100%)'; // Deep Slate
-        }
+        // ... (existing gradients)
+        return {
+            spring: 'radial-gradient(circle at 50% 10%, #2D3A2F 0%, #1A221C 40%, #0D110E 100%)',
+            summer: 'radial-gradient(circle at 50% 10%, #1B352C 0%, #0F1F1A 40%, #050A08 100%)',
+            autumn: 'radial-gradient(circle at 50% 10%, #3E2723 0%, #281815 40%, #120B09 100%)',
+            winter: 'radial-gradient(circle at 50% 10%, #263238 0%, #161D21 40%, #0B0E10 100%)',
+        }[season];
     }, [season]);
 
     // Weather Overlay Opacity (Darken for storms)
@@ -28,10 +26,29 @@ export default function AtmosphereBackground({ season, weather }: AtmosphereBack
 
     return (
         <div className="fixed inset-0 z-0 pointer-events-none transition-all duration-1000 ease-in-out">
-            {/* Base Gradient Layer */}
+
+            {/* Background Image Layer */}
+            {backgroundImage && (
+                <div
+                    className="absolute inset-0 transition-opacity duration-1000"
+                    style={{ opacity: 0.6 }} // Dim image slightly by default
+                >
+                    <img
+                        src={backgroundImage}
+                        alt="Atmosphere"
+                        className="w-full h-full object-cover filter blur-[2px] scale-105"
+                    />
+                </div>
+            )}
+
+            {/* Base Gradient Layer (Tint) */}
             <div
                 className="absolute inset-0 transition-colors duration-1000"
-                style={{ background: gradients }}
+                style={{
+                    background: gradients,
+                    mixBlendMode: backgroundImage ? 'multiply' : 'normal', // Tint image if present
+                    opacity: backgroundImage ? 0.9 : 1 // Allow some image through
+                }}
             />
 
             {/* Weather Dimmer */}

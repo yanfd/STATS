@@ -2,16 +2,17 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CloudRain, CloudSnow, Sun, Leaf, Snowflake, Flower, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CloudRain, CloudSnow, Sun, Leaf, Snowflake, Flower, Settings, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
 
 interface ControlsProps {
     season: 'spring' | 'summer' | 'autumn' | 'winter';
     weather: 'sunny' | 'rain' | 'snow';
     setSeason: (s: 'spring' | 'summer' | 'autumn' | 'winter') => void;
     setWeather: (w: 'sunny' | 'rain' | 'snow') => void;
+    onShuffleBackground?: () => void;
 }
 
-export default function Controls({ season, weather, setSeason, setWeather }: ControlsProps) {
+export default function Controls({ season, weather, setSeason, setWeather, onShuffleBackground }: ControlsProps) {
     const [isVisible, setIsVisible] = useState(true);
 
     const seasons = [
@@ -60,8 +61,8 @@ export default function Controls({ season, weather, setSeason, setWeather }: Con
                                         key={s.id}
                                         onClick={() => setSeason(s.id)}
                                         className={`p-3 rounded-xl transition-all duration-300 ${season === s.id
-                                                ? `${s.color} shadow-lg scale-105 ring-1 ring-white/20`
-                                                : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
+                                            ? `${s.color} shadow-lg scale-105 ring-1 ring-white/20`
+                                            : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
                                             }`}
                                         title={s.label}
                                     >
@@ -70,6 +71,19 @@ export default function Controls({ season, weather, setSeason, setWeather }: Con
                                 ))}
                             </div>
                         </div>
+
+                        {/* Shuffle Background */}
+                        {onShuffleBackground && (
+                            <button
+                                onClick={onShuffleBackground}
+                                className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/5 text-white/50 hover:bg-white/20 hover:text-white transition-all"
+                                title="Shuffle Scenery"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="m16 3 5 5-5 5" /><path d="M4 20h4l10.9-10.9a5 5 0 0 0 0-7.07" /><path d="m21 21-9-9" /><path d="m3 3 5 5" />
+                                </svg>
+                            </button>
+                        )}
 
                         {/* Weather Controls */}
                         <div className="bg-black/30 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
@@ -80,8 +94,8 @@ export default function Controls({ season, weather, setSeason, setWeather }: Con
                                         key={w.id}
                                         onClick={() => setWeather(w.id)}
                                         className={`p-3 rounded-xl transition-all duration-300 ${weather === w.id
-                                                ? 'bg-slate-700 text-white shadow-lg scale-105 ring-1 ring-white/20'
-                                                : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
+                                            ? 'bg-slate-700 text-white shadow-lg scale-105 ring-1 ring-white/20'
+                                            : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
                                             }`}
                                         title={w.label}
                                     >

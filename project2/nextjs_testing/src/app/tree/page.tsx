@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import TimelineScene from '@/components/tree/TimelineScene';
@@ -15,8 +15,29 @@ export default function TreePage() {
     const [weather, setWeather] = useState<'sunny' | 'rain' | 'snow'>('sunny');
 
     const [selectedMessage, setSelectedMessage] = useState<any | null>(null);
-    const [groupedMessages, setGroupedMessages] = useState<Record<string, any>>({}); // Using any for now until we import the type, or better yet, let's just use the type if we can import it. Actually, I'll use the type in the import.
+    const [groupedMessages, setGroupedMessages] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState(true);
+    const [bgImage, setBgImage] = useState<string | null>(null);
+
+    // Curated Unsplash Nature Images (High- res, moody, varied)
+    const UNSPLASH_IMAGES = useMemo(() => [
+        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=80", // Forest light
+        "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=2000&q=80", // Mountains
+        "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=2000&q=80", // Deep Forest
+        "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2000&q=80", // Foggy Hills
+        "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=2000&q=80", // Dark Woods
+        "https://images.unsplash.com/photo-1501854140884-074bf86ee911?auto=format&fit=crop&w=2000&q=80", // Misty Lake
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=80", // High Peaks
+        "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&w=2000&q=80", // Forest Mist
+        "https://images.unsplash.com/photo-1504608524841-4203958c2331?auto=format&fit=crop&w=2000&q=80", // Rain/Dark
+        "https://images.unsplash.com/photo-1519681393798-38e43269d877?auto=format&fit=crop&w=2000&q=80", // Starry/Night
+    ], []);
+
+    const handleShuffleBackground = () => {
+        // Pick random image from array
+        const randomImage = UNSPLASH_IMAGES[Math.floor(Math.random() * UNSPLASH_IMAGES.length)];
+        setBgImage(randomImage);
+    };
 
     // Fetch data
     useEffect(() => {
@@ -54,7 +75,7 @@ export default function TreePage() {
         <div className="relative w-full h-screen overflow-hidden bg-black text-white">
 
             {/* Background Layer */}
-            <AtmosphereBackground season={season} weather={weather} />
+            <AtmosphereBackground season={season} weather={weather} backgroundImage={bgImage} />
 
             {/* Weather Overlay - Optional, but we have 3D weather now. 
                 Let's keep the CSS overlay if it adds to the effect, or remove it to rely on 3D.
@@ -86,6 +107,7 @@ export default function TreePage() {
                 weather={weather}
                 setSeason={setSeason}
                 setWeather={setWeather}
+                onShuffleBackground={handleShuffleBackground}
             />
 
             {/* Music Player */}
