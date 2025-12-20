@@ -213,7 +213,7 @@ export default function TwTestingPageStrict() {
               >
                 <Card className="bg-gradient-to-tr from-black-600 to-gray-800">
                   <CardHeader>
-                    <CardTitle className="font-mono text-4xl text-center">Happy 23 Birthday.</CardTitle>
+                    <CardTitle className="font-mono text-4xl text-center">still diggin.</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-sm text-center">
