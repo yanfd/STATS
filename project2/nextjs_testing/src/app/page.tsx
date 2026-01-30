@@ -53,7 +53,7 @@ export default function TsxTestingPage() {
                             YANFD
                         </h1>
                         <p className="text-xl md:text-2xl text-gray-400 font-light tracking-widest uppercase mb-8">
-                            Digital Experience
+                            now we talkin.
                         </p>
                         <div className="flex justify-center gap-4">
                             <MainCard />
@@ -79,7 +79,7 @@ export default function TsxTestingPage() {
                         >
                             <h2 className="text-5xl font-bold mb-6 font-mono">WHERE WE GO</h2>
                             <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                                Navigating through the digital noise to find clarity.
+                                formal audio component.
                             </p>
                             <div className="flex gap-4">
                                 <Card className="bg-white/5 border-white/10 backdrop-blur-md p-4 flex-1">
@@ -195,7 +195,7 @@ export default function TsxTestingPage() {
                             transition={{ delay: 0.5 }}
                             className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto"
                         >
-                            "I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the dark near the Tannhäuser Gate."
+                            "random glimpses from our eyes.(mit some weird pics.)"
                         </motion.p>
 
                         <Link href="https://gallery.yanfd.cn/" target="_blank">
