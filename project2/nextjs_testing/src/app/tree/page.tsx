@@ -27,7 +27,7 @@ export default function TreePage() {
     useEffect(() => {
         setSeason(getInitialSeason());
     }, []);
-    const [weather, setWeather] = useState<'sunny' | 'rain' | 'snow'>('sunny');
+    const [weather, setWeather] = useState<'sunny' | 'rain' | 'snow'>('snow');
 
     const [selectedMessage, setSelectedMessage] = useState<any | null>(null);
     const [groupedMessages, setGroupedMessages] = useState<Record<string, any>>({});
@@ -169,7 +169,7 @@ export default function TreePage() {
 
             {/* Title / Watermark */}
             <div className="absolute top-8 right-8 z-0 opacity-20 pointer-events-none">
-                <h1 className="text-6xl font-black text-slate-100 tracking-tighter">ZEN</h1>
+                <h1 className="text-6xl font-black text-slate-100 tracking-tighter">YANFD PRESENTS.</h1>
             </div>
         </div>
     );
