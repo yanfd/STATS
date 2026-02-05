@@ -49,7 +49,7 @@ export default function TsxTestingPage() {
                         transition={{ duration: 1 }}
                         className="text-center"
                     >
-                        <h1 className="text-8xl md:text-9xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40 mb-4">
+                        <h1 className="text-10[vw] md:text-9xl font-mono font-black tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white/5 mb-4 select-none blur-[5px]">
                             YANFD
                         </h1>
                         <p className="text-xl md:text-2xl text-gray-400 font-light tracking-widest uppercase mb-8">
