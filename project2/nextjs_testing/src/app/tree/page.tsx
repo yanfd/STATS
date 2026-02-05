@@ -13,7 +13,20 @@ import LofiPlayer from '@/components/tree/LofiPlayer';
 import { MessageGroup, Message } from '@/types/hughes';
 
 export default function TreePage() {
+    const getInitialSeason = () => {
+        if (typeof window === 'undefined') return 'spring'; // Default for SSR
+        const month = new Date().getMonth() + 1; // 1-12
+        if (month >= 3 && month <= 5) return 'spring';
+        if (month >= 6 && month <= 8) return 'summer';
+        if (month >= 9 && month <= 11) return 'autumn';
+        return 'winter'; // 12, 1, 2
+    };
+
     const [season, setSeason] = useState<'spring' | 'summer' | 'autumn' | 'winter'>('spring');
+
+    useEffect(() => {
+        setSeason(getInitialSeason());
+    }, []);
     const [weather, setWeather] = useState<'sunny' | 'rain' | 'snow'>('sunny');
 
     const [selectedMessage, setSelectedMessage] = useState<any | null>(null);

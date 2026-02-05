@@ -83,11 +83,11 @@ export default function TsxTestingPage() {
                             </p>
                             <div className="flex gap-4">
                                 <Card className="bg-white/5 border-white/10 backdrop-blur-md p-4 flex-1">
-                                    <h3 className="text-lg font-bold text-white">React + Next.js</h3>
-                                    <p className="text-sm text-gray-400">Building the future web</p>
+                                    <h3 className="text-lg font-bold text-white">vue</h3>
+                                    <p className="text-sm text-gray-400">some cool stuff.</p>
                                 </Card>
                                 <Card className="bg-white/5 border-white/10 backdrop-blur-md p-4 flex-1">
-                                    <h3 className="text-lg font-bold text-white">Game Dev</h3>
+                                    <h3 className="text-lg font-bold text-white">Video Editing.</h3>
                                     <p className="text-sm text-gray-400">Interactive experiences</p>
                                 </Card>
                             </div>
@@ -103,9 +103,9 @@ export default function TsxTestingPage() {
                             <div className="flex gap-4">
                                 {/* quick navigation */}
                                 <div className='flex justify-around w-full'>
-                                    <a href='https://x.com/home' className="flex-1 mx-2 ">
+                                    <a href='https://x.com/home' className="flex-1 mx-2">
                                         <Card className="h-20 bg-gradient-to-br from-blue-400 to-grey-800 rounded-md border-0 shadow-none">
-                                            <CardContent className="w-full h-full flex items-center justify-center p-0">
+                                            <CardContent className="w-full h-full  flex items-center justify-center p-0">
                                                 <img src="source/twitter.png" alt="X" className="h-full w-auto object-contain" />
                                             </CardContent>
                                         </Card>

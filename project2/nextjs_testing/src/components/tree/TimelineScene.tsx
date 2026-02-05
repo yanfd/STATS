@@ -6,6 +6,8 @@ import { MessageGroup } from '@/types/hughes';
 import { X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 
 interface TimelineSceneProps {
     season: 'spring' | 'summer' | 'autumn' | 'winter';
@@ -145,35 +147,41 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
                             </div>
 
                             {/* List of Messages */}
-                            <div className="flex-1 overflow-y-auto pr-4 space-y-2">
-                                {data[expandedMonth].messages.map((msg: any, i: number) => (
-                                    <motion.div
-                                        key={msg.id}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.2 + i * 0.05 }}
-                                        className="group w-full p-6 border-l-2 border-white/10 hover:border-white/80 hover:bg-white/5 transition-all cursor-pointer flex gap-6"
-                                        onClick={() => onSelectMessage?.(msg)}
-                                    >
-                                        <div className="flex flex-col w-12 text-right flex-shrink-0">
-                                            <span className="text-xl font-bold text-white/50 group-hover:text-white transition-colors">
-                                                {new Date(msg.date).getDate()}
-                                            </span>
-                                        </div>
+                            <ScrollArea className="flex-1 pr-4">
+                                <div className="space-y-2 pb-6">
+                                    {data[expandedMonth].messages.map((msg: any, i: number) => (
+                                        <React.Fragment key={msg.id}>
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.2 + i * 0.05 }}
+                                                className="group w-full p-6 border-l-2 border-white/10 hover:border-white/80 hover:bg-white/5 transition-all cursor-pointer flex gap-6"
+                                                onClick={() => onSelectMessage?.(msg)}
+                                            >
+                                                <div className="flex flex-col w-12 text-right flex-shrink-0">
+                                                    <span className="text-xl font-bold text-white/50 group-hover:text-white transition-colors">
+                                                        {new Date(msg.date).getDate()}
+                                                    </span>
+                                                </div>
 
-                                        <div className="flex-1">
-                                            <h3 className="text-xl font-medium text-white/80 group-hover:text-white mb-2 transition-colors">
-                                                {msg.title}
-                                            </h3>
-                                            <div className="text-sm text-white/40 line-clamp-3 leading-relaxed font-light prose prose-invert prose-sm max-w-none [&>p]:m-0 [&>img]:rounded-md [&>img]:mt-2">
-                                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                                    {msg.content}
-                                                </ReactMarkdown>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </div>
+                                                <div className="flex-1">
+                                                    <h3 className="text-xl font-medium text-white/80 group-hover:text-white mb-2 transition-colors">
+                                                        {msg.title}
+                                                    </h3>
+                                                    <div className="text-sm text-white/40 line-clamp-3 leading-relaxed font-light prose prose-invert prose-sm max-w-none [&>p]:m-0 [&>img]:rounded-md [&>img]:mt-2">
+                                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                            {msg.content}
+                                                        </ReactMarkdown>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                            {i < data[expandedMonth].messages.length - 1 && (
+                                                <Separator className="bg-white/5" />
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                            </ScrollArea>
                         </motion.div>
                     </motion.div>
                 )}
