@@ -44,7 +44,7 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
     };
 
     return (
-        <div className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-8">
+        <div className="relative w-full min-h-full flex flex-col items-center justify-start md:justify-center pt-24 pb-24 md:p-8">
 
             {/* Timeline Column */}
             <div className={`w-full max-w-2xl flex flex-col gap-2 transition-all duration-500 ease-out ${expandedMonth ? 'opacity-0 pointer-events-none translate-y-10' : 'opacity-100'}`}>
@@ -131,10 +131,10 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
                             {/* Header */}
                             <div className="flex justify-between items-end border-b border-white/10 pb-6 mb-8">
                                 <div>
-                                    <h1 className="text-8xl font-black text-white/90 tracking-tighter leading-none">
+                                    <h1 className="text-5xl md:text-8xl font-black text-white/90 tracking-tighter leading-none">
                                         {data[expandedMonth].month}
                                     </h1>
-                                    <p className="text-2xl text-white/40 font-light mt-2 tracking-widest">
+                                    <p className="text-lg md:text-2xl text-white/40 font-light mt-2 tracking-widest">
                                         {data[expandedMonth].year} _ ARCHIVE
                                     </p>
                                 </div>

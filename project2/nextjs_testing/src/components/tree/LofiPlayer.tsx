@@ -14,7 +14,7 @@ const PLAYLIST = [
 export default function LofiPlayer() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
     const [currentTrack, setCurrentTrack] = useState(0);
     const [volume, setVolume] = useState(0.5);
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -63,7 +63,7 @@ export default function LofiPlayer() {
 
     return (
         <motion.div
-            className="absolute bottom-8 right-8 z-30 flex flex-col items-end gap-2"
+            className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-30 flex flex-col items-end gap-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}

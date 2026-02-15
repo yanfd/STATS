@@ -13,7 +13,7 @@ interface ControlsProps {
 }
 
 export default function Controls({ season, weather, setSeason, setWeather, onShuffleBackground }: ControlsProps) {
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
 
     const seasons = [
         { id: 'spring', icon: Flower, label: 'Spring', color: 'bg-green-800/80 text-green-100' },
@@ -30,7 +30,7 @@ export default function Controls({ season, weather, setSeason, setWeather, onShu
 
     return (
         <motion.div
-            className="absolute top-8 left-8 z-30 flex items-start gap-2"
+            className="absolute top-4 left-4 md:top-8 md:left-8 z-30 flex items-start gap-2"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
