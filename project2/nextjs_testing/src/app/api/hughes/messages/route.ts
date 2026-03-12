@@ -53,7 +53,7 @@ export async function GET() {
     // or at least a structured 500 that the frontend can handle.
     // In this case, since the backend is down, we return a 503 Service Unavailable
     // or a 500 with a clear message.
-
+    // trigger redeploy.
     return NextResponse.json(
       {
         error: 'Failed to fetch messages',
