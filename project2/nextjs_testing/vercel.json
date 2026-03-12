@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "NEXT_PUBLIC_API_URL": "https://api.yanfd.cn"
+      "NEXT_PUBLIC_API_URL": "http://8.140.221.75"
     }
   }
 }

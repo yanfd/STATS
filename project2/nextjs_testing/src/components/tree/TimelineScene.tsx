@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageGroup } from '@/types/hughes';
 import { X } from 'lucide-react';
@@ -42,6 +42,16 @@ export default function TimelineScene({ season, weather, data = {}, onSelectMess
         e.stopPropagation();
         setExpandedMonth(null);
     };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && expandedMonth) {
+                setExpandedMonth(null);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [expandedMonth]);
 
     return (
         <div className="relative w-full min-h-full flex flex-col items-center justify-start md:justify-center pt-24 pb-24 md:p-8">

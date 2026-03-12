@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -77,6 +77,71 @@ export default function TreePage() {
         };
         fetchMessages();
     }, []);
+
+    // ESC to close message detail modal (capture phase so it fires before TimelineScene's handler)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && selectedMessage) {
+                e.stopImmediatePropagation();
+                setSelectedMessage(null);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown, true);
+        return () => document.removeEventListener('keydown', handleKeyDown, true);
+    }, [selectedMessage]);
+
+    // Comment state
+    const [comments, setComments] = useState<any[]>([]);
+    const [commentAuthor, setCommentAuthor] = useState('');
+    const [commentContent, setCommentContent] = useState('');
+    const [commentLoading, setCommentLoading] = useState(false);
+    const [commentSubmitting, setCommentSubmitting] = useState(false);
+
+    // Use stable message id as comment key to avoid collisions.
+    const messageCommentKey = selectedMessage?.id != null ? String(selectedMessage.id) : null;
+
+    const fetchComments = useCallback(async (key: string) => {
+        setCommentLoading(true);
+        try {
+            const res = await fetch(`/api/comments?message_id=${encodeURIComponent(key)}`);
+            if (res.ok) {
+                const data = await res.json();
+                setComments(data.comments || []);
+            }
+        } catch { /* ignore */ } finally {
+            setCommentLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (messageCommentKey) {
+            fetchComments(messageCommentKey);
+        } else {
+            setComments([]);
+        }
+    }, [messageCommentKey, fetchComments]);
+
+    const handleSubmitComment = async () => {
+        if (!commentAuthor.trim() || !commentContent.trim() || !messageCommentKey) return;
+        setCommentSubmitting(true);
+        try {
+            const res = await fetch('/api/comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message_id: messageCommentKey,
+                    author_name: commentAuthor.trim(),
+                    content: commentContent.trim(),
+                }),
+            });
+            if (res.ok) {
+                setCommentContent('');
+                fetchComments(messageCommentKey);
+            }
+        } catch { /* ignore */ } finally {
+            setCommentSubmitting(false);
+        }
+    };
 
     // Background colors based on season/weather (Darker/Gloomier palette)
     // Actually, Canvas has its own background color, so this outer div background is less important 
@@ -161,6 +226,62 @@ export default function TreePage() {
                                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                     {selectedMessage.content}
                                 </ReactMarkdown>
+                            </div>
+
+                            {/* Comments Section */}
+                            <div className="mt-6 pt-6 border-t border-white/10">
+                                <h3 className="text-sm font-medium text-white/40 tracking-widest uppercase mb-4">
+                                    留言 ({comments.length})
+                                </h3>
+
+                                {commentLoading ? (
+                                    <div className="text-white/20 text-sm animate-pulse">加载中...</div>
+                                ) : (
+                                    <>
+                                        {comments.length > 0 && (
+                                            <div className="space-y-3 mb-6">
+                                                {comments.map((c: any) => (
+                                                    <div key={c.id} className="bg-white/5 rounded-lg p-3">
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <span className="text-sm font-medium text-white/70">{c.author_name}</span>
+                                                            <span className="text-xs text-white/20">
+                                                                {new Date(c.created_at).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-sm text-white/50 leading-relaxed">{c.content}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="text"
+                                                placeholder="你的名字"
+                                                value={commentAuthor}
+                                                onChange={(e) => setCommentAuthor(e.target.value)}
+                                                className="w-24 shrink-0 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-white/30"
+                                                maxLength={50}
+                                            />
+                                            <input
+                                                type="text"
+                                                placeholder="写点什么..."
+                                                value={commentContent}
+                                                onChange={(e) => setCommentContent(e.target.value)}
+                                                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmitComment(); } }}
+                                                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-white/30"
+                                                maxLength={500}
+                                            />
+                                            <button
+                                                onClick={handleSubmitComment}
+                                                disabled={commentSubmitting || !commentAuthor.trim() || !commentContent.trim()}
+                                                className="shrink-0 px-4 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 rounded-lg text-sm text-white transition-colors"
+                                            >
+                                                {commentSubmitting ? '...' : '发送'}
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </motion.div>
                     </motion.div>

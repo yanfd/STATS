@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://8.140.221.75:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://8.140.221.75';
 
 export async function GET() {
   try {
