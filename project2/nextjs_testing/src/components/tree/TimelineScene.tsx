@@ -14,10 +14,17 @@ interface TimelineSceneProps {
     weather: 'sunny' | 'rain' | 'snow';
     data?: Record<string, MessageGroup>;
     onSelectMessage?: (message: any) => void;
+    navigateTo?: { monthKey: string; messageId: string } | null;
 }
 
-export default function TimelineScene({ season, weather, data = {}, onSelectMessage }: TimelineSceneProps) {
+export default function TimelineScene({ season, weather, data = {}, onSelectMessage, navigateTo }: TimelineSceneProps) {
     const [expandedMonth, setExpandedMonth] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (navigateTo) {
+            setExpandedMonth(navigateTo.monthKey);
+        }
+    }, [navigateTo]);
 
     // Aesthetic Config (Flat, Minimalist, Dark)
     const config = useMemo(() => {

@@ -10,6 +10,7 @@ from datetime import datetime
 # Import our route modules (explicit submodule imports; don't rely on routes/__init__.py)
 from routes import audio_routes, waveform_routes, effects_routes, hughes_routes
 from routes.comments_routes import router as comments_router
+from routes.pricing_routes import router as pricing_router
 
 # 启动时的生命周期管理
 @asynccontextmanager
@@ -77,6 +78,7 @@ app.include_router(waveform_routes.router, prefix="/api/waveform", tags=["wavefo
 app.include_router(effects_routes.router, prefix="/api/effects", tags=["effects"])
 app.include_router(hughes_routes.router)  # Hughes routes already have /api/hughes prefix
 app.include_router(comments_router)
+app.include_router(pricing_router)
 
 # Create uploads directory if it doesn't exist
 os.makedirs("uploads", exist_ok=True)

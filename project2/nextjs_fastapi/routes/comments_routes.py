@@ -10,7 +10,7 @@ router = APIRouter(
     tags=["comments"]
 )
 
-COMMENTS_FILE = os.path.join('processed', 'comments.json')
+COMMENTS_FILE = os.environ.get('COMMENTS_FILE', '/etc/hughes-api/comments.json')
 
 
 class CommentCreate(BaseModel):
@@ -27,9 +27,20 @@ def load_comments() -> dict:
 
 
 def save_comments(data: dict):
-    os.makedirs('processed', exist_ok=True)
+    os.makedirs(os.path.dirname(COMMENTS_FILE), exist_ok=True)
     with open(COMMENTS_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+@router.get("/recent")
+async def get_recent_comments(limit: int = 20):
+    """获取最新评论列表（用于通知）"""
+    data = load_comments()
+    all_comments = []
+    for comments in data.values():
+        all_comments.extend(comments)
+    all_comments.sort(key=lambda c: c.get('created_at', ''), reverse=True)
+    return {"comments": all_comments[:limit]}
 
 
 @router.get("/{message_id:path}")

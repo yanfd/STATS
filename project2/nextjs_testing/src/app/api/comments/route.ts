@@ -4,6 +4,18 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://8.140.221.75';
 
 export async function GET(request: NextRequest) {
     const messageId = request.nextUrl.searchParams.get('message_id');
+    const recent = request.nextUrl.searchParams.get('recent');
+
+    if (recent) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/comments/recent`, { cache: 'no-store' });
+            const data = await response.json();
+            return NextResponse.json(data);
+        } catch {
+            return NextResponse.json({ comments: [] });
+        }
+    }
+
     if (!messageId) {
         return NextResponse.json({ error: 'message_id required' }, { status: 400 });
     }

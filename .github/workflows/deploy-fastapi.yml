@@ -32,7 +32,7 @@ jobs:
         port: ${{ secrets.SERVER_PORT || 22 }}
         script: |
           # 进入项目目录（使用正确的路径）
-          cd ~/apps/tailwind_test || mkdir -p ~/apps/tailwind_test && cd ~/apps
+          mkdir -p ~/apps && cd ~/apps
           
           # 如果有旧的repo，拉取更新；否则克隆
           if [ -d "tailwind_test/.git" ]; then
@@ -67,6 +67,10 @@ jobs:
           
           # 创建持久配置目录（在项目外）
           sudo mkdir -p /etc/hughes-api
+
+          # 确保评论文件存在（不覆盖已有数据）
+          sudo test -f /etc/hughes-api/comments.json || echo '{}' | sudo tee /etc/hughes-api/comments.json > /dev/null
+          sudo chmod 644 /etc/hughes-api/comments.json
           
           # 将Token保存到安全位置（不会被git覆盖）
           sudo tee /etc/hughes-api/env > /dev/null << 'EOF'

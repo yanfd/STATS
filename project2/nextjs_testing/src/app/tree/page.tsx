@@ -10,6 +10,7 @@ import AtmosphereBackground from '@/components/tree/AtmosphereBackground';
 import WeatherOverlay from '@/components/tree/WeatherOverlay';
 import Controls from '@/components/tree/Controls';
 import LofiPlayer from '@/components/tree/LofiPlayer';
+import CommentNotifications from '@/components/tree/CommentNotifications';
 import { MessageGroup, Message } from '@/types/hughes';
 
 export default function TreePage() {
@@ -33,6 +34,12 @@ export default function TreePage() {
     const [groupedMessages, setGroupedMessages] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState(true);
     const [bgImage, setBgImage] = useState<string | null>(null);
+    const [navigateTo, setNavigateTo] = useState<{ monthKey: string; messageId: string } | null>(null);
+
+    const handleNotificationNavigate = useCallback((monthKey: string, messageId: string) => {
+        setNavigateTo({ monthKey, messageId });
+        setTimeout(() => setNavigateTo(null), 500);
+    }, []);
 
     // Curated Unsplash Nature Images (High- res, moody, varied)
     const UNSPLASH_IMAGES = useMemo(() => [
@@ -177,6 +184,7 @@ export default function TreePage() {
                         weather={weather}
                         data={groupedMessages}
                         onSelectMessage={setSelectedMessage}
+                        navigateTo={navigateTo}
                     />
                 )}
             </div>
@@ -192,6 +200,12 @@ export default function TreePage() {
 
             {/* Music Player */}
             <LofiPlayer />
+
+            {/* Comment Notifications */}
+            <CommentNotifications
+                onNavigate={handleNotificationNavigate}
+                groupedMessages={groupedMessages}
+            />
 
             {/* Message Detail Modal - Reusing style from Hughes page but adapting to Tree aesthetic */}
             <AnimatePresence>
