@@ -1,9 +1,9 @@
 ---
-description: Design document for the Tree Page feature
-globs: src/app/tree/**/*
+description: Design document for the Log Page feature
+globs: src/app/log/**/*
 alwaysApply: true
 ---
-# Tree Page Design
+# Log Page Design
 
 ## Overview
 A relaxing, interactive page featuring a customizable tree scene with lofi music. The design focuses on a flat, low-saturation aesthetic.
@@ -38,7 +38,7 @@ A relaxing, interactive page featuring a customizable tree scene with lofi music
 ## Technical Implementation
 
 ### Frontend (`nextjs_testing`)
-- **Route**: `/tree`
+- **Route**: `/log`
 - **Components**:
   - `TreeScene`: Handles the visual rendering of the tree and weather.
   - `ControlPanel`: UI for switching seasons and weather.

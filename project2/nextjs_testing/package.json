@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:webpack": "next dev --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -48,6 +49,7 @@
     "@types/react-dom": "^19",
     "@types/three": "^0.181.0",
     "@types/xml2js": "^0.4.14",
+    "code-inspector-plugin": "^1.5.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

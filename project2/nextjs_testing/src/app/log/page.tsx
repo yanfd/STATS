@@ -5,15 +5,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import TimelineScene from '@/components/tree/TimelineScene';
-import AtmosphereBackground from '@/components/tree/AtmosphereBackground';
-import WeatherOverlay from '@/components/tree/WeatherOverlay';
-import Controls from '@/components/tree/Controls';
-import LofiPlayer from '@/components/tree/LofiPlayer';
-import CommentNotifications from '@/components/tree/CommentNotifications';
+import TimelineScene from '@/components/log/TimelineScene';
+import AtmosphereBackground from '@/components/log/AtmosphereBackground';
+import WeatherOverlay from '@/components/log/WeatherOverlay';
+import Controls from '@/components/log/Controls';
+import LofiPlayer from '@/components/log/LofiPlayer';
+import CommentNotifications from '@/components/log/CommentNotifications';
 import { MessageGroup, Message } from '@/types/hughes';
 
-export default function TreePage() {
+export default function LogPage() {
     const getInitialSeason = () => {
         if (typeof window === 'undefined') return 'spring'; // Default for SSR
         const month = new Date().getMonth() + 1; // 1-12
@@ -77,7 +77,7 @@ export default function TreePage() {
                     setGroupedMessages(data.groups || {});
                 }
             } catch (error) {
-                console.error("Failed to fetch tree data", error);
+                console.error("Failed to fetch log data", error);
             } finally {
                 setLoading(false);
             }
@@ -207,7 +207,7 @@ export default function TreePage() {
                 groupedMessages={groupedMessages}
             />
 
-            {/* Message Detail Modal - Reusing style from Hughes page but adapting to Tree aesthetic */}
+            {/* Message Detail Modal - Reusing style from Hughes page but adapting to Log aesthetic */}
             <AnimatePresence>
                 {selectedMessage && (
                     <motion.div
