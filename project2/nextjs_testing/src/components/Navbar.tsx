@@ -24,7 +24,18 @@ const Navbar = ({ onBackgroundChange, currentBackground = 'gradient' }: NavbarPr
               currentSource={currentBackground}
             />
           )}
-          <Button variant="link" className='text-white'>CONTACT</Button>
+          <Button variant="link" className="text-white font-bold" asChild>
+            <a href="https://github.com/yanfd" target="_blank" rel="noopener noreferrer">GITHUB</a>
+          </Button>
+          <Button variant="link" className="text-white font-bold" asChild>
+            <a href="https://yanfd.cn" target="_blank" rel="noopener noreferrer">BLOG</a>
+          </Button>
+          <Button variant="link" className="text-white font-bold" asChild>
+            <a href="https://gallery.yanfd.cn" target="_blank" rel="noopener noreferrer">GALLERY</a>
+          </Button>
+          {/* <Button variant="link" className="text-white" asChild> */}
+            {/* <a href="https://contact.yanfd.cn" target="_blank" rel="noopener noreferrer">CONTACT</a> */}
+          {/* </Button> */}
           {/* 可以添加更多导航链接 */}
         </div>
       </div>
