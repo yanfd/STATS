@@ -1,0 +1,118 @@
+.v3-root {
+  --nd-100: #ffffff;
+  --nd-200: #f2f2f4;
+  --nd-300: #ececec;
+  --nd-400: #eaeaee;
+  --nd-500: #e2e2e7;
+  --nd-600: #aaaaaa;
+  --nd-700: #737d7d;
+  --nd-800: #494d4d;
+  --nd-900: #2d2f2f;
+  --nd-1000: #1e1e1e;
+  --nd-1100: #121212;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--nd-200);
+  color: var(--nd-900);
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("/fonts/v3/NeueHaasDisplayRoman.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("/fonts/v3/NeueHaasDisplayMedium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("/fonts/v3/NeueHaasDisplayBold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Supply Mono";
+  src: url("/fonts/v3/PPSupplyMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Supply Mono";
+  src: url("/fonts/v3/PPSupplyMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.v3-root .font-neue {
+  font-family: "Neue Haas Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.v3-root .font-mono {
+  font-family: "PP Supply Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.v3-root .text-nd-100 { color: var(--nd-100); }
+.v3-root .text-nd-200 { color: var(--nd-200); }
+.v3-root .text-nd-300 { color: var(--nd-300); }
+.v3-root .text-nd-400 { color: var(--nd-400); }
+.v3-root .text-nd-500 { color: var(--nd-500); }
+.v3-root .text-nd-600 { color: var(--nd-600); }
+.v3-root .text-nd-700 { color: var(--nd-700); }
+.v3-root .text-nd-800 { color: var(--nd-800); }
+.v3-root .text-nd-900 { color: var(--nd-900); }
+.v3-root .text-nd-1000 { color: var(--nd-1000); }
+.v3-root .text-nd-1100 { color: var(--nd-1100); }
+.v3-root .text-nd-900\/60 { color: rgb(45 47 47 / 0.6); }
+
+.v3-root .bg-nd-100 { background-color: var(--nd-100); }
+.v3-root .bg-nd-200 { background-color: var(--nd-200); }
+.v3-root .bg-nd-400 { background-color: var(--nd-400); }
+.v3-root .bg-nd-900 { background-color: var(--nd-900); }
+.v3-root .bg-nd-1000 { background-color: var(--nd-1000); }
+.v3-root .bg-nd-1000\/80 { background-color: rgb(30 30 30 / 0.8); }
+.v3-root .bg-nd-1100 { background-color: var(--nd-1100); }
+
+.v3-root .border-nd-500 { border-color: var(--nd-500); }
+.v3-root .border-nd-900 { border-color: var(--nd-900); }
+
+.v3-root .split-line {
+  position: relative;
+  display: block;
+  text-align: inherit;
+  color: inherit;
+  will-change: transform;
+}
+
+.v3-root .line-mask {
+  display: block;
+  overflow: hidden;
+  white-space: inherit;
+}
+
+.v3-root .sitebar-text {
+  font-family: "PP Supply Mono", monospace;
+  font-size: 8px;
+  line-height: 12px;
+}
+
+.v3-root .nav-item-text {
+  font-family: "Neue Haas Display", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-transform: uppercase;
+}
