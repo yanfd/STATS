@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import Link from "next/link";
 import { SiteBar } from "@/components/v3/SiteBar";
 import { BookCallButton } from "@/components/v3/BookCallButton";
-import { useV3ChromeEntrance } from "@/components/v3/useV3ChromeEntrance";
+import { useV3PageEntrance } from "@/components/v3/useV3PageEntrance";
 import { BottomNav } from "@/components/v3/BottomNav";
 import { MenuOverlay } from "@/components/v3/MenuOverlay";
 import { LineReveal } from "@/components/v3/LineReveal";
@@ -15,8 +14,8 @@ import { SplitLines } from "@/components/v3/SplitLines";
 import { NDButton } from "@/components/v3/NDButton";
 import { FriendLinksSection } from "@/components/v3/FriendLinksSection";
 import { V3VideoBlock } from "@/components/v3/V3Video";
-import FlipCard from "@/components/Flipcard";
 import MainCard from "@/components/MainCard";
+import { V3EntryLoader } from "@/components/v3/V3EntryLoader";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,13 +67,24 @@ const projectMeta = [
 ];
 
 export default function GlitchGLPage() {
+  return (
+    <V3EntryLoader>
+      <V3PageContent />
+    </V3EntryLoader>
+  );
+}
+
+function V3PageContent() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const siteBarRef = useRef<HTMLDivElement>(null);
   const bookCallRef = useRef<HTMLDivElement>(null);
+  const heroLogoRef = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useV3ChromeEntrance(siteBarRef, bookCallRef);
+  useV3PageEntrance({ siteBarRef, bookCallRef, heroLogoRef, heroTextRef, heroVideoRef });
 
   useEffect(() => {
     const wrapper = scrollRef.current;
@@ -136,7 +146,7 @@ export default function GlitchGLPage() {
           {/* Hero */}
           <section className="h-[80svh] md:h-[60svh] grid grid-cols-1 md:grid-cols-[1fr_3fr] lg:grid-cols-2 items-end pb-8 gap-4 md:gap-16">
             {/* 改 logo 位置：主要动这一行 className */}
-            <div className="-ml-20 mb-16 md:mb-20">
+            <div ref={heroLogoRef} className="-ml-20 mb-16 md:mb-20">
               <img
                 alt="glitchGL"
                 className="block h-24 sm:h-28 md:h-36 lg:h-40 w-auto object-contain object-left origin-left scale-125 md:scale-150"
@@ -144,26 +154,27 @@ export default function GlitchGLPage() {
               />
             </div>
 
-            <LineReveal
-              as="p"
-              playOnMount
-              className="font-neue text-xl md:text-3xl lg:text-4xl font-medium text-nd-900 text-left tracking-tight leading-[0.85] lg:leading-[1.15] flex flex-col gap-0 md:block"
-            >
-              <SplitLines
-                lines={heroLines}
-                renderLine={(line, index) =>
-                  index === 0 ? (
-                    <span className="bg-nd-900 text-nd-300 max-w-fit">{line}</span>
-                  ) : (
-                    <span className="hidden md:block text-nd-800">{line}</span>
-                  )
-                }
-              />
-            </LineReveal>
+            <div ref={heroTextRef}>
+              <LineReveal
+                as="p"
+                className="font-neue text-xl md:text-3xl lg:text-4xl font-medium text-nd-900 text-left tracking-tight leading-[0.85] lg:leading-[1.15] flex flex-col gap-0 md:block"
+              >
+                <SplitLines
+                  lines={heroLines}
+                  renderLine={(line, index) =>
+                    index === 0 ? (
+                      <span className="bg-nd-900 text-nd-300 max-w-fit">{line}</span>
+                    ) : (
+                      <span className="hidden md:block text-nd-800">{line}</span>
+                    )
+                  }
+                />
+              </LineReveal>
+            </div>
           </section>
 
           {/* Media hero */}
-          <section className="w-full cursor-pointer px-4 pt-0">
+          <section ref={heroVideoRef} className="w-full cursor-pointer px-4 pt-0">
             <V3VideoBlock src="/v3/first-video.mp4" aspect="video" />
           </section>
 

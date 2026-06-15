@@ -11,3 +11,10 @@ export function formatAvailabilityDate(date: Date): string {
 export function getTodayDate(): Date {
   return new Date();
 }
+
+/** Next open slot: today + leadDays (calendar days). */
+export function getNextAvailabilityDate(from = new Date(), leadDays = 10): Date {
+  const next = new Date(from);
+  next.setDate(next.getDate() + leadDays);
+  return next;
+}

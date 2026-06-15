@@ -21,7 +21,7 @@ export const SiteBar = forwardRef<HTMLDivElement>(function SiteBar(_props, ref) 
         </div>
 
         <div className="flex min-w-0 items-center justify-end gap-2 whitespace-nowrap">
-          <span className="sitebar-text shrink-0 text-nd-700">DATE:</span>
+          <span className="sitebar-text shrink-0 text-nd-700">NEXT AVAILABILITY:</span>
           <NextAvailability className="sitebar-text shrink-0 text-nd-300" />
         </div>
       </div>

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import "./v3.css";
 
 export const metadata: Metadata = {
-  title: "glitchGL — v3",
-  description:
-    "The internet's most powerful library for creating live glitch effects in the browser using highly optimised WebGL.",
+  title: "YANFD — v3",
+  description: "YANFD digital studio — v3",
 };
 
 export default function V3Layout({ children }: { children: React.ReactNode }) {
