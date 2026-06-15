@@ -253,15 +253,14 @@ export default function GlitchGLPage() {
                   className="uppercase font-neue font-medium text-3xl md:text-4xl text-nd-300 !leading-[0.9em] tracking-tight"
                   style={{ textAlign: "justify", textAlignLast: "justify" }}
                 >
-                  The industry&apos;s biggest entertainment brands trust us.
+                  thanks for everyone of you, it's a great journey.
                 </h2>
 
                 <p className="font-mono uppercase text-[11px] text-nd-600 leading-relaxed">
-                  Our work for glitchGL represents the standard we bring to every project. If you have a brief, we want to
-                  hear it.
+                  we would live a better world together.
                 </p>
 
-                <NDButton variant="dark" icon={<ArrowIcon />} onClick={() => setMenuOpen(true)}>
+                <NDButton variant="dark" icon={<ArrowIcon />} href="https://stats.yanfd.cn/hooray/">
                   START AN ENQUIRY
                 </NDButton>
               </div>
