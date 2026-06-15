@@ -12,7 +12,8 @@ import { BottomNav } from "@/components/v3/BottomNav";
 import { MenuOverlay } from "@/components/v3/MenuOverlay";
 import { LineReveal } from "@/components/v3/LineReveal";
 import { SplitLines } from "@/components/v3/SplitLines";
-import { ArrowIcon, NDButton } from "@/components/v3/NDButton";
+import { NDButton } from "@/components/v3/NDButton";
+import { FriendLinksSection } from "@/components/v3/FriendLinksSection";
 import { V3VideoBlock } from "@/components/v3/V3Video";
 import FlipCard from "@/components/Flipcard";
 import MainCard from "@/components/MainCard";
@@ -181,7 +182,7 @@ export default function GlitchGLPage() {
           <section className="w-full md:h-[80svh] p-4 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="w-full aspect-square md:aspect-auto md:h-full bg-nd-400 flex items-center justify-center rounded-[4px] overflow-hidden">
               {/* <img src="/source/profilepic.jpg" alt="glitchGL detail" className="w-full h-full object-cover" /> */}
-              <MainCard />
+              <MainCard variant="v3" />
             </div>
 
             <div className="flex flex-col justify-between md:border-t border-nd-500 md:pt-8 w-full lg:w-[50%] lg:min-w-[22rem] h-full">
@@ -233,56 +234,24 @@ export default function GlitchGLPage() {
             </div> */}
           </section>
 
-          {/* CTA */}
-          <section
-            id="enquire"
-            className="w-full h-[100svh] flex justify-center items-center p-4 relative overflow-hidden bg-nd-1000"
-          >
-            <div className="relative z-10 h-fit bg-nd-1000/80 rounded-[4px] overflow-hidden p-4 flex flex-col w-full max-w-[23.1rem]">
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <img
-                    alt="almost human gallery"
-                    className="h-14 w-auto max-w-[7rem] object-contain opacity-70"
-                    src="/v3/glitchgl-logo.png"
-                  />
-                  <span className="font-neue text-xs uppercase text-nd-300 opacity-70 tracking-widest">YANFD©</span>
-                </div>
-
-                <h2
-                  className="uppercase font-neue font-medium text-3xl md:text-4xl text-nd-300 !leading-[0.9em] tracking-tight"
-                  style={{ textAlign: "justify", textAlignLast: "justify" }}
-                >
-                  thanks for everyone of you, it's a great journey.
-                </h2>
-
-                <p className="font-mono uppercase text-[11px] text-nd-600 leading-relaxed">
-                  we would live a better world together.
-                </p>
-
-                <NDButton variant="dark" icon={<ArrowIcon />} href="https://stats.yanfd.cn/hooray/">
-                  START AN ENQUIRY
-                </NDButton>
-              </div>
-            </div>
-          </section>
+          <FriendLinksSection />
 
           {/* Next project */}
           <section className="w-full h-[100svh] overflow-hidden relative cursor-pointer group">
             <div className="relative overflow-hidden w-full h-full">
               <img
-                src="/source/profilepic.jpg"
-                alt="liquidGL next project"
+                src="/lucid.png"
+                alt="next project"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <div className="text-center">
                 <p className="font-mono text-xs uppercase text-nd-100 mb-2">NEXT PROJECT</p>
-                <h3 className="font-neue text-3xl md:text-5xl font-medium text-nd-100">liquidGL</h3>
+                <h3 className="font-neue text-3xl md:text-5xl font-medium text-nd-100">Lucid Dreams</h3>
               </div>
             </div>
-            <Link href="/v3" className="absolute inset-0" aria-label="View next project liquidGL" />
+            {/* <Link href="/v3" className="absolute inset-0" aria-label="View next project liquidGL" /> */}
           </section>
         </div>
       </div>

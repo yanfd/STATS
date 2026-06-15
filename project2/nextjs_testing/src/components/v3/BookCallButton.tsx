@@ -9,7 +9,7 @@ export const BookCallButton = forwardRef<HTMLDivElement>(function BookCallButton
         <button
           type="button"
           className="flex cursor-pointer items-center gap-4 rounded-[4px] bg-nd-1000 p-1 pl-2.5 pr-1 pointer-events-auto"
-        >
+          onClick={() => window.open("https://github.com/yanfd", "_blank")}>
           <span className="font-mono text-[10px] -ml-1 whitespace-nowrap tracking-wide text-nd-300">WHERE AM I</span>
           <div className="shrink-0 overflow-hidden rounded-[2px]">
             <img src="/source/profilepic.jpg" alt="" className="h-8 w-8 object-cover" />

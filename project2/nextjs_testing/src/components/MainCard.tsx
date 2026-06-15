@@ -1,7 +1,39 @@
-import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+"use client";
 
-const MainCard: React.FC = () => {
+import React, { useEffect, useRef } from "react";
+
+type MainCardProps = {
+  variant?: "default" | "v3";
+};
+
+const v3CardGradient =
+  "linear-gradient(to bottom right, #aaaaaa 0%, #737d7d 22%, #494d4d 48%, #2d2f2f 72%, #121212 100%)";
+
+const cardVariants = {
+  default: {
+    shell:
+      "tilt-card w-80 h-90 bg-gradient-to-t from-blue-900/[40%] to-gray-900/[50%] rounded-2xl shadow-2xl relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105",
+    glow: "rounded-2xl",
+    content: "p-6",
+    imageWrap: "w-full rounded-lg overflow-hidden mb-2",
+    imageClass: "w-full h-full object-contain",
+    title: "text-3xl font-bold text-white mb-2",
+    glowColor: "#ffffff33",
+  },
+  v3: {
+    shell:
+      "tilt-card w-80 rounded-[4px] border border-nd-800/60 shadow-[0_12px_40px_rgba(0,0,0,0.25)] relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105 overflow-hidden",
+    glow: "rounded-[4px]",
+    content: "p-6",
+    imageWrap: "w-full rounded-[4px] overflow-hidden mb-2 bg-nd-900",
+    imageClass: "w-full h-auto object-contain grayscale contrast-[1.12] brightness-[0.88]",
+    title: "font-neue text-2xl font-medium uppercase tracking-tight text-nd-300 mb-2",
+    glowColor: "rgba(236, 236, 236, 0.12)",
+  },
+} as const;
+
+const MainCard: React.FC<MainCardProps> = ({ variant = "default" }) => {
+  const styles = cardVariants[variant];
   const cardRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -46,8 +78,8 @@ const MainCard: React.FC = () => {
         glow.style.backgroundImage = `
           radial-gradient(
             circle at ${x}px ${y}px,
-            #ffffff33, // Slightly adjusted glow color/alpha
-            #00000000   // Fade to transparent
+            ${styles.glowColor},
+            #00000000
           )
         `;
       };
@@ -76,28 +108,28 @@ const MainCard: React.FC = () => {
         card.removeEventListener('mouseleave', handleMouseLeave);
       };
     }
-  }, []);
+  }, [styles.glowColor]);
 
   // --- Main Change Here: Removed the wrapper divs ---
   // The component now returns the tilt-card directly
   return (
     <div
       ref={cardRef}
-      className="tilt-card w-80 h-90 bg-gradient-to-t from-blue-900/[40%] to-black-800/[50%] rounded-2xl shadow-2xl relative cursor-pointer transition-transform duration-300 ease-out hover:scale-105" // Use transition-transform
-      // Add transform-style preserve-3d for correct 3D nesting
-      style={{ transformStyle: "preserve-3d" }} 
+      className={styles.shell}
+      style={{
+        transformStyle: "preserve-3d",
+        ...(variant === "v3" ? { background: v3CardGradient } : {}),
+      }}
     >
-      {/* Glow Element: Needs absolute positioning */}
-      <div 
-        ref={glowRef} 
-        className="absolute inset-0 opacity-0 transition-opacity duration-300 rounded-2xl pointer-events-none overflow-hidden" // Added positioning & overflow hidden for glow itself
-        // Glow background is set by JS
-      ></div>
+      <div
+        ref={glowRef}
+        className={`absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none overflow-hidden ${styles.glow}`}
+      />
       
       {/* Content Container */}
       <div 
         ref={contentRef} 
-        className="tilt-card-content p-6 flex flex-col h-full justify-between relative z-10"
+        className={`tilt-card-content flex flex-col h-full justify-between relative z-10 ${styles.content}`}
         // Add preserve-3d here too for the children's transforms
         style={{ transformStyle: "preserve-3d" }}
       >
@@ -105,15 +137,14 @@ const MainCard: React.FC = () => {
         {/* You might add a base translateZ here if desired via style or className */}
         <div> 
           {/* Logo */}
-          <div className="w-full rounded-lg overflow-hidden mb-2">
+          <div className={styles.imageWrap}>
             <img
-                src="/source/profilepic.jpg"
-                alt="Logo"
-                className="w-full h-full object-contain"
+              src="/source/profilepic.jpg"
+              alt="Logo"
+              className={styles.imageClass}
             />
-            </div>
-          {/* Title & Description */}
-          <h2 className="text-3xl font-bold text-white mb-2">YANFD PRODUCTS</h2>
+          </div>
+          <h2 className={styles.title}>YANFD PRODUCTS</h2>
 
           {/* <p className="text-gray-200 text-sm"> 
             Experience the future of technology with our revolutionary quantum computing solution.

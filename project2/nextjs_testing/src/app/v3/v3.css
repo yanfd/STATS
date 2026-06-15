@@ -81,12 +81,14 @@
 .v3-root .bg-nd-100 { background-color: var(--nd-100); }
 .v3-root .bg-nd-200 { background-color: var(--nd-200); }
 .v3-root .bg-nd-400 { background-color: var(--nd-400); }
+.v3-root .bg-nd-800 { background-color: var(--nd-800); }
 .v3-root .bg-nd-900 { background-color: var(--nd-900); }
 .v3-root .bg-nd-1000 { background-color: var(--nd-1000); }
 .v3-root .bg-nd-1000\/80 { background-color: rgb(30 30 30 / 0.8); }
 .v3-root .bg-nd-1100 { background-color: var(--nd-1100); }
 
 .v3-root .border-nd-500 { border-color: var(--nd-500); }
+.v3-root .border-nd-800 { border-color: var(--nd-800); }
 .v3-root .border-nd-900 { border-color: var(--nd-900); }
 
 .v3-root .split-line {
@@ -115,4 +117,21 @@
   font-weight: 700;
   line-height: 18px;
   text-transform: uppercase;
+}
+
+@keyframes v3-friend-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+.v3-root .friend-link-float {
+  animation-name: v3-friend-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
 }
