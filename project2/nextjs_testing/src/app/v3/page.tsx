@@ -13,6 +13,7 @@ import { MenuOverlay } from "@/components/v3/MenuOverlay";
 import { LineReveal } from "@/components/v3/LineReveal";
 import { SplitLines } from "@/components/v3/SplitLines";
 import { ArrowIcon, NDButton } from "@/components/v3/NDButton";
+import { V3VideoBlock } from "@/components/v3/V3Video";
 import FlipCard from "@/components/Flipcard";
 import MainCard from "@/components/MainCard";
 
@@ -30,6 +31,7 @@ const heroLines: Array<string | "__BR__"> = [
 const headlineLines = [
   "unFamous Digital Alcoholic",
   "Frontend Developer ",
+  "Disco Jockey",
   "Photographer  ",
   "seeking for LostMedia ...",
 ];
@@ -59,9 +61,9 @@ const storyLines: Array<string | "__BR__"> = [
 ];
 
 const projectMeta = [
-  { label: "TIMELINE", value: "8 WEEKS" },
-  { label: "SERVICES", value: "DEV, LIBRARY, WEBGL" },
-  { label: "RECOGNITION", value: "N/A" },
+  { label: "working on", value: "hiring pentesting/QA, contact me with resume." },
+  { label: "location", value: "Shanghai, China" },
+  { label: "status", value: "Dissociation" },
 ];
 
 export default function GlitchGLPage() {
@@ -160,19 +162,8 @@ export default function GlitchGLPage() {
           </section>
 
           {/* Media hero */}
-          <section className="h-[65svh] md:h-auto md:aspect-video w-full overflow-hidden relative cursor-pointer">
-            <div className="relative overflow-hidden w-full h-full">
-              <video
-                src="/v3/first-video.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              >
-                <source src="/v3/first-video.mp4" type="video/mp4" />
-              </video>
-            </div>
+          <section className="w-full cursor-pointer px-4 pt-0">
+            <V3VideoBlock src="/v3/first-video.mp4" aspect="video" />
           </section>
 
           {/* Headline — 深色字 text-nd-900；滚到这儿才播放 LineReveal 动画 */}
@@ -207,8 +198,12 @@ export default function GlitchGLPage() {
 
               <div className="mt-10 md:mt-0 flex flex-col gap-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <NDButton variant="dark">VISIT LIVE SITE</NDButton>
-                  <NDButton variant="dark">VIEW DOCS</NDButton>
+                  <NDButton variant="dark" withArrow href="https://gallery.yanfd.cn/">
+                    MY PHOTOGRAPHY
+                  </NDButton>
+                  <NDButton variant="dark" withArrow href="https://www.yanfd.cn/">
+                    MY BLOG
+                  </NDButton>
                 </div>
 
                 <div className="border-t border-nd-500 pt-6 space-y-4">
@@ -225,28 +220,17 @@ export default function GlitchGLPage() {
             </div>
           </section>
 
-          {/* Full bleed media */}
-          <section className="w-full overflow-hidden md:aspect-video relative p-4 pb-4 pt-0">
-            <div className="relative overflow-hidden w-full h-full rounded-[4px]">
-              <img src="/source/profilepic.jpg" alt="glitchGL showcase" className="w-full h-full object-cover" />
-            </div>
-          </section>
-
-          {/* Image grid */}
-          <section className="w-full p-4 pt-0 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[0, 1].map((i) => (
-              <div key={i} className="w-full overflow-hidden rounded-[4px] aspect-[5/4]">
-                <img src="/source/profilepic.jpg" alt={`glitchGL gallery ${i + 1}`} className="w-full h-full object-cover" />
-              </div>
-            ))}
+          {/* Gallery videos: opt1–opt4 */}
+          <section className="w-full p-4 pb-4 pt-0">
+            <V3VideoBlock src="/v3/opt1.mp4" aspect="video" />
           </section>
 
           <section className="w-full p-4 pt-0 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[2, 3].map((i) => (
-              <div key={i} className="w-full overflow-hidden rounded-[4px] aspect-[5/4]">
-                <img src="/source/profilepic.jpg" alt={`glitchGL gallery ${i + 1}`} className="w-full h-full object-cover" />
-              </div>
-            ))}
+            <V3VideoBlock src="/v3/opt2.mp4" aspect="5/4" />
+            <V3VideoBlock src="/v3/opt3.mp4" aspect="5/4" />
+            {/* <div className="md:col-span-2">
+              <V3VideoBlock src="/v3/opt4.mp4" aspect="video" />
+            </div> */}
           </section>
 
           {/* CTA */}
