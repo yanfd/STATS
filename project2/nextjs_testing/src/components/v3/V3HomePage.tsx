@@ -15,7 +15,7 @@ import { NDButton } from "@/components/v3/NDButton";
 import { FriendLinksSection } from "@/components/v3/FriendLinksSection";
 import { V3VideoBlock } from "@/components/v3/V3Video";
 import { V3DashboardPanel } from "@/components/v3/V3DashboardPanel";
-import { V3EntryLoader } from "@/components/v3/V3EntryLoader";
+import { V3EntryLoader, V3_HERO_VIDEO_SRC } from "@/components/v3/V3EntryLoader";
 import MainCard from "@/components/MainCard";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -176,7 +176,7 @@ function V3PageContent() {
           </section>
 
           <section ref={heroVideoRef} className={`w-full cursor-pointer px-4 pt-0 ${V3_ENTRANCE_INITIAL.hero}`}>
-            <V3VideoBlock src="/v3/first-video.mp4" aspect="video" />
+            <V3VideoBlock src={V3_HERO_VIDEO_SRC} aspect="video" />
           </section>
 
           <section className="w-full p-4 pt-8 pb-12 md:pb-32">
