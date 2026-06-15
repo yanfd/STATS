@@ -1,14 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useNextAvailabilityLabel } from "./NextAvailability";
 
 const menuLinks = [
-  { num: "01", label: "INDEX", href: "/v3" },
-  { num: "02", label: "PROJECTS", href: "/v3" },
-  { num: "03", label: "SERVICES", href: "/v3#services" },
-  { num: "04", label: "STORE", href: "/v3#store" },
-  { num: "05", label: "ENQUIRE", href: "#enquire" },
+  { num: "01", label: "BLOG", href: "https://www.yanfd.cn/" },
+  { num: "02", label: "ALMOSTHUMAN GALLERY", href: "https://gallery.yanfd.cn/" },
+  { num: "03", label: "GITHUB", href: "https://github.com/yanfd" },
 ];
 
 export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -28,15 +25,17 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
     <div className="fixed inset-0 z-[9980] flex flex-col justify-between bg-nd-1100 px-4 py-4">
       <div className="flex flex-col gap-6 pt-16">
         {menuLinks.map((item) => (
-          <Link
+          <a
             key={item.label}
             href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={onClose}
             className="flex items-baseline gap-4 font-neue font-medium text-2xl uppercase text-nd-300"
           >
             <span className="font-mono text-[11px] text-nd-700 w-6 shrink-0">{item.num}</span>
             <span>{item.label}</span>
-          </Link>
+          </a>
         ))}
       </div>
 

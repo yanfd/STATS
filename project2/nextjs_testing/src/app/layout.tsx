@@ -3,8 +3,8 @@ import { ClientProviders } from "@/components/ClientProviders";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "YANFD STATS",
-  description: "nothin to describe",
+  title: "YANFD",
+  description: "YANFD digital studio",
 };
 
 export default function RootLayout({

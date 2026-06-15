@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, type RefObject } from "react";
+import { useLayoutEffect, type RefObject } from "react";
 import gsap from "gsap";
+
+export const V3_ENTRANCE_INITIAL = {
+  siteBar: "origin-left scale-x-0",
+  bookCall: "opacity-0 translate-x-12",
+  hero: "opacity-0 translate-y-[18px]",
+} as const;
 
 type V3PageEntranceRefs = {
   siteBarRef: RefObject<HTMLDivElement | null>;
@@ -18,7 +24,7 @@ export function useV3PageEntrance({
   heroTextRef,
   heroVideoRef,
 }: V3PageEntranceRefs) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const bar = siteBarRef.current;
     const bookCall = bookCallRef.current;
     const heroLogo = heroLogoRef.current;
@@ -26,60 +32,40 @@ export function useV3PageEntrance({
     const heroVideo = heroVideoRef.current;
     if (!bar || !bookCall || !heroLogo || !heroText || !heroVideo) return;
 
-    const ctx = gsap.context(() => {
-      gsap.set(bar, { scaleX: 0, transformOrigin: "left center" });
-      gsap.set(bookCall, { x: 48, opacity: 0 });
-      gsap.set([heroLogo, heroText, heroVideo], { opacity: 0, y: 18 });
+    gsap.set(bar, { scaleX: 0, transformOrigin: "left center" });
+    gsap.set(bookCall, { x: 48, opacity: 0 });
+    gsap.set([heroLogo, heroText, heroVideo], { opacity: 0, y: 18 });
 
-      gsap
-        .timeline({ delay: 0.12 })
-        .to(bar, {
-          scaleX: 1,
-          duration: 0.75,
-          ease: "power3.inOut",
-        })
-        .to(
-          bookCall,
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: "power3.out",
-          },
-          "+=0.05",
-        )
-        .to(
-          heroLogo,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.95,
-            ease: "power2.out",
-          },
-          "-=0.2",
-        )
-        .to(
-          heroText,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.95,
-            ease: "power2.out",
-          },
-          "-=0.65",
-        )
-        .to(
-          heroVideo,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.05,
-            ease: "power2.out",
-          },
-          "-=0.55",
-        );
-    });
+    const tl = gsap
+      .timeline({ delay: 0.12 })
+      .to(bar, {
+        scaleX: 1,
+        duration: 0.75,
+        ease: "power3.inOut",
+      })
+      .to(
+        [heroLogo, heroText, heroVideo],
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.95,
+          ease: "power2.out",
+        },
+        "<",
+      )
+      .to(
+        bookCall,
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "+=0.05",
+      );
 
-    return () => ctx.revert();
+    return () => {
+      tl.kill();
+    };
   }, [siteBarRef, bookCallRef, heroLogoRef, heroTextRef, heroVideoRef]);
 }

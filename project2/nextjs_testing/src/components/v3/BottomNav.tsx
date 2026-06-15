@@ -1,12 +1,9 @@
 "use client";
 
-import Link from "next/link";
-
 const navItems = [
-  { label: "INDEX", href: "/v3", active: false },
-  { label: "PROJECTS", href: "/v3", active: true },
-  { label: "SERVICES", href: "/v3#services", active: false },
-  { label: "STORE", href: "/v3#store", active: false },
+  { label: "BLOG", href: "https://www.yanfd.cn/" },
+  { label: "ALMOSTHUMAN GALLERY", href: "https://gallery.yanfd.cn/" },
+  { label: "GITHUB", href: "https://github.com/yanfd" },
 ];
 
 export function BottomNav({ onMenuOpen }: { onMenuOpen: () => void }) {
@@ -16,25 +13,16 @@ export function BottomNav({ onMenuOpen }: { onMenuOpen: () => void }) {
         <ul className="flex items-center gap-4 pointer-events-auto">
           {navItems.map((item) => (
             <li key={item.label}>
-              <Link
+              <a
                 href={item.href}
-                className={`flex items-center font-neue font-bold text-[12px] uppercase ${
-                  item.active ? "text-nd-300" : "text-nd-700"
-                }`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center font-neue font-bold text-[12px] uppercase text-nd-700 hover:text-nd-300 transition-colors"
               >
                 <span className="nav-item-text">{item.label}</span>
-              </Link>
+              </a>
             </li>
           ))}
-          <li>
-            <button
-              type="button"
-              onClick={onMenuOpen}
-              className="flex items-center font-neue font-bold text-[12px] uppercase text-nd-700"
-            >
-              <span className="nav-item-text">ENQUIRE</span>
-            </button>
-          </li>
         </ul>
       </nav>
 

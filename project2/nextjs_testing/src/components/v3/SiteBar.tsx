@@ -4,11 +4,14 @@ import { forwardRef } from "react";
 import { LiveClock } from "./LiveClock";
 import { NextAvailability } from "./NextAvailability";
 
-export const SiteBar = forwardRef<HTMLDivElement>(function SiteBar(_props, ref) {
+export const SiteBar = forwardRef<HTMLDivElement, { className?: string }>(function SiteBar(
+  { className = "" },
+  ref,
+) {
   return (
     <div
       ref={ref}
-      className="fixed top-4 left-4 right-4 z-50 overflow-hidden rounded bg-nd-1000 pointer-events-none will-change-transform"
+      className={`fixed top-4 left-4 right-4 z-50 overflow-hidden rounded bg-nd-1000 pointer-events-none will-change-transform ${className}`}
     >
       <div className="grid w-full grid-cols-3 items-center gap-2 px-4 py-2">
         <div className="flex min-w-0 items-center gap-2 justify-start overflow-hidden">
