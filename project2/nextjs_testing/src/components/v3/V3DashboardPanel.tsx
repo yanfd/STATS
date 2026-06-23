@@ -68,13 +68,14 @@ export function V3DashboardPanel() {
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           {dashboardLinks.map((item) => (
-            <a
+            <button
               key={item.id}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={close}
-              className="group flex min-h-24 flex-col justify-between rounded-[4px] border border-nd-500 bg-nd-100 p-3 transition-colors hover:border-nd-800 hover:bg-nd-300"
+              type="button"
+              onClick={() => {
+                close();
+                window.open(item.href, "_blank", "noopener,noreferrer");
+              }}
+              className="group flex min-h-24 flex-col justify-between rounded-[4px] border border-nd-500 bg-nd-100 p-3 transition-colors hover:border-nd-800 hover:bg-nd-300 text-left cursor-pointer"
             >
               <div className="flex h-10 items-center">
                 {item.icon ? (
@@ -91,7 +92,7 @@ export function V3DashboardPanel() {
               <span className="font-mono text-[10px] uppercase tracking-widest text-nd-800 group-hover:text-nd-900">
                 {item.label}
               </span>
-            </a>
+            </button>
           ))}
         </div>
 
