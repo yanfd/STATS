@@ -1,13 +1,35 @@
-from fastapi import APIRouter, HTTPException, Query
+import secrets
+
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
 from typing import List, Dict, Optional
 import os
 from datetime import datetime
 import json
 from hughes_utils import HughesSync
 
+def require_hughes_token(authorization: str | None = Header(default=None)) -> None:
+    configured_token = os.getenv("HUGHES_API_TOKEN", "")
+    prefix = "Bearer "
+    supplied_token = (
+        authorization[len(prefix):]
+        if authorization and authorization.startswith(prefix)
+        else ""
+    )
+
+    if not configured_token or not secrets.compare_digest(
+        supplied_token, configured_token
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication required",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+
 router = APIRouter(
     prefix="/api/hughes",
-    tags=["hughes"]
+    tags=["hughes"],
+    dependencies=[Depends(require_hughes_token)],
 )
 
 # 缓存数据

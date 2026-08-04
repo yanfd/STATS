@@ -1,13 +1,16 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 import os
 import json
 import uuid
 from datetime import datetime
 
+from routes.hughes_routes import require_hughes_token
+
 router = APIRouter(
     prefix="/api/comments",
-    tags=["comments"]
+    tags=["comments"],
+    dependencies=[Depends(require_hughes_token)],
 )
 
 COMMENTS_FILE = os.environ.get('COMMENTS_FILE', '/etc/hughes-api/comments.json')
