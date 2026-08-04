@@ -30,7 +30,17 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}  # 使用SSH密钥，不用密码
         port: ${{ secrets.SERVER_PORT || 22 }}
+        command_timeout: 20m
+        script_stop: true
         script: |
+          set -e
+
+          if ! getent hosts github.com > /dev/null 2>&1; then
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | sudo tee /etc/resolv.conf > /dev/null
+          fi
+
+          getent hosts github.com > /dev/null
+
           # 进入项目目录（使用正确的路径）
           mkdir -p ~/apps && cd ~/apps
           
@@ -56,13 +66,13 @@ jobs:
           ./venv/bin/python -m ensurepip --upgrade
           
           # 升级 pip 并安装依赖
-          ./venv/bin/python -m pip install --upgrade pip
+          ./venv/bin/python -m pip install --index-url https://pypi.org/simple --upgrade pip
           
           # 尝试安装 pyaudioop，但不阻止部署
-          ./venv/bin/pip install pyaudioop || echo "Warning: pyaudioop installation failed, continuing..."
+          ./venv/bin/pip install --index-url https://pypi.org/simple pyaudioop || echo "Warning: pyaudioop installation failed, continuing..."
           
           # 安装其他依赖
-          ./venv/bin/pip install -r requirements.txt
+          ./venv/bin/pip install --index-url https://pypi.org/simple -r requirements.txt
 
           
           # 创建持久配置目录（在项目外）
