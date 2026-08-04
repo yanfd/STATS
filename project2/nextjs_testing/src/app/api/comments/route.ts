@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+import { hughesApiHeaders, requireLogseqApiSession } from "@/lib/logseq-server";
+
 /* ---------- local file storage (works without FastAPI backend) ---------- */
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -34,7 +36,7 @@ function saveComments(data: Record<string, any[]>) {
 /* ---------- remote backend (optional) ---------- */
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://8.140.221.75";
+  process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://8.140.221.75";
 
 async function tryRemote(path: string, options?: RequestInit) {
   try {
@@ -42,6 +44,10 @@ async function tryRemote(path: string, options?: RequestInit) {
     const timeout = setTimeout(() => controller.abort(), 4000);
     const res = await fetch(`${API_BASE_URL}${path}`, {
       ...options,
+      headers: {
+        ...hughesApiHeaders(),
+        ...options?.headers,
+      },
       signal: controller.signal,
     });
     clearTimeout(timeout);
@@ -54,6 +60,9 @@ async function tryRemote(path: string, options?: RequestInit) {
 /* ---------- route handlers ---------- */
 
 export async function GET(request: NextRequest) {
+  const unauthorized = await requireLogseqApiSession();
+  if (unauthorized) return unauthorized;
+
   const messageId = request.nextUrl.searchParams.get("message_id");
   const recent = request.nextUrl.searchParams.get("recent");
   const fetchAll = request.nextUrl.searchParams.get("all");
@@ -116,6 +125,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireLogseqApiSession();
+  if (unauthorized) return unauthorized;
+
   let body: { message_id?: string; author_name?: string; content?: string };
   try {
     body = await request.json();

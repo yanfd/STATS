@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+import { hughesApiHeaders, requireLogseqApiSession } from "@/lib/logseq-server";
+
 const DATA_DIR = path.join(process.cwd(), "data");
 const COMMENTS_FILE = path.join(DATA_DIR, "comments.json");
 
@@ -18,19 +20,25 @@ function loadComments(): Record<string, any[]> {
   return {};
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://8.140.221.75";
+const API_BASE_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://8.140.221.75";
 
 async function tryRemote(path: string) {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
-    const res = await fetch(`${API_BASE_URL}${path}`, { signal: controller.signal });
+    const res = await fetch(`${API_BASE_URL}${path}`, {
+      headers: hughesApiHeaders(),
+      signal: controller.signal,
+    });
     clearTimeout(timeout);
     return res;
   } catch { return null; }
 }
 
 export async function GET(request: NextRequest) {
+  const unauthorized = await requireLogseqApiSession();
+  if (unauthorized) return unauthorized;
+
   const messageIds = request.nextUrl.searchParams.get("message_ids");
 
   // parallel fetch from remote for each message ID

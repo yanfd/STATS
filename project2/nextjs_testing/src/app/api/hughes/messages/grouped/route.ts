@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://8.140.221.75';
+import { hughesApiHeaders, requireLogseqApiSession } from '@/lib/logseq-server';
+
+const API_BASE_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://8.140.221.75';
 
 export async function GET() {
+  const unauthorized = await requireLogseqApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const url = `${API_BASE_URL}/api/hughes/messages/grouped`;
 
@@ -12,9 +17,7 @@ export async function GET() {
 
     try {
       const response = await fetch(url, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: hughesApiHeaders(),
         cache: 'no-store',
         next: { revalidate: 0 },
         signal: controller.signal
