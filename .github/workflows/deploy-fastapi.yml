@@ -34,6 +34,7 @@ jobs:
       run: |
         mkdir -p deploy-bundle/wheels
         python -m pip download --only-binary=:all: --dest deploy-bundle/wheels -r project2/nextjs_fastapi/requirements.txt
+        python -m pip install --disable-pip-version-check requests==2.31.0
         PYTHONPATH=project2/nextjs_fastapi python - <<'PY'
         import json
         import os
