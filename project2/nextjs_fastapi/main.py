@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
     try:
         print("Triggering initial Hughes data sync...")
         from routes.hughes_routes import sync_hughes_data
-        await sync_hughes_data()
+        await asyncio.wait_for(sync_hughes_data(), timeout=20)
         print("Initial sync completed successfully!")
     except Exception as e:
         print(f"Initial sync failed: {e}")

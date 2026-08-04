@@ -1,3 +1,4 @@
+import asyncio
 import secrets
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
@@ -59,7 +60,7 @@ async def sync_hughes_data():
     
     try:
         sync = HughesSync(token)
-        messages = sync.sync_all_entries()
+        messages = await asyncio.to_thread(sync.sync_all_entries)
         
         # 更新缓存
         cached_data['messages'] = messages
