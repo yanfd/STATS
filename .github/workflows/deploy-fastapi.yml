@@ -29,9 +29,24 @@ jobs:
         python-version: '3.13'
 
     - name: Build offline deployment bundle
+      env:
+        HUGHES_GITHUB_TOKEN: ${{ secrets.HUGHES_GITHUB_TOKEN }}
       run: |
         mkdir -p deploy-bundle/wheels
         python -m pip download --only-binary=:all: --dest deploy-bundle/wheels -r project2/nextjs_fastapi/requirements.txt
+        PYTHONPATH=project2/nextjs_fastapi python - <<'PY'
+        import json
+        import os
+        from pathlib import Path
+        from hughes_utils import HughesSync
+
+        messages = HughesSync(os.environ["HUGHES_GITHUB_TOKEN"]).sync_all_entries()
+        if not messages:
+            raise SystemExit("GitHub archive sync returned no entries")
+        output = Path("project2/nextjs_fastapi/processed/hughes_messages.json")
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(messages, ensure_ascii=False, indent=2), encoding="utf-8")
+        PY
         cp -R project2/nextjs_fastapi deploy-bundle/nextjs_fastapi
         rm -rf deploy-bundle/nextjs_fastapi/venv deploy-bundle/nextjs_fastapi/__pycache__ deploy-bundle/nextjs_fastapi/routes/__pycache__
         tar -czf fastapi-deploy.tar.gz -C deploy-bundle nextjs_fastapi wheels
