@@ -22,6 +22,29 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Build offline deployment bundle
+      run: |
+        mkdir -p deploy-bundle/wheels
+        python -m pip download --only-binary=:all: --dest deploy-bundle/wheels -r project2/nextjs_fastapi/requirements.txt
+        cp -R project2/nextjs_fastapi deploy-bundle/nextjs_fastapi
+        rm -rf deploy-bundle/nextjs_fastapi/venv deploy-bundle/nextjs_fastapi/__pycache__ deploy-bundle/nextjs_fastapi/routes/__pycache__
+        tar -czf fastapi-deploy.tar.gz -C deploy-bundle nextjs_fastapi wheels
+
+    - name: Upload deployment bundle
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.SERVER_PORT || 22 }}
+        source: fastapi-deploy.tar.gz
+        target: /tmp
     
     - name: Deploy to server via SSH
       uses: appleboy/ssh-action@v0.1.5
@@ -35,28 +58,12 @@ jobs:
         script: |
           set -e
 
-          if ! getent hosts github.com > /dev/null 2>&1; then
-            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | sudo tee /etc/resolv.conf > /dev/null
-          fi
-
-          getent hosts github.com > /dev/null
-
-          # 进入项目目录（使用正确的路径）
-          mkdir -p ~/apps && cd ~/apps
-          
-          # 如果有旧的repo，拉取更新；否则克隆
-          if [ -d "tailwind_test/.git" ]; then
-            cd tailwind_test
-            git fetch origin
-            git reset --hard origin/main
-            git clean -fd
-          else
-            git clone https://github.com/${{ github.repository }}.git tailwind_test
-            cd tailwind_test
-          fi
-          
-          # 进入FastAPI目录
-          cd project2/nextjs_fastapi
+          mkdir -p ~/apps/tailwind_test/project2
+          rm -rf ~/apps/tailwind_test/project2/nextjs_fastapi /tmp/fastapi-deploy
+          mkdir -p /tmp/fastapi-deploy
+          tar -xzf /tmp/fastapi-deploy.tar.gz -C /tmp/fastapi-deploy
+          mv /tmp/fastapi-deploy/nextjs_fastapi ~/apps/tailwind_test/project2/nextjs_fastapi
+          cd ~/apps/tailwind_test/project2/nextjs_fastapi
           
           # 删除旧的虚拟环境并重新创建（确保干净的环境）
           rm -rf venv
@@ -66,13 +73,7 @@ jobs:
           ./venv/bin/python -m ensurepip --upgrade
           
           # 升级 pip 并安装依赖
-          ./venv/bin/python -m pip install --index-url https://pypi.org/simple --upgrade pip
-          
-          # 尝试安装 pyaudioop，但不阻止部署
-          ./venv/bin/pip install --index-url https://pypi.org/simple pyaudioop || echo "Warning: pyaudioop installation failed, continuing..."
-          
-          # 安装其他依赖
-          ./venv/bin/pip install --index-url https://pypi.org/simple -r requirements.txt
+          ./venv/bin/python -m pip install --no-index --find-links /tmp/fastapi-deploy/wheels -r requirements.txt
 
           
           # 创建持久配置目录（在项目外）
