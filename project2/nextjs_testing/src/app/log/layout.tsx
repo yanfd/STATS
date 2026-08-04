@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "@/app/v3/v3.css";
 
 export const metadata: Metadata = {
-  title: "YANFD — Log",
-  description: "YANFD log archive",
+  title: "YANFD — Logseq",
+  description: "YANFD private Logseq archive",
 };
 
 export default function LogLayout({ children }: { children: React.ReactNode }) {

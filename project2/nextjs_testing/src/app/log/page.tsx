@@ -140,7 +140,7 @@ export default function LogPage() {
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
                 <div>
                   <h1 className="font-neue font-bold text-[clamp(6rem,16vw,12rem)] leading-[0.78] tracking-tighter text-white">
-                    LOG
+                    LOGSEQ
                   </h1>
                   <div className="mt-8 flex flex-wrap items-center gap-6">
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">{total} ENTRIES</span>
