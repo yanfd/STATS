@@ -35,9 +35,8 @@ class HughesSync:
                     
             return markdown_files
             
-        except requests.exceptions.RequestException as e:
-            print(f"Error fetching files: {e}")
-            return []
+        except requests.exceptions.RequestException:
+            raise
     
     def _is_valid_date_format(self, filename: str) -> bool:
         """检查文件名是否符合 YYYY-M.md 格式"""
@@ -54,9 +53,8 @@ class HughesSync:
             content = b64decode(content_data['content']).decode('utf-8')
             return content
             
-        except requests.exceptions.RequestException as e:
-            print(f"Error fetching file content: {e}")
-            return None
+        except requests.exceptions.RequestException:
+            raise
     
     def parse_markdown_entries(self, content: str, filename: str) -> List[Dict]:
         """解析Markdown内容，按####标题分割日志"""

@@ -62,6 +62,9 @@ async def sync_hughes_data():
         sync = HughesSync(token)
         messages = await asyncio.to_thread(sync.sync_all_entries)
         
+        if not messages:
+            raise RuntimeError("GitHub sync returned no archive entries")
+
         # 更新缓存
         cached_data['messages'] = messages
         cached_data['last_sync'] = datetime.now().isoformat()
