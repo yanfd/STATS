@@ -113,6 +113,7 @@ jobs:
           [Install]
           WantedBy=multi-user.target
           SERVICE
+          sudo sed -i '/^DRONE_SSH_/d' /etc/systemd/system/hughes-api.service
           
           # 重载并重启服务
           sudo systemctl daemon-reload
@@ -133,16 +134,25 @@ jobs:
           sudo systemctl status hughes-api --no-pager || echo "Service not yet configured"
           
           # 等待服务启动
-          sleep 3
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/health > /dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              sudo journalctl -u hughes-api -n 100 --no-pager
+              exit 1
+            fi
+            sleep 2
+          done
           
           # 测试API端点
           echo "Testing API endpoints..."
-          curl -s http://localhost:8000/ || echo "API root not responding"
-          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/status' || echo "Hughes API not responding"
+          curl -fsS http://localhost:8000/
+          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/status'
           
           # 触发数据同步
           echo "Triggering Hughes data sync..."
-          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/sync' || echo "Sync failed"
+          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/sync'
           
           # 验证数据是否同步成功
           echo "Verifying data sync..."
