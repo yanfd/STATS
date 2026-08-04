@@ -76,6 +76,7 @@ jobs:
           sudo tee /etc/hughes-api/env > /dev/null << 'EOF'
           GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
           HUGHES_GITHUB_TOKEN=${{ secrets.HUGHES_GITHUB_TOKEN }}
+          HUGHES_API_TOKEN=${{ secrets.HUGHES_API_TOKEN }}
           EOF
           
           # 设置权限（只有root可读）
@@ -126,16 +127,16 @@ jobs:
           # 测试API端点
           echo "Testing API endpoints..."
           curl -s http://localhost:8000/ || echo "API root not responding"
-          curl -s http://localhost:8000/api/hughes/status || echo "Hughes API not responding"
+          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/status' || echo "Hughes API not responding"
           
           # 触发数据同步
           echo "Triggering Hughes data sync..."
-          curl -X GET http://localhost:8000/api/hughes/sync || echo "Sync failed"
+          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/sync' || echo "Sync failed"
           
           # 验证数据是否同步成功
           echo "Verifying data sync..."
           sleep 2
-          curl -s http://localhost:8000/api/hughes/messages | head -c 200
+          sudo bash -c 'set -a; source /etc/hughes-api/env; curl -fsS -H "Authorization: Bearer $HUGHES_API_TOKEN" http://localhost:8000/api/hughes/messages > /dev/null'
           
           # 显示最近日志
           echo "Recent logs:"
