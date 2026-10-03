@@ -73,7 +73,7 @@ export function V3DashboardPanel() {
               type="button"
               onClick={() => {
                 close();
-                window.open(item.href, "_blank", "noopener,noreferrer");
+                window.location.assign(item.href);
               }}
               className="group flex min-h-24 flex-col justify-between rounded-[4px] border border-nd-500 bg-nd-100 p-3 transition-colors hover:border-nd-800 hover:bg-nd-300 text-left cursor-pointer"
             >
