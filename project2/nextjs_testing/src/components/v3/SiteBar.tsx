@@ -13,7 +13,7 @@ export const SiteBar = forwardRef<HTMLDivElement, { className?: string }>(functi
       ref={ref}
       className={`fixed top-4 left-4 right-4 z-50 overflow-hidden rounded bg-nd-1000 pointer-events-none will-change-transform ${className}`}
     >
-      <div className="grid w-full grid-cols-3 items-center gap-2 px-4 py-2">
+      <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2 px-3 py-2 sm:grid-cols-3 sm:px-4">
         <div className="flex min-w-0 items-center gap-2 justify-start overflow-hidden">
           <span className="sitebar-text hidden md:inline shrink-0 text-nd-700">YANFD©</span>
           <span className="sitebar-text hidden md:inline truncate text-nd-300">DIGITAL JOYCLUB</span>
@@ -24,7 +24,7 @@ export const SiteBar = forwardRef<HTMLDivElement, { className?: string }>(functi
         </div>
 
         <div className="flex min-w-0 items-center justify-end gap-2 whitespace-nowrap">
-          <span className="sitebar-text shrink-0 text-nd-700">NEXT AVAILABILITY:</span>
+          <span className="sitebar-text hidden shrink-0 text-nd-700 sm:inline">NEXT AVAILABILITY:</span>
           <NextAvailability className="sitebar-text shrink-0 text-nd-300" />
         </div>
       </div>

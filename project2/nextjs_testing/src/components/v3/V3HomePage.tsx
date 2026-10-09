@@ -86,7 +86,7 @@ function V3PageContent() {
   const bookCallRef = useRef<HTMLDivElement>(null);
   const heroLogoRef = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
-  const heroVideoRef = useRef<HTMLElement>(null);
+  const heroVideoRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useV3PageEntrance({ siteBarRef, bookCallRef, heroLogoRef, heroTextRef, heroVideoRef });
@@ -146,117 +146,34 @@ function V3PageContent() {
 
       <BookCallButton ref={bookCallRef} motionClassName={V3_ENTRANCE_INITIAL.bookCall} />
 
-      <div ref={scrollRef} className="h-svh overflow-y-auto bg-nd-200">
-        <div ref={mainRef}>
-          <section className="h-[80svh] md:h-[60svh] grid grid-cols-1 md:grid-cols-[1fr_3fr] lg:grid-cols-2 items-end pb-8 gap-4 md:gap-16">
-            <div ref={heroLogoRef} className={`-ml-20 mb-16 md:mb-20 ${V3_ENTRANCE_INITIAL.hero}`}>
-              <img
-                alt="glitchGL"
-                className="block h-24 sm:h-28 md:h-36 lg:h-40 w-auto object-contain object-left origin-left scale-125 md:scale-150"
-                src="/v3/glitchgl-logo.png"
-              />
-            </div>
-
-            <div ref={heroTextRef} className={V3_ENTRANCE_INITIAL.hero}>
-              <LineReveal
-                as="p"
-                className="font-neue text-xl md:text-3xl lg:text-4xl font-medium text-nd-900 text-left tracking-tight leading-[0.85] lg:leading-[1.15] flex flex-col gap-0 md:block"
-              >
-                <SplitLines
-                  lines={heroLines}
-                  renderLine={(line, index) =>
-                    index === 0 ? (
-                      <span className="bg-nd-900 text-nd-300 max-w-fit">{line}</span>
-                    ) : (
-                      <span className="hidden md:block text-nd-800">{line}</span>
-                    )
-                  }
-                />
-              </LineReveal>
-            </div>
-          </section>
-
-          <section ref={heroVideoRef} className={`w-full cursor-pointer px-4 pt-0 ${V3_ENTRANCE_INITIAL.hero}`}>
-            <V3VideoBlock src={V3_HERO_VIDEO_SRC} aspect="video" />
-          </section>
-
-          <section className="w-full p-4 pt-8 pb-12 md:pb-32">
-            <LineReveal
-              as="h2"
-              scrollerRef={scrollRef}
-              className="w-full lg:w-1/2 font-neue text-2xl md:text-5xl font-medium text-nd-900 leading-none tracking-tight text-left"
-            >
-              <SplitLines lines={headlineLines} />
-            </LineReveal>
-          </section>
-
-          <section className="w-full md:h-[80svh] p-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="w-full aspect-square md:aspect-auto md:h-full bg-nd-400 flex items-center justify-center rounded-[4px] overflow-hidden">
-              <MainCard variant="v3" />
-            </div>
-
-            <div className="flex flex-col justify-between md:border-t border-nd-500 md:pt-8 w-full lg:w-[50%] lg:min-w-[22rem] h-full">
-              <div className="flex flex-col gap-6">
-                <LineReveal
-                  as="p"
-                  scrollerRef={scrollRef}
-                  className="font-neue font-medium text-base md:text-lg text-nd-800 whitespace-pre-line"
-                  style={{ lineHeight: 1.15 }}
-                >
-                  <SplitLines lines={storyLines} />
-                </LineReveal>
+      <div ref={scrollRef} className="v3-scroll h-svh overflow-y-auto bg-nd-1100">
+        <div ref={mainRef} className="v3-shell">
+          <main>
+            <section className="v3-hero-grid">
+              <div ref={heroLogoRef} className={`v3-hero-copy ${V3_ENTRANCE_INITIAL.hero}`}>
+                <p className="v3-kicker">YANFD / DIGITAL JOYCLUB / 2026</p>
+                <h1 className="v3-display-title">SourNET<br /><span>Gallery.</span></h1>
+                <p className="v3-hero-description">A visual archive for things that disappear, mutate and refuse to stay still.</p>
+                <div className="v3-hero-meta"><span>SCROLL TO ENTER</span><span>↓</span></div>
               </div>
-
-              <div className="mt-10 md:mt-0 flex flex-col gap-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <NDButton variant="dark" withArrow href="https://gallery.yanfd.cn/">
-                    MY PHOTOGRAPHY
-                  </NDButton>
-                  <NDButton variant="dark" withArrow href="https://www.yanfd.cn/">
-                    MY BLOG
-                  </NDButton>
-                </div>
-
-                <div className="border-t border-nd-500 pt-6 space-y-4">
-                  {projectMeta.map((row) => (
-                    <div key={row.label} className="flex items-baseline justify-between gap-4">
-                      <span className="font-mono text-xs uppercase text-nd-900/60 w-32">{row.label}</span>
-                      <span className="font-mono text-xs uppercase text-right md:text-left w-full font-medium text-nd-900">
-                        {row.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+              <div ref={heroTextRef} className={`v3-hero-art ${V3_ENTRANCE_INITIAL.hero}`}>
+                <div className="v3-hero-art-label"><span>01 / 04</span><span>GLITCHGL — MAINFRAME</span></div>
+                <div ref={heroVideoRef} className="v3-hero-video"><V3VideoBlock src={V3_HERO_VIDEO_SRC} aspect="video" /></div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section className="w-full p-4 pb-4 pt-0">
-            <V3VideoBlock src="/v3/opt1.mp4" aspect="video" />
-          </section>
+            <section className="v3-intro-block"><p className="v3-kicker">PROFILE / SELECTED PRACTICE</p><h2 className="v3-statement">unFamous Digital Alcoholic.<br />Frontend Developer.<br />Disco Jockey.<br />Photographer.</h2><a className="v3-text-link" href="https://www.yanfd.cn/" target="_blank" rel="noreferrer">READ THE NOTEBOOK ↗</a></section>
 
-          <section className="w-full p-4 pt-0 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <V3VideoBlock src="/v3/opt2.mp4" aspect="5/4" />
-            <V3VideoBlock src="/v3/opt3.mp4" aspect="5/4" />
-          </section>
+            <section className="v3-project-grid">
+              <div className="v3-project-image"><MainCard variant="v3" /></div>
+              <div className="v3-project-info"><div><p className="v3-kicker">FEATURED / 001</p><h2 className="v3-project-title">Almost Human<br />Interface</h2><p className="v3-project-copy">An unstable identity system made from fragments, faces and synthetic memory.</p></div><div className="v3-facts">{projectMeta.map((row) => <div key={row.label}><span>{row.label}</span><strong>{row.value}</strong></div>)}</div><div className="v3-action-row"><NDButton variant="dark" withArrow href="https://gallery.yanfd.cn/">VIEW ARCHIVE</NDButton><NDButton variant="dark" withArrow href="https://github.com/yanfd">GITHUB</NDButton></div></div>
+            </section>
 
-          <FriendLinksSection />
-
-          <section className="w-full h-[100svh] overflow-hidden relative cursor-pointer group">
-            <div className="relative overflow-hidden w-full h-full">
-              <img
-                src="/lucid.png"
-                alt="next project"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <p className="font-mono text-xs uppercase text-nd-100 mb-2">NEXT PROJECT</p>
-                <h3 className="font-neue text-3xl md:text-5xl font-medium text-nd-100">Lucid Dreams</h3>
-              </div>
-            </div>
-          </section>
+            <section className="v3-media-section"><div className="v3-section-heading"><p className="v3-kicker">RECENT SIGNALS</p><span>03 WORKS / 2026</span></div><V3VideoBlock src="/v3/opt1.mp4" aspect="video" /><div className="v3-media-grid"><V3VideoBlock src="/v3/opt2.mp4" aspect="5/4" /><V3VideoBlock src="/v3/opt3.mp4" aspect="5/4" /></div></section>
+            <FriendLinksSection />
+            <section className="v3-next-project"><img src="/lucid.png" alt="Lucid Dreams" /><div><p className="v3-kicker">NEXT PROJECT</p><h2>Lucid Dreams ↗</h2></div></section>
+            <footer className="v3-footer"><span>YANFD© 2026</span><span>MADE IN SHANGHAI / ONLINE EVERYWHERE</span><span>BACK TO TOP ↑</span></footer>
+          </main>
         </div>
       </div>
     </>
