@@ -165,7 +165,7 @@ function V3PageContent() {
             <section className="v3-intro-block"><p className="v3-kicker">PROFILE / SELECTED PRACTICE</p><h2 className="v3-statement">unFamous Digital Alcoholic.<br />Frontend Developer.<br />Disco Jockey.<br />Photographer.</h2><a className="v3-text-link" href="https://www.yanfd.cn/" target="_blank" rel="noreferrer">READ THE NOTEBOOK ↗</a></section>
 
             <section className="v3-project-grid">
-              <div className="v3-project-image"><MainCard variant="v3" /></div>
+              <div className="v3-project-image"><div className="v3-product-label"><span>YANFD PRODUCTS</span><span>01 / 03</span></div><MainCard variant="v3" /></div>
               <div className="v3-project-info"><div><p className="v3-kicker">FEATURED / 001</p><h2 className="v3-project-title">Almost Human<br />Interface</h2><p className="v3-project-copy">An unstable identity system made from fragments, faces and synthetic memory.</p></div><div className="v3-facts">{projectMeta.map((row) => <div key={row.label}><span>{row.label}</span><strong>{row.value}</strong></div>)}</div><div className="v3-action-row"><NDButton variant="dark" withArrow href="https://gallery.yanfd.cn/">VIEW ARCHIVE</NDButton><NDButton variant="dark" withArrow href="https://github.com/yanfd">GITHUB</NDButton></div></div>
             </section>
 

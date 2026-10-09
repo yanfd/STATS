@@ -27,11 +27,13 @@
 .v3-root .v3-hero-art { min-width: 0; padding-bottom: 1.5rem; }
 .v3-root .v3-hero-art-label, .v3-root .v3-section-heading { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; color: #8e8b84; font-family: "PP Supply Mono", monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .v3-root .v3-hero-video .relative { border-radius: 0; }
-.v3-root .v3-intro-block { padding: clamp(7rem, 14vw, 14rem) 0; border-top: 1px solid #3d3b37; }
+.v3-root .v3-intro-block { padding: clamp(5rem, 9vw, 9rem) 0 clamp(7rem, 13vw, 13rem); border-top: 1px solid #3d3b37; }
 .v3-root .v3-statement { max-width: 58rem; margin-top: 2rem; color: var(--nd-200); font-family: "Neue Haas Display", sans-serif; font-size: clamp(2.5rem, 6vw, 6rem); font-weight: 500; line-height: .92; letter-spacing: -.06em; }
 .v3-root .v3-text-link { display: inline-block; margin-top: 3rem; color: #bcb8af; font-family: "PP Supply Mono", monospace; font-size: 10px; letter-spacing: .08em; }
 .v3-root .v3-project-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(2rem, 7vw, 8rem); align-items: stretch; padding-bottom: clamp(7rem, 13vw, 13rem); }
-.v3-root .v3-project-image { min-height: 34rem; overflow: hidden; background: #232323; }
+.v3-root .v3-project-image { position: relative; min-height: 34rem; overflow: hidden; background: #232323; }
+.v3-root .v3-product-label { position: absolute; z-index: 2; top: 1.25rem; left: 1.25rem; right: 1.25rem; display: flex; justify-content: space-between; color: #c9c5bc; font-family: "PP Supply Mono", monospace; font-size: 10px; letter-spacing: .08em; }
+.v3-root .v3-project-image .tilt-card { width: min(20rem, 72%); margin: 4rem auto 0; }
 .v3-root .v3-project-info { display: flex; flex-direction: column; justify-content: space-between; min-height: 34rem; padding-top: 1.25rem; border-top: 1px solid #3d3b37; }
 .v3-root .v3-project-title { margin-top: 1.5rem; color: var(--nd-200); font-family: "Neue Haas Display", sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 500; line-height: .86; letter-spacing: -.06em; }
 .v3-root .v3-project-copy { max-width: 20rem; margin-top: 2rem; color: #bcb8af; font-family: "Neue Haas Display", sans-serif; line-height: 1.15; }
@@ -57,10 +59,11 @@
   .v3-root .v3-hero-copy { padding-bottom: 0; }
   .v3-root .v3-display-title { font-size: clamp(4.25rem, 19vw, 7rem); }
   .v3-root .v3-hero-art { padding-bottom: 0; }
-  .v3-root .v3-intro-block { padding: 7rem 0; }
+  .v3-root .v3-intro-block { padding: 5rem 0 7rem; }
   .v3-root .v3-statement { font-size: 3.15rem; }
   .v3-root .v3-project-image, .v3-root .v3-project-info { min-height: auto; }
   .v3-root .v3-project-image { aspect-ratio: 1 / 1; }
+  .v3-root .v3-project-image .tilt-card { width: min(18rem, 80%); margin-top: 3.5rem; }
   .v3-root .v3-project-info { gap: 3rem; }
   .v3-root .v3-media-grid { grid-template-columns: 1fr; }
   .v3-root .v3-next-project, .v3-root .v3-next-project img { min-height: 55svh; }
