@@ -127,14 +127,13 @@ export default function LogPage() {
     <div className="v3-root h-svh overflow-hidden flex flex-col relative bg-nd-200 text-nd-900">
       <SiteBar />
 
-      <main className="flex-1 flex flex-col overflow-hidden relative z-10">
+      <main className="relative z-10 flex flex-1 flex-col overflow-hidden">
         {loading ? (
           <YanfdLogoLoading />
         ) : (
           <>
-            {/* hero — brutalist masthead */}
-            <div className="shrink-0 px-4 md:px-8 pt-24 pb-8">
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div className="shrink-0 px-4 pb-8 pt-24 md:px-8">
+              <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600 mb-4">
                     Archive / notes / updates
@@ -142,7 +141,7 @@ export default function LogPage() {
                   <h1 className="font-neue font-medium text-[clamp(5rem,16vw,12rem)] leading-[0.78] tracking-tighter text-nd-900">
                     LOG
                   </h1>
-                  <div className="mt-8 flex flex-wrap items-center gap-6">
+                  <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600">{total} ENTRIES</span>
                     <span className="w-px h-4 bg-nd-500" />
                     <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600">{sorted.length} MONTHS</span>
@@ -153,7 +152,7 @@ export default function LogPage() {
                 <button
                   type="button"
                   onClick={() => setCommentPanel(true)}
-                  className="flex items-center gap-3 border border-nd-500 bg-nd-100 px-4 py-2 transition-colors hover:border-nd-900 hover:bg-nd-300 shrink-0"
+                  className="flex shrink-0 items-center gap-3 border border-nd-500 bg-nd-100 px-4 py-2 transition-colors hover:border-nd-900 hover:bg-nd-300"
                 >
                   <MessageSquare size={14} className="text-nd-600" />
                   <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-nd-800">Comments</span>
@@ -164,8 +163,7 @@ export default function LogPage() {
               </p>
             </div>
 
-            {/* month selector */}
-            <div className="shrink-0 px-4 md:px-8 pb-6">
+            <div className="shrink-0 px-4 pb-6 md:px-8">
               <div className="overflow-x-auto scrollbar-none border-y border-nd-500 py-3">
                 <div className="flex items-center gap-1 min-w-max">
                   {sorted.length === 0 ? (
@@ -191,11 +189,13 @@ export default function LogPage() {
                           const g = groups[key];
                           const isActive = key === activeKey;
                           chips.push(
-                            <button
-                              key={key} type="button" onClick={() => setActiveKey(key)}
-                                 className={`shrink-0 px-3 py-1.5 font-mono text-xs uppercase tracking-[0.15em] transition-all ${
-                                 isActive ? "bg-nd-900 text-nd-100" : "text-nd-600 hover:text-nd-900 hover:bg-nd-300"
-                              }`}
+                             <button
+                               key={key}
+                               type="button"
+                               onClick={() => setActiveKey(key)}
+                               className={`shrink-0 px-3 py-1.5 font-mono text-xs uppercase tracking-[0.15em] transition-all ${
+                                 isActive ? "bg-nd-900 text-nd-100" : "text-nd-600 hover:bg-nd-300 hover:text-nd-900"
+                               }`}
                             >
                               {MONTH_ABBREV[g.month] || g.month}
                             </button>,
@@ -209,16 +209,15 @@ export default function LogPage() {
               </div>
             </div>
 
-            {/* entries */}
-            <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-24">
+            <div className="flex-1 overflow-y-auto px-4 pb-24 md:px-8">
               <div className="max-w-5xl">
                 {activeGroup ? (
                   <div className="flex flex-col gap-12">
-                    <div className="flex items-center gap-4">
+                     <div className="flex items-center gap-4">
                        <span className="font-mono text-xs uppercase tracking-[0.25em] text-nd-600">
                         {MONTH_ABBREV[activeGroup.month]} {activeGroup.year}
                       </span>
-                       <span className="flex-1 h-px bg-nd-500" />
+                       <span className="h-px flex-1 bg-nd-500" />
                        <span className="font-mono text-[10px] text-nd-600">{activeGroup.messages.length} entries</span>
                     </div>
                     {activeGroup.messages.map((msg, i) => (
@@ -386,10 +385,10 @@ function MessageModal({
   return (
     <AnimatePresence>
       {message && (
-           <motion.div
+          <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[9980] flex items-start justify-center overflow-y-auto"
-          style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)", padding: "6vh 1rem 1rem" }}
+            style={{ background: "rgba(30,30,30,0.18)", backdropFilter: "blur(4px)", padding: "6vh 1rem 1rem" }}
           onClick={onClose}
         >
           <motion.div
@@ -412,10 +411,10 @@ function MessageModal({
             </button>
 
             <div className="p-6 md:p-10">
-                <p className="font-mono text-xs uppercase tracking-[0.25em] text-nd-600 mb-6">
+              <p className="mb-6 font-mono text-xs uppercase tracking-[0.25em] text-nd-600">
                 {message.date}{message.timestamp ? ` · ${message.timestamp.split(" ")[1]}` : ""}
               </p>
-                <h2 className="font-neue font-medium text-3xl md:text-4xl leading-tight text-nd-900 mb-8">
+              <h2 className="mb-8 font-neue text-3xl font-medium leading-tight text-nd-900 md:text-4xl">
                 {message.title}
               </h2>
 
@@ -545,14 +544,14 @@ function CommentCenter({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-             style={{
+            style={{
             position: "fixed",
             inset: 0,
-            zIndex: 9980,
+              zIndex: 9980,
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "flex-end",
-            background: "rgba(30,30,30,0.15)",
+             background: "rgba(30,30,30,0.08)",
             backdropFilter: "blur(1px)",
           }}
           onClick={onClose}
