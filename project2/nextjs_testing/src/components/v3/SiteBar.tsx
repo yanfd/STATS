@@ -11,7 +11,7 @@ export const SiteBar = forwardRef<HTMLDivElement, { className?: string }>(functi
   return (
     <div
       ref={ref}
-      className={`fixed top-4 left-4 right-4 z-50 overflow-hidden rounded bg-nd-1000 pointer-events-none will-change-transform ${className}`}
+       className={`fixed top-4 left-4 right-4 z-50 overflow-hidden rounded bg-nd-1000 pointer-events-none will-change-transform ${className}`}
     >
       <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2 px-3 py-2 sm:grid-cols-3 sm:px-4">
         <div className="flex min-w-0 items-center gap-2 justify-start overflow-hidden">

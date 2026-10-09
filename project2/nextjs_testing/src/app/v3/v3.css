@@ -70,6 +70,51 @@
   .v3-root .v3-footer { flex-direction: column; gap: .5rem; }
 }
 
+/* Light editorial skin */
+.v3-root {
+  --nd-100: #111111;
+  --nd-200: #f5f4f0;
+  --nd-300: #e8e6df;
+  --nd-400: #dedbd2;
+  --nd-500: #c9c5bb;
+  --nd-600: #98948a;
+  --nd-700: #6f6b63;
+  --nd-800: #4b4944;
+  --nd-900: #20201e;
+  --nd-1000: #ffffff;
+  --nd-1100: #f5f4f0;
+  background-color: var(--nd-1100);
+  color: var(--nd-900);
+}
+
+.v3-root .v3-scroll,
+.v3-root .bg-nd-1100 { background-color: var(--nd-1100); }
+.v3-root .v3-shell { color: var(--nd-900); }
+.v3-root .v3-display-title,
+.v3-root .v3-statement,
+.v3-root .v3-project-title { color: var(--nd-900); }
+.v3-root .v3-display-title span { color: #8d897f; }
+.v3-root .v3-hero-description,
+.v3-root .v3-project-copy { color: #5c5952; }
+.v3-root .v3-kicker,
+.v3-root .v3-hero-meta,
+.v3-root .v3-hero-art-label,
+.v3-root .v3-section-heading,
+.v3-root .v3-footer { color: #77736a; }
+.v3-root .v3-hero-meta,
+.v3-root .v3-intro-block,
+.v3-root .v3-project-info,
+.v3-root .v3-facts,
+.v3-root .v3-facts div { border-color: #d4d0c6; }
+.v3-root .v3-facts span { color: #77736a; }
+.v3-root .v3-facts strong { color: #2e2c28; }
+.v3-root .v3-project-image { background: #e5e2da; }
+.v3-root .v3-product-label { color: #57534c; }
+.v3-root .v3-action-row a,
+.v3-root .v3-action-row .bg-nd-1000 { background: #20201e; color: #f5f4f0; border-color: #20201e; }
+.v3-root .v3-next-project > div { background: rgb(0 0 0 / 0.18); }
+.v3-root .v3-footer { color: #77736a; }
+
 @font-face {
   font-family: "Neue Haas Display";
   src: url("/fonts/v3/NeueHaasDisplayRoman.woff2") format("woff2");

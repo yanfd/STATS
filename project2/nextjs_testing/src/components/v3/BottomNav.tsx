@@ -8,7 +8,7 @@ const navItems = [
 
 export function BottomNav({ onMenuOpen }: { onMenuOpen: () => void }) {
   return (
-    <div className="fixed bottom-[0.8rem] left-4 right-4 z-50 flex items-end justify-between mix-blend-difference pointer-events-none">
+    <div className="fixed bottom-[0.8rem] left-4 right-4 z-50 flex items-end justify-between pointer-events-none">
       <nav className="hidden md:block">
         <ul className="flex items-center gap-4 pointer-events-auto">
           {navItems.map((item) => (
