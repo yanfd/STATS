@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { SiteBar } from "@/components/v3/SiteBar";
-import { ShaderCanvas } from "@/components/ui/animated-shader-hero";
 import { YanfdLogoLoading } from "@/components/yanfd-logo/YanfdLogoLoading";
 import { MessageSquare, X, ArrowUpRight } from "lucide-react";
 
@@ -125,9 +124,7 @@ export default function LogPage() {
   const activeGroup = activeKey ? groups[activeKey] : null;
 
   return (
-    <div className="h-svh overflow-hidden flex flex-col relative bg-nd-1100">
-      <ShaderCanvas className="fixed inset-0 h-svh w-full opacity-70" />
-      <div className="fixed inset-0 bg-nd-1100/30 pointer-events-none" />
+    <div className="v3-root h-svh overflow-hidden flex flex-col relative bg-nd-200 text-nd-900">
       <SiteBar />
 
       <main className="flex-1 flex flex-col overflow-hidden relative z-10">
@@ -136,38 +133,43 @@ export default function LogPage() {
         ) : (
           <>
             {/* hero — brutalist masthead */}
-            <div className="shrink-0 px-4 md:px-8 pt-28 pb-10">
+            <div className="shrink-0 px-4 md:px-8 pt-24 pb-8">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
                 <div>
-                  <h1 className="font-neue font-bold text-[clamp(6rem,16vw,12rem)] leading-[0.78] tracking-tighter text-white">
-                    LOGSEQ
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600 mb-4">
+                    Archive / notes / updates
+                  </p>
+                  <h1 className="font-neue font-medium text-[clamp(5rem,16vw,12rem)] leading-[0.78] tracking-tighter text-nd-900">
+                    LOG
                   </h1>
                   <div className="mt-8 flex flex-wrap items-center gap-6">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">{total} ENTRIES</span>
-                    <span className="w-px h-4 bg-white/20" />
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">{sorted.length} MONTHS</span>
-                    <span className="w-px h-4 bg-white/20" />
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">LATEST {flatMessages[0]?.date?.slice(5) || "—"}</span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600">{total} ENTRIES</span>
+                    <span className="w-px h-4 bg-nd-500" />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600">{sorted.length} MONTHS</span>
+                    <span className="w-px h-4 bg-nd-500" />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-nd-600">LATEST {flatMessages[0]?.date?.slice(5) || "—"}</span>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setCommentPanel(true)}
-                  className="flex items-center gap-3 border border-white/20 px-4 py-2 transition-colors hover:border-white/50 hover:bg-white/10 shrink-0"
+                  className="flex items-center gap-3 border border-nd-500 bg-nd-100 px-4 py-2 transition-colors hover:border-nd-900 hover:bg-nd-300 shrink-0"
                 >
-                  <MessageSquare size={14} className="text-white/60" />
-                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/80">Comments</span>
+                  <MessageSquare size={14} className="text-nd-600" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-nd-800">Comments</span>
                 </button>
               </div>
-              <div className="mt-8 border-t border-white/10" />
+              <p className="mt-8 max-w-xl border-t border-nd-500 pt-4 font-neue text-sm leading-relaxed text-nd-700">
+                A running record of shipped changes, loose fragments, and the things worth keeping outside chat history.
+              </p>
             </div>
 
             {/* month selector */}
             <div className="shrink-0 px-4 md:px-8 pb-6">
-              <div className="overflow-x-auto scrollbar-none">
+              <div className="overflow-x-auto scrollbar-none border-y border-nd-500 py-3">
                 <div className="flex items-center gap-1 min-w-max">
                   {sorted.length === 0 ? (
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">No data</span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-nd-600">No data</span>
                   ) : (
                     (() => {
                       const yearMap = new Map<string, string[]>();
@@ -182,17 +184,17 @@ export default function LogPage() {
                       let first = true;
                       for (const year of years) {
                         const keys = yearMap.get(year)!;
-                        if (!first) chips.push(<span key={`d-${year}`} className="w-px h-5 bg-white/15 mx-2 shrink-0" />);
+                        if (!first) chips.push(<span key={`d-${year}`} className="w-px h-5 bg-nd-500 mx-2 shrink-0" />);
                         first = false;
-                        chips.push(<span key={`y-${year}`} className="font-mono text-xs uppercase tracking-[0.2em] text-white/40 select-none shrink-0">{year}</span>);
+                        chips.push(<span key={`y-${year}`} className="font-mono text-xs uppercase tracking-[0.2em] text-nd-600 select-none shrink-0">{year}</span>);
                         for (const key of keys) {
                           const g = groups[key];
                           const isActive = key === activeKey;
                           chips.push(
                             <button
                               key={key} type="button" onClick={() => setActiveKey(key)}
-                              className={`shrink-0 px-3 py-1.5 font-mono text-xs uppercase tracking-[0.15em] transition-all ${
-                                isActive ? "bg-white text-nd-1100" : "text-white/40 hover:text-white hover:bg-white/10"
+                                 className={`shrink-0 px-3 py-1.5 font-mono text-xs uppercase tracking-[0.15em] transition-all ${
+                                 isActive ? "bg-nd-900 text-nd-100" : "text-nd-600 hover:text-nd-900 hover:bg-nd-300"
                               }`}
                             >
                               {MONTH_ABBREV[g.month] || g.month}
@@ -209,15 +211,15 @@ export default function LogPage() {
 
             {/* entries */}
             <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-24">
-              <div className="max-w-4xl">
+              <div className="max-w-5xl">
                 {activeGroup ? (
                   <div className="flex flex-col gap-12">
                     <div className="flex items-center gap-4">
-                      <span className="font-mono text-xs uppercase tracking-[0.25em] text-white/50">
+                       <span className="font-mono text-xs uppercase tracking-[0.25em] text-nd-600">
                         {MONTH_ABBREV[activeGroup.month]} {activeGroup.year}
                       </span>
-                      <span className="flex-1 h-px bg-white/10" />
-                      <span className="font-mono text-[10px] text-white/30">{activeGroup.messages.length} entries</span>
+                       <span className="flex-1 h-px bg-nd-500" />
+                       <span className="font-mono text-[10px] text-nd-600">{activeGroup.messages.length} entries</span>
                     </div>
                     {activeGroup.messages.map((msg, i) => (
                       <EntryRow key={msg.id} msg={msg} delay={i * 0.04} onClick={() => setSelected(msg)} />
@@ -225,7 +227,7 @@ export default function LogPage() {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-40">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Select a month</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-nd-600">Select a month</p>
                   </div>
                 )}
               </div>
@@ -236,7 +238,7 @@ export default function LogPage() {
 
       <a
         href="/"
-        className="fixed font-mono text-[10px] uppercase tracking-[0.2em] transition-colors px-2 py-1 z-50 text-white/50 hover:text-white"
+        className="fixed font-mono text-[10px] uppercase tracking-[0.2em] transition-colors px-2 py-1 z-50 text-nd-600 hover:text-nd-900"
         style={{ bottom: "0.8rem", left: "1rem" }}
       >
         &larr; Home
@@ -279,19 +281,19 @@ function EntryRow({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay, ease: [0.25, 0, 0.25, 1] }}
-      className="w-full text-left group border border-white/5 p-5 md:p-6 hover:border-white/15 transition-colors"
+      className="w-full text-left group border border-nd-500 bg-nd-100 p-5 md:p-6 hover:border-nd-900 transition-colors"
     >
       <div className="flex items-start gap-5 md:gap-8">
         {/* date block */}
         <div className="shrink-0 text-right w-16">
-          <p className="font-neue font-bold text-5xl md:text-6xl leading-none tabular-nums text-white">
+          <p className="font-neue font-medium text-5xl md:text-6xl leading-none tabular-nums text-nd-900">
             {day}
           </p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30 mt-2">
+          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-nd-600 mt-2">
             {weekday}
           </p>
           {time && (
-            <p className="font-mono text-[9px] text-white/20 mt-0.5">{time}</p>
+            <p className="font-mono text-[9px] text-nd-600 mt-0.5">{time}</p>
           )}
         </div>
 
@@ -311,17 +313,17 @@ function EntryRow({
             </div>
           )}
 
-          <h3 className="font-neue font-bold text-xl md:text-2xl leading-tight text-white">
+          <h3 className="font-neue font-medium text-xl md:text-2xl leading-tight text-nd-900">
             {msg.title}
           </h3>
 
           {excerpt && (
-            <p className="font-neue text-sm leading-relaxed text-white/50 mt-3 max-w-2xl line-clamp-2">
+            <p className="font-neue text-sm leading-relaxed text-nd-700 mt-3 max-w-2xl line-clamp-2">
               {excerpt}
             </p>
           )}
 
-          <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-white/30 mt-5 group-hover:text-white/60 transition-colors">
+          <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-nd-600 mt-5 group-hover:text-nd-900 transition-colors">
             Read <ArrowUpRight size={10} />
           </span>
         </div>
@@ -384,7 +386,7 @@ function MessageModal({
   return (
     <AnimatePresence>
       {message && (
-        <motion.div
+           <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[9980] flex items-start justify-center overflow-y-auto"
           style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)", padding: "6vh 1rem 1rem" }}
@@ -392,8 +394,8 @@ function MessageModal({
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ duration: 0.35, ease: [0.25, 0, 0.25, 1] }}
-            className="relative w-full max-w-3xl mb-16 border border-white/10"
-            style={{ background: "#121212" }}
+            className="relative w-full max-w-3xl mb-16 border border-nd-500"
+            style={{ background: "#f2f2f4" }}
             onClick={(e) => e.stopPropagation()}
           >
             {cover && (
@@ -404,44 +406,44 @@ function MessageModal({
 
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 hover:text-white border border-white/20 px-2 py-1 transition-colors"
+              className="absolute top-4 right-4 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-nd-600 hover:text-nd-900 border border-nd-500 px-2 py-1 transition-colors"
             >
               Esc
             </button>
 
             <div className="p-6 md:p-10">
-              <p className="font-mono text-xs uppercase tracking-[0.25em] text-white/30 mb-6">
+                <p className="font-mono text-xs uppercase tracking-[0.25em] text-nd-600 mb-6">
                 {message.date}{message.timestamp ? ` · ${message.timestamp.split(" ")[1]}` : ""}
               </p>
-              <h2 className="font-neue font-bold text-3xl md:text-4xl leading-tight text-white mb-8">
+                <h2 className="font-neue font-medium text-3xl md:text-4xl leading-tight text-nd-900 mb-8">
                 {message.title}
               </h2>
 
-              <div className="font-neue text-base leading-relaxed text-white/60">
+              <div className="font-neue text-base leading-relaxed text-nd-800">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkdown>
               </div>
 
               {/* comments */}
-              <div className="mt-12 pt-10 border-t border-white/10">
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-white/30 mb-6">
+              <div className="mt-12 pt-10 border-t border-nd-500">
+                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-nd-600 mb-6">
                   留言 ({comments.length})
                 </h3>
 
                 {loadingC ? (
-                  <span className="font-mono text-[10px] text-white/20 animate-pulse">Loading...</span>
+                  <span className="font-mono text-[10px] text-nd-600 animate-pulse">Loading...</span>
                 ) : (
                   <>
                     {comments.length > 0 && (
                       <div className="flex flex-col gap-3 mb-8">
                         {comments.map((c: any) => (
-                          <div key={c.id} className="border border-white/5 p-4">
+                          <div key={c.id} className="border border-nd-500 p-4">
                             <div className="flex items-center gap-3 mb-1.5">
-                              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-white/50">{c.author_name}</span>
-                              <span className="font-mono text-[10px] text-white/20">
+                              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-nd-700">{c.author_name}</span>
+                              <span className="font-mono text-[10px] text-nd-600">
                                 {new Date(c.created_at).toLocaleDateString("zh-CN", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                               </span>
                             </div>
-                            <p className="font-neue text-sm leading-relaxed text-white/60">{c.content}</p>
+                            <p className="font-neue text-sm leading-relaxed text-nd-800">{c.content}</p>
                           </div>
                         ))}
                       </div>
@@ -453,7 +455,7 @@ function MessageModal({
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                         maxLength={50}
-                        className="w-20 shrink-0 bg-transparent border border-white/10 px-3 py-2 font-neue text-sm text-white placeholder:text-white/20 outline-none focus:border-white/30"
+                        className="w-20 shrink-0 bg-transparent border border-nd-500 px-3 py-2 font-neue text-sm text-nd-900 placeholder:text-nd-600 outline-none focus:border-nd-900"
                       />
                       <input
                         placeholder="写点什么..."
@@ -461,12 +463,12 @@ function MessageModal({
                         onChange={(e) => setContent(e.target.value)}
                         onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }}
                         maxLength={500}
-                        className="flex-1 bg-transparent border border-white/10 px-3 py-2 font-neue text-sm text-white placeholder:text-white/20 outline-none focus:border-white/30"
+                        className="flex-1 bg-transparent border border-nd-500 px-3 py-2 font-neue text-sm text-nd-900 placeholder:text-nd-600 outline-none focus:border-nd-900"
                       />
                       <button
                         onClick={submit}
                         disabled={submitting || !author.trim() || !content.trim()}
-                        className="shrink-0 border border-white/20 px-5 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-white/60 hover:text-white hover:border-white/40 transition-colors disabled:opacity-20 disabled:cursor-default"
+                        className="shrink-0 border border-nd-500 px-5 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-nd-700 hover:text-nd-900 hover:border-nd-900 transition-colors disabled:opacity-20 disabled:cursor-default"
                       >
                         {submitting ? "..." : "发送"}
                       </button>
@@ -543,7 +545,7 @@ function CommentCenter({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          style={{
+             style={{
             position: "fixed",
             inset: 0,
             zIndex: 9980,
@@ -564,8 +566,8 @@ function CommentCenter({
               height: "100%",
               width: "100%",
               maxWidth: "28rem",
-              background: "#121212",
-              borderLeft: "1px solid rgba(255,255,255,0.1)",
+               background: "#f2f2f4",
+               borderLeft: "1px solid #e2e2e7",
               overflowY: "auto",
             }}
             onClick={(e) => e.stopPropagation()}
@@ -574,15 +576,15 @@ function CommentCenter({
             <div
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "1.25rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.1)",
-                position: "sticky", top: 0, background: "#121212", zIndex: 10,
+                 padding: "1.25rem 1.5rem", borderBottom: "1px solid #e2e2e7",
+                 position: "sticky", top: 0, background: "#f2f2f4", zIndex: 10,
               }}
             >
               <div>
-                <h2 className="font-neue text-lg font-bold text-white">Comments</h2>
-                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/30 mt-0.5">{allComments.length} total</p>
+                <h2 className="font-neue text-lg font-medium text-nd-900">Comments</h2>
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-nd-600 mt-0.5">{allComments.length} total</p>
               </div>
-              <button onClick={onClose} className="text-white/30 hover:text-white transition-colors">
+              <button onClick={onClose} className="text-nd-600 hover:text-nd-900 transition-colors">
                 <X size={14} />
               </button>
             </div>
@@ -590,9 +592,9 @@ function CommentCenter({
             {/* body */}
             <div style={{ padding: "1rem 1.5rem" }}>
               {loading ? (
-                <p className="font-mono text-[10px] uppercase tracking-[0.15em] animate-pulse py-8 text-center text-white/20">Loading...</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] animate-pulse py-8 text-center text-nd-600">Loading...</p>
               ) : grouped.length === 0 ? (
-                <p className="font-mono text-[10px] uppercase tracking-[0.15em] py-8 text-center text-white/20">No comments yet</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] py-8 text-center text-nd-600">No comments yet</p>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                   {grouped.map(([msgId, { msg, comments }]) => (
@@ -611,10 +613,10 @@ function CommentCenter({
                           cursor: "pointer",
                         }}
                       >
-                        <p className="font-neue text-sm font-medium leading-snug line-clamp-1 text-white/50">
+                        <p className="font-neue text-sm font-medium leading-snug line-clamp-1 text-nd-700">
                           {msg?.title || `Message #${msgId}`}
                         </p>
-                        {msg && <p className="font-mono text-[10px] text-white/20 mt-0.5">{msg.date}</p>}
+                        {msg && <p className="font-mono text-[10px] text-nd-600 mt-0.5">{msg.date}</p>}
                       </button>
 
                       <div
@@ -623,7 +625,7 @@ function CommentCenter({
                           flexDirection: "column",
                           gap: "0.5rem",
                           paddingLeft: "0.75rem",
-                          borderLeft: "2px solid rgba(255,255,255,0.08)",
+                           borderLeft: "2px solid #e2e2e7",
                         }}
                       >
                         {comments
@@ -641,8 +643,8 @@ function CommentCenter({
                                   gap: "0.5rem",
                                 }}
                               >
-                                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-white/50">{c.author_name}</span>
-                                <span className="font-mono text-[9px] text-white/20">
+                                <span className="font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-nd-700">{c.author_name}</span>
+                                <span className="font-mono text-[9px] text-nd-600">
                                   {new Date(c.created_at).toLocaleDateString(
                                     "zh-CN",
                                     {
@@ -654,7 +656,7 @@ function CommentCenter({
                                   )}
                                 </span>
                               </div>
-                              <p className="font-neue text-sm leading-relaxed text-white/50 mt-0.5">{c.content}</p>
+                              <p className="font-neue text-sm leading-relaxed text-nd-700 mt-0.5">{c.content}</p>
                             </div>
                           ))}
                       </div>
