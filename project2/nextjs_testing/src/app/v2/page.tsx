@@ -282,7 +282,7 @@ export default function V2HomePage() {
                         <a href="https://x.com/home" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 text-sm transition-colors">
                             Twitter
                         </a>
-                        <a href="https://yanfd.cn" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 text-sm transition-colors">
+                        <a href="https://yanfd.tech" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 text-sm transition-colors">
                             Blog
                         </a>
                     </div>

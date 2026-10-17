@@ -83,7 +83,7 @@ export default function AnalyticsPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl font-medium">Analytics</h1>
-            <p className="text-sm text-white/30 mt-1">Last 30 days · stats.yanfd.cn</p>
+            <p className="text-sm text-white/30 mt-1">Last 30 days · stats.yanfd.tech</p>
           </div>
           <div className="flex items-center gap-2">
             {["7D", "30D", "90D"].map((t, i) => (

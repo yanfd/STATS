@@ -23,19 +23,19 @@ export const friendsAnnouncement = {
 export const friendLinks: FriendLink[] = [
   {
     name: "YANFD Blog",
-    href: "https://www.yanfd.cn/",
+    href: "https://www.yanfd.tech/",
     avatar: "/source/profilepic.jpg",
     description: "Essays, notes, and digital fragments.",
   },
   {
     name: "Almost Human Gallery",
-    href: "https://gallery.yanfd.cn/",
+    href: "https://gallery.yanfd.tech/",
     avatar: "/almosthuman.PNG",
     description: "Photography & lost media archive.",
   },
   {
     name: "STATS",
-    href: "https://stats.yanfd.cn/hooray/",
+    href: "https://stats.yanfd.tech/hooray/",
     avatar: "/source/github.png",
     description: "Experiments, stats, and side quests.",
   },

@@ -1,8 +1,8 @@
 "use client";
 
 const navItems = [
-  { label: "BLOG", href: "https://www.yanfd.cn/" },
-  { label: "ALMOSTHUMAN GALLERY", href: "https://gallery.yanfd.cn/" },
+  { label: "BLOG", href: "https://www.yanfd.tech/" },
+  { label: "ALMOSTHUMAN GALLERY", href: "https://gallery.yanfd.tech/" },
   { label: "GITHUB", href: "https://github.com/yanfd" },
 ];
 

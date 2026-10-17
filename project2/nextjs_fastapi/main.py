@@ -62,10 +62,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000", 
         "http://127.0.0.1:3000",
-        "https://stats.yanfd.tech",  # 生产环境旧域名
-        "https://api.yanfd.tech",    # 生产环境旧API域名
-        "https://stats.yanfd.cn",    # 生产环境新域名
-        "https://api.yanfd.cn"       # 生产环境新API域名
+        "https://stats.yanfd.tech",  # 生产环境域名
+        "https://api.yanfd.tech"     # 生产环境API域名
     ],
     allow_credentials=True,
     allow_methods=["*"],

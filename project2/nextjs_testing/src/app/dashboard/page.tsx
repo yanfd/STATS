@@ -6,10 +6,10 @@ import { VercelNav } from "@/components/vercel/VercelNav";
 /* ─── data ─── */
 
 const PROJECTS = [
-  { name: "stats-playground", framework: "Next.js", status: "Ready", branch: "main", commit: "feat:update log page", time: "2m ago", domain: "stats.yanfd.cn" },
-  { name: "gallery", framework: "Next.js", status: "Ready", branch: "main", commit: "fix:image loading", time: "1h ago", domain: "gallery.yanfd.cn" },
-  { name: "api-server", framework: "FastAPI", status: "Ready", branch: "main", commit: "add pricing routes", time: "3h ago", domain: "api.yanfd.cn" },
-  { name: "globe-v2", framework: "Three.js", status: "Building", branch: "dev", commit: "wip: new shaders", time: "5h ago", domain: "globe.yanfd.cn" },
+  { name: "stats-playground", framework: "Next.js", status: "Ready", branch: "main", commit: "feat:update log page", time: "2m ago", domain: "stats.yanfd.tech" },
+  { name: "gallery", framework: "Next.js", status: "Ready", branch: "main", commit: "fix:image loading", time: "1h ago", domain: "gallery.yanfd.tech" },
+  { name: "api-server", framework: "FastAPI", status: "Ready", branch: "main", commit: "add pricing routes", time: "3h ago", domain: "api.yanfd.tech" },
+  { name: "globe-v2", framework: "Three.js", status: "Building", branch: "dev", commit: "wip: new shaders", time: "5h ago", domain: "globe.yanfd.tech" },
 ];
 
 const QUICK_STATS = [

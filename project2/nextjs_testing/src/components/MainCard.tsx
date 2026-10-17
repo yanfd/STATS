@@ -155,7 +155,7 @@ const MainCard: React.FC<MainCardProps> = ({ variant = "default" }) => {
         {/* <div className="space-y-4"> 
 
           <button className="w-full py-2 bg-white text-blue-700 rounded-lg font-semibold transform transition hover:scale-105 active:scale-95">
-            <a href="https://www.yanfd.cn" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.yanfd.tech" target="_blank" rel="noopener noreferrer">
               MY BLOG
             </a>
           </button>

@@ -69,9 +69,9 @@ const CODEX: Entry[] = [
     name: "Gallery",
     category: "ARTIFACT",
     rarity: "Epic",
-    desc: "Photography portfolio hosted on gallery.yanfd.cn. Dark aesthetic, masonry layout, full-screen lightbox. Each photograph is a frozen moment from Shanghai's midnight streets.",
+    desc: "Photography portfolio hosted on gallery.yanfd.tech. Dark aesthetic, masonry layout, full-screen lightbox. Each photograph is a frozen moment from Shanghai's midnight streets.",
     flavor: "Every photograph is a letter to someone who doesn't exist.",
-    stats: { photos: "200+", domain: "gallery.yanfd.cn", style: "Masonry", theme: "Dark" },
+    stats: { photos: "200+", domain: "gallery.yanfd.tech", style: "Masonry", theme: "Dark" },
   },
   {
     id: "item-006",

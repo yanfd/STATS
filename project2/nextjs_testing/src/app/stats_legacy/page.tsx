@@ -198,7 +198,7 @@ export default function TsxTestingPage() {
                             "random glimpses from our eyes.(mit some weird pics.)"
                         </motion.p>
 
-                        <Link href="https://gallery.yanfd.cn/" target="_blank">
+                        <Link href="https://gallery.yanfd.tech/" target="_blank">
                             <Button size="lg" className="bg-white text-black hover:bg-gray-200 px-8 py-6 text-lg rounded-full">
                                 ENTER GALLERY
                             </Button>

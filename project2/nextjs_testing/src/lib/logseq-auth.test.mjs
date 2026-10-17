@@ -44,10 +44,10 @@ test("only sensitive log routes and data endpoints are protected", () => {
 });
 
 test("legacy logs hostname maps to logseq without changing other hosts", () => {
-  assert.equal(logseqHostname("logs.yanfd.cn"), "logseq.yanfd.cn");
-  assert.equal(logseqHostname("logs.yanfd.cn:3000"), "logseq.yanfd.cn:3000");
-  assert.equal(logseqHostname("mylogs.yanfd.cn"), null);
-  assert.equal(logseqHostname("stats.yanfd.cn"), null);
+  assert.equal(logseqHostname("logs.yanfd.tech"), "logseq.yanfd.tech");
+  assert.equal(logseqHostname("logs.yanfd.tech:3000"), "logseq.yanfd.tech:3000");
+  assert.equal(logseqHostname("mylogs.yanfd.tech"), null);
+  assert.equal(logseqHostname("stats.yanfd.tech"), null);
 });
 
 test("login return path cannot redirect off-site", () => {

@@ -6,19 +6,19 @@ import { VercelNav } from "@/components/vercel/VercelNav";
 const ACTIVITIES = [
   { type: "deploy", msg: "Deployed stats-playground to production", time: "2 minutes ago", icon: "▲" },
   { type: "commit", msg: "yanfd pushed feat:update log page to main", time: "2 minutes ago", icon: "●" },
-  { type: "domain", msg: "stats.yanfd.cn assigned to stats-playground", time: "30 minutes ago", icon: "◉" },
+  { type: "domain", msg: "stats.yanfd.tech assigned to stats-playground", time: "30 minutes ago", icon: "◉" },
   { type: "deploy", msg: "Deployed api-server to production", time: "3 hours ago", icon: "▲" },
   { type: "commit", msg: "yanfd pushed add pricing routes to main", time: "3 hours ago", icon: "●" },
   { type: "env", msg: "Environment variable GITHUB_TOKEN updated", time: "4 hours ago", icon: "◈" },
   { type: "deploy", msg: "Build failed for globe-v2 (exit code 1)", time: "6 hours ago", icon: "▲" },
   { type: "commit", msg: "yanfd pushed wip: new shaders to dev", time: "6 hours ago", icon: "●" },
-  { type: "domain", msg: "SSL certificate renewed for gallery.yanfd.cn", time: "8 hours ago", icon: "◉" },
+  { type: "domain", msg: "SSL certificate renewed for gallery.yanfd.tech", time: "8 hours ago", icon: "◉" },
   { type: "deploy", msg: "Deployed stats-playground to preview", time: "8 hours ago", icon: "▲" },
   { type: "integration", msg: "GitHub webhook configured for api-server", time: "12 hours ago", icon: "◆" },
   { type: "deploy", msg: "Build error on stats-playground (TS2345)", time: "12 hours ago", icon: "▲" },
   { type: "member", msg: "yanfd updated project settings for gallery", time: "1 day ago", icon: "○" },
   { type: "deploy", msg: "Deployed gallery to production", time: "1 day ago", icon: "▲" },
-  { type: "domain", msg: "gallery.yanfd.cn configured with CNAME", time: "2 days ago", icon: "◉" },
+  { type: "domain", msg: "gallery.yanfd.tech configured with CNAME", time: "2 days ago", icon: "◉" },
 ];
 
 const TYPE_COLORS: Record<string, string> = {

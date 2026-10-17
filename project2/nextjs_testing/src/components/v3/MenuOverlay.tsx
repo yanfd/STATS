@@ -3,8 +3,8 @@
 import { useNextAvailabilityLabel } from "./NextAvailability";
 
 const menuLinks = [
-  { num: "01", label: "BLOG", href: "https://www.yanfd.cn/" },
-  { num: "02", label: "ALMOSTHUMAN GALLERY", href: "https://gallery.yanfd.cn/" },
+  { num: "01", label: "BLOG", href: "https://www.yanfd.tech/" },
+  { num: "02", label: "ALMOSTHUMAN GALLERY", href: "https://gallery.yanfd.tech/" },
   { num: "03", label: "GITHUB", href: "https://github.com/yanfd" },
 ];
 

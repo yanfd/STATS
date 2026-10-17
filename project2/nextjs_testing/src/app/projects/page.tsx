@@ -16,17 +16,17 @@ function StatusDot({ status }: { status: string }) {
 }
 
 const PROJECTS = [
-  { name: "stats-playground", desc: "Next.js + FastAPI experiment playground", framework: "Next.js", status: "Ready", domain: "stats.yanfd.cn", updated: "2 min ago", deploys: 142 },
-  { name: "gallery", desc: "Photography portfolio & showcase", framework: "Next.js", status: "Ready", domain: "gallery.yanfd.cn", updated: "1 hour ago", deploys: 67 },
-  { name: "api-server", desc: "FastAPI backend for all services", framework: "FastAPI", status: "Ready", domain: "api.yanfd.cn", updated: "3 hours ago", deploys: 28 },
-  { name: "globe-v2", desc: "3D globe visualization experiments", framework: "Three.js", status: "Building", domain: "globe.yanfd.cn", updated: "6 hours ago", deploys: 11 },
+  { name: "stats-playground", desc: "Next.js + FastAPI experiment playground", framework: "Next.js", status: "Ready", domain: "stats.yanfd.tech", updated: "2 min ago", deploys: 142 },
+  { name: "gallery", desc: "Photography portfolio & showcase", framework: "Next.js", status: "Ready", domain: "gallery.yanfd.tech", updated: "1 hour ago", deploys: 67 },
+  { name: "api-server", desc: "FastAPI backend for all services", framework: "FastAPI", status: "Ready", domain: "api.yanfd.tech", updated: "3 hours ago", deploys: 28 },
+  { name: "globe-v2", desc: "3D globe visualization experiments", framework: "Three.js", status: "Building", domain: "globe.yanfd.tech", updated: "6 hours ago", deploys: 11 },
 ];
 
 const DOMAINS = [
-  { domain: "stats.yanfd.cn", type: "CNAME", status: "Valid", project: "stats-playground" },
-  { domain: "gallery.yanfd.cn", type: "CNAME", status: "Valid", project: "gallery" },
-  { domain: "api.yanfd.cn", type: "CNAME", status: "Valid", project: "api-server" },
-  { domain: "globe.yanfd.cn", type: "CNAME", status: "Valid", project: "globe-v2" },
+  { domain: "stats.yanfd.tech", type: "CNAME", status: "Valid", project: "stats-playground" },
+  { domain: "gallery.yanfd.tech", type: "CNAME", status: "Valid", project: "gallery" },
+  { domain: "api.yanfd.tech", type: "CNAME", status: "Valid", project: "api-server" },
+  { domain: "globe.yanfd.tech", type: "CNAME", status: "Valid", project: "globe-v2" },
 ];
 
 export default function ProjectsPage() {
