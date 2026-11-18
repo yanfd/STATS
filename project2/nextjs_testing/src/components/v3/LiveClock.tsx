@@ -15,10 +15,10 @@ export function LiveClock() {
 
   return (
     <>
-      <span className="sitebar-text text-nd-300" suppressHydrationWarning>
+      <span className="sitebar-text text-nd-700" suppressHydrationWarning>
         {clock?.label ?? "GMT+8"}
       </span>
-      <span className="sitebar-text text-nd-300" suppressHydrationWarning>
+      <span className="sitebar-text text-nd-700" suppressHydrationWarning>
         {clock?.time ?? "--:--:--"}
       </span>
     </>

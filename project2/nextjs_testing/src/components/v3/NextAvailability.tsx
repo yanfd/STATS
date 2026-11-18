@@ -8,7 +8,7 @@ type NextAvailabilityProps = {
   leadDays?: number;
 };
 
-export function NextAvailability({ className = "sitebar-text text-nd-300", leadDays = 10 }: NextAvailabilityProps) {
+export function NextAvailability({ className = "sitebar-text text-nd-700", leadDays = 10 }: NextAvailabilityProps) {
   const [label, setLabel] = useState<string | null>(null);
 
   useEffect(() => {
