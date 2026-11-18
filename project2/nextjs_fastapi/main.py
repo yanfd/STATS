@@ -38,9 +38,9 @@ async def lifespan(app: FastAPI):
 
 # 可选：定期同步任务
 async def periodic_sync():
-    """每6小时同步一次数据"""
+    """Pull the archive once a day while the API process stays up."""
     while True:
-        await asyncio.sleep(6 * 60 * 60 *4)  # 24小时
+        await asyncio.sleep(6 * 60 * 60 * 4)  # 24 hours
         try:
             print(f"[{datetime.now()}] Running periodic sync...")
             from routes.hughes_routes import sync_hughes_data

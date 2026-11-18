@@ -70,9 +70,11 @@
   .v3-root .v3-footer { flex-direction: column; gap: .5rem; }
 }
 
-/* Light editorial skin */
+/* Light editorial skin.
+   nd-100 stays the lightest surface. Archive cards and the selected month
+   chip use it; a near-black value made that text unreadable. */
 .v3-root {
-  --nd-100: #111111;
+  --nd-100: #ffffff;
   --nd-200: #f5f4f0;
   --nd-300: #e8e6df;
   --nd-400: #dedbd2;
